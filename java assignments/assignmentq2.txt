@@ -1,0 +1,195 @@
+--(2)
+1)
+
+mysql> create table customers(cust_id int not null,cust_name varchar(25),product varchar(25),quantity int,total_price int,primary key(cust_id));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> desc customers;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| cust_id     | int         | NO   | PRI | NULL    |       |
+| cust_name   | varchar(25) | YES  |     | NULL    |       |
+| product     | varchar(25) | YES  |     | NULL    |       |
+| quantity    | int         | YES  |     | NULL    |       |
+| total_price | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+2)
+mysql>  alter table customers modify cust_id int auto_increment;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customers;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| cust_id     | int         | NO   | PRI | NULL    | auto_increment |
+| cust_name   | varchar(25) | YES  |     | NULL    |                |
+| product     | varchar(25) | YES  |     | NULL    |                |
+| quantity    | int         | YES  |     | NULL    |                |
+| total_price | int         | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+mysql> insert into customers(cust_id,cust_name,product,quantity,total_price) values(1,"Harish","laptop",1,50000),(2,"akash","phone",2,19000),(3,"balu","pen",5,50),(4,"harini","bag",1,5000),(5,"sri","book",3,120);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> desc customers;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| cust_id     | int         | NO   | PRI | NULL    | auto_increment |
+| cust_name   | varchar(25) | YES  |     | NULL    |                |
+| product     | varchar(25) | YES  |     | NULL    |                |
+| quantity    | int         | YES  |     | NULL    |                |
+| total_price | int         | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customers;
++---------+-----------+---------+----------+-------------+
+| cust_id | cust_name | product | quantity | total_price |
++---------+-----------+---------+----------+-------------+
+|       1 | Harish    | laptop  |        1 |       50000 |
+|       2 | akash     | phone   |        2 |       19000 |
+|       3 | balu      | pen     |        5 |          50 |
+|       4 | harini    | bag     |        1 |        5000 |
+|       5 | sri       | book    |        3 |         120 |
++---------+-----------+---------+----------+-------------+
+5 rows in set (0.00 sec)
+
+3)
+mysql> alter table customers add price_per_qnty int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customers;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| cust_id        | int         | NO   | PRI | NULL    | auto_increment |
+| cust_name      | varchar(25) | YES  |     | NULL    |                |
+| product        | varchar(25) | YES  |     | NULL    |                |
+| quantity       | int         | YES  |     | NULL    |                |
+| total_price    | int         | YES  |     | NULL    |                |
+| price_per_qnty | int         | YES  |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from customers;
++---------+-----------+---------+----------+-------------+----------------+
+| cust_id | cust_name | product | quantity | total_price | price_per_qnty |
++---------+-----------+---------+----------+-------------+----------------+
+|       1 | Harish    | laptop  |        1 |       50000 |           NULL |
+|       2 | akash     | phone   |        2 |       19000 |           NULL |
+|       3 | balu      | pen     |        5 |          50 |           NULL |
+|       4 | harini    | bag     |        1 |        5000 |           NULL |
+|       5 | sri       | book    |        3 |         120 |           NULL |
++---------+-----------+---------+----------+-------------+----------------+
+5 rows in set (0.00 sec)
+4)
+mysql>  create view Cust_View as select cust_id,cust_name from Customers;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc customers;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| cust_id        | int         | NO   | PRI | NULL    | auto_increment |
+| cust_name      | varchar(25) | YES  |     | NULL    |                |
+| product        | varchar(25) | YES  |     | NULL    |                |
+| quantity       | int         | YES  |     | NULL    |                |
+| total_price    | int         | YES  |     | NULL    |                |
+| price_per_qnty | int         | YES  |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from cust_view;
++---------+-----------+
+| cust_id | cust_name |
++---------+-----------+
+|       1 | Harish    |
+|       2 | akash     |
+|       3 | balu      |
+|       4 | harini    |
+|       5 | sri       |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+5)
+mysql> alter view cust_view(cust_id,cust_name,total_price)as select cust_id,cust_name,total_price from customers;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from cust_view;
++---------+-----------+-------------+
+| cust_id | cust_name | total_price |
++---------+-----------+-------------+
+|       1 | Harish    |       50000 |
+|       2 | akash     |       19000 |
+|       3 | balu      |          50 |
+|       4 | harini    |        5000 |
+|       5 | sri       |         120 |
++---------+-----------+-------------+
+5 rows in set (0.00 sec)
+
+6)
+
+mysql> drop view cust_view;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from cust_view;
+ERROR 1146 (42S02): Table 'coditas_java.cust_view' doesn't exist
+
+7)
+mysql> create index cust_index on customers(cust_name);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+8)
+mysql> drop index cust_index on customers;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+9)
+mysql>  alter table customers modify cust_id int auto_increment;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customers;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| cust_id        | int         | NO   | PRI | NULL    | auto_increment |
+| cust_name      | varchar(25) | YES  |     | NULL    |                |
+| product        | varchar(25) | YES  |     | NULL    |                |
+| quantity       | int         | YES  |     | NULL    |                |
+| total_price    | int         | YES  |     | NULL    |                |
+| price_per_qnty | int         | YES  |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+10)
+mysql>  alter table customers rename to customersrenamed;
+Query OK, 0 rows affected (0.02 sec)
+mysql> select * from customersrenamed;
++---------+-----------+---------+----------+-------------+----------------+
+| cust_id | cust_name | product | quantity | total_price | price_per_qnty |
++---------+-----------+---------+----------+-------------+----------------+
+|       1 | Harish    | laptop  |        1 |       50000 |           NULL |
+|       2 | akash     | phone   |        2 |       19000 |           NULL |
+|       3 | balu      | pen     |        5 |          50 |           NULL |
+|       4 | harini    | bag     |        1 |        5000 |           NULL |
+|       5 | sri       | book    |        3 |         120 |           NULL |
++---------+-----------+---------+----------+-------------+----------------+
+5 rows in set (0.00 sec)
+
+11)
+
+mysql> drop table customers;
+ERROR 1051 (42S02): Unknown table 'coditas_java.customers'
+--as it is renamed,it gave error
+mysql> drop table customersrenamed;
+Query OK, 0 rows affected (0.01 sec)
+mysql> select * from customersrenamed;
+ERROR 1146 (42S02): Table 'coditas_java.customersrenamed' doesn't exist

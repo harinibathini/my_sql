@@ -1,0 +1,223 @@
+In java,
+short + byte = int
+short + short = int
+int + short = int
+int + int = int
+int + long = long
+long + long = long
+
+Because that's how the Java Virtual Machine is designed.
+There is no instruction set to perform operation on a byte type. Rather the instruction set for int type is used
+for the operation on boolean, byte, char, and short types.
+----------------------------------------------------
+public class Main
+{
+	public static void main(String[] args) {
+	   short a=60;
+	   short b=120;
+	   short c=a+b;
+		System.out.println(c);
+	}
+}
+output-Main.java:14: error: incompatible types: possible lossy conversion from int to short
+	   short c=a+b;
+Error because in java:short+short=int
+-----------
+public class Main
+{
+	public static void main(String[] args) {
+	   short a=60;
+	   short b=120;
+	   int c=a+b;
+		System.out.println(c);
+	}
+}
+output:180
+---------
+public class Main
+{
+	public static void main(String[] args) {
+	   short a=60;
+	   short b=120;
+	   short c=(short)(a+b); //typecasting int to short
+		System.out.println(c);
+	}
+}
+output:180
+------------
+public class Main
+{
+	public static void main(String[] args) {
+	   short a=32767;
+	   short b=2;
+	   short c=(short)(a+b); //typecasting int to short
+		System.out.println(c);
+	}
+}
+output:-32767
+----------
+public class Main
+{
+	public static void main(String[] args) {
+	   short a=32767;
+	   short b=2;
+	 
+		System.out.println(a+b);
+	}
+}
+output:32769
+----------------------------------------------------------------
+(int+int=int)
+
+public class Main
+{
+	public static void main(String[] args) {
+	   int a=2147483647;
+	   int b=2147483647;
+	 int c=a+b;
+		System.out.println(c);
+	}
+}
+output:-2
+----------
+public class Main
+{
+	public static void main(String[] args) {
+	   int a=1;
+	   int b=2147;
+	 int c=a+b;
+		System.out.println(c);
+	}
+}
+output:2148
+
+--------------------------------------------------------------
+
+public class Main
+{
+	public static void main(String[] args) {
+	   byte a=1;
+	   byte b=128;
+	  
+		System.out.println(a+b);
+	}
+}
+output:Main.java:13: error: incompatible types: possible lossy conversion from int to byte
+	   byte b=128;
+-----------
+public class Main
+{
+	public static void main(String[] args) {
+	   byte a=1;
+	   byte b=(byte)128;
+	  
+		System.out.println(a+b);
+	}
+}
+output:-127
+----------
+public class Main
+{
+	public static void main(String[] args) {
+	   byte a=1;
+	   byte b=(byte)128;
+	  int c=a+b;
+		System.out.println(c);
+	}
+}
+output:-127
+---------
+public class Main
+{
+	public static void main(String[] args) {
+	   byte a=1;
+	   byte b=12;
+	  short c=(byte)(a+b);
+		System.out.println(c);
+	}
+}
+output:13
+----------
+public class Main
+{
+	public static void main(String[] args) {
+	   long a=9223372036854775800;
+	   int b=1;
+	  long c=(a+b);
+		System.out.println(c);
+	}
+}
+output:Main.java:12: error: integer number too large
+	   long a=9223372036854775800;
+-----------
+public class Main
+{
+	public static void main(String[] args) {
+	   long a=92233720;
+	   long b=1;
+	  long c=(a+b);
+		System.out.println(c);
+	}
+}
+output:92233721
+---------
+public class Main
+{
+	public static void main(String[] args) {
+	   long a=92233720;
+	   int b=1;
+	  long c=(a+b);
+		System.out.println(c);
+	}
+}
+output:92233721
+------------------------------------------------------
+(float and double)
+
+ public class Main
+{
+	public static void main(String[] args) {
+	  float a=925.01f;
+	  float b=999.6f;
+	   
+	  float c=(a+b);
+		System.out.println(c);
+	}
+}
+output:1924.61
+-----------
+public class Main
+{
+	public static void main(String[] args) {
+	  float a=(float)0x1.fffffep127;
+	  float b=(float)0x1.fffffep127;
+	   
+	  double c=(a+b);
+		System.out.println(c);
+	}
+}
+output:Infinity
+-----------
+public class Main
+{
+	public static void main(String[] args) {
+	  double a=0x1.fffffep127;
+	  double b=0x1.fffffep127;
+	   
+	  double c=(a+b);
+		System.out.println(c);
+	}
+}
+output:6.805646932770577E38
+-----------
+ public class Main
+{
+	public static void main(String[] args) {
+	  double a=Double. MAX_VALUE;
+	  double b=Double. MAX_VALUE;
+	   
+	  double c=(a+b);
+		System.out.println(c);
+	}
+}
+otput:Infinity

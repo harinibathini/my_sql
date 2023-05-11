@@ -1,0 +1,206 @@
+GENERAL HARDWARE STORE DBMS
+
+-----------------------------------------------------------------
+mysql> CREATE TABLE general_hardware_db.product AS SELECT * FROM event_management_db.product;
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+------------------------------------------------------------------
+mysql> select * from office;
++------+--------------+------------+
+| id   | telephone    | size_sq_ft |
++------+--------------+------------+
+| 1209 | 901-555-3108 |         95 |
+| 1227 | 901-555-0364 |        100 |
+| 1253 | 901-555-4276 |        120 |
+| 1284 | 901-555-7335 |        120 |
++------+--------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from product;
++-------+--------+------------+
+| id    | name   | unit_price |
++-------+--------+------------+
+| 16386 | Wrench |      12.95 |
+| 19440 | Hammer |      17.50 |
+| 21765 | Drill  |      32.99 |
+| 24013 | Saw    |      26.25 |
+| 26722 | Pliers |      11.50 |
++-------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from salesperson;
++-----+---------+----------------------+--------------+-----------+
+| id  | name    | commision_percentage | year_of_hire | office_id |
++-----+---------+----------------------+--------------+-----------+
+| 137 | Baker   |                   10 |         1995 |      1284 |
+| 186 | Adams   |                   15 |         2001 |      1253 |
+| 204 | Dickens |                   10 |         1998 |      1209 |
+| 361 | Carlyle |                   20 |         2001 |      1227 |
++-----+---------+----------------------+--------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customer;
++------+---------------------+----------------+-------------+
+| id   | cust_name           | salesperson_id | hq_city     |
++------+---------------------+----------------+-------------+
+|  121 | Main St. Hardware   |            137 | New York    |
+|  839 | Jane?s Stores       |            186 | Chicago     |
+|  933 | ABC Home Stores     |            137 | Los Angeles |
+| 1047 | Acme Hardware Store |            137 | Los Angeles |
+| 1525 | Fred?s Tool Stores  |            361 | Atlanta     |
+| 1700 | XYZ Stores          |            361 | Washington  |
+| 1826 | City Hardware       |            137 | New York    |
+| 2198 | Western Hardware    |            204 | New York    |
+| 2267 | Central Stores      |            186 | New York    |
++------+---------------------+----------------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-------+-------------+--------+-------------------+
+| id    | customer_id | name   | job_title         |
++-------+-------------+--------+-------------------+
+| 27498 |         121 | Smith  | Co-Owner          |
+| 30441 |         121 | Garcia | Co-Owner          |
+| 25270 |         933 | Chen   | VP Sales          |
+| 30441 |         933 | Levy   | Sales Manager     |
+| 48285 |         933 | Morton | President         |
+| 33779 |        1525 | Baker  | Sales Manager     |
+| 27470 |        2198 | Smith  | President         |
+| 30441 |        2198 | Jones  | VP Sales          |
+| 33779 |        2198 | Garcia | VP Personnel      |
+| 35268 |        2198 | Kaplan | Senior Accountant |
++-------+-------------+--------+-------------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from sales;
++----------------+------------+----------+
+| salesperson_id | product_id | quantity |
++----------------+------------+----------+
+|            137 |      19440 |      473 |
+|            137 |      24013 |      170 |
+|            137 |      26722 |      688 |
+|            186 |      16386 |     1745 |
+|            186 |      19440 |     2529 |
+|            186 |      21765 |     1962 |
+|            186 |      24013 |     3071 |
+|            204 |      21765 |      809 |
+|            204 |      26722 |      734 |
+|            361 |      16386 |     3729 |
+|            361 |      21765 |     3110 |
+|            361 |      26722 |     2738 |
++----------------+------------+----------+
+12 rows in set (0.00 sec)
+
+-----------------------------------------------------------------------------
+
+(1)Write a SQL query to display the total quantities sold for each product.
+
+mysql> select p.id,p.name,s.quantity from sales s inner join product p on s.product_id=p.id order by p.id;
++-------+--------+----------+
+| id    | name   | quantity |
++-------+--------+----------+
+| 16386 | Wrench |     1745 |
+| 16386 | Wrench |     3729 |
+| 19440 | Hammer |      473 |
+| 19440 | Hammer |     2529 |
+| 21765 | Drill  |     1962 |
+| 21765 | Drill  |      809 |
+| 21765 | Drill  |     3110 |
+| 24013 | Saw    |      170 |
+| 24013 | Saw    |     3071 |
+| 26722 | Pliers |      688 |
+| 26722 | Pliers |      734 |
+| 26722 | Pliers |     2738 |
++-------+--------+----------+
+12 rows in set (0.00 sec)
+
+
+(2)Write a SQL query to display the salesperson's name and total quantities of all products sold by each salesperson.
+
+mysql> select sp.name,s.quantity from sales s inner join salesperson sp on s.salesperson_id=sp.id order by sp.name;
++---------+----------+
+| name    | quantity |
++---------+----------+
+| Adams   |     1745 |
+| Adams   |     2529 |
+| Adams   |     1962 |
+| Adams   |     3071 |
+| Baker   |      473 |
+| Baker   |      170 |
+| Baker   |      688 |
+| Carlyle |     3729 |
+| Carlyle |     3110 |
+| Carlyle |     2738 |
+| Dickens |      809 |
+| Dickens |      734 |
++---------+----------+
+12 rows in set (0.00 sec)
+
+
+(3)Write a SQL query to display the customer name, salesperson name, and office size of the salesperson.
+
+mysql> select c.cust_name,sp.name,o.size_sq_ft from office o join salesperson sp on o.id=sp.office_id join customer c on sp.id=c.salesperson_id order by c.cust_name;
++---------------------+---------+------------+
+| cust_name           | name    | size_sq_ft |
++---------------------+---------+------------+
+| ABC Home Stores     | Baker   |        120 |
+| Acme Hardware Store | Baker   |        120 |
+| Central Stores      | Adams   |        120 |
+| City Hardware       | Baker   |        120 |
+| Fred?s Tool Stores  | Carlyle |        100 |
+| Jane?s Stores       | Adams   |        120 |
+| Main St. Hardware   | Baker   |        120 |
+| Western Hardware    | Dickens |         95 |
+| XYZ Stores          | Carlyle |        100 |
++---------------------+---------+------------+
+9 rows in set (0.00 sec)
+
+(4)Write a SQL query to display the count of all customers from each headquarter city.
+
+mysql> select c.hq_city,count(c.id) from customer c group by c.hq_city;
++-------------+-------------+
+| hq_city     | count(c.id) |
++-------------+-------------+
+| New York    |           4 |
+| Chicago     |           1 |
+| Los Angeles |           2 |
+| Atlanta     |           1 |
+| Washington  |           1 |
++-------------+-------------+
+5 rows in set (0.00 sec)
+
+
+(5) Write a SQL query to display the salesperson name, product name of the product sold by the salesperson, and quantities of each product.
+
+mysql> select sp.name as salesperson_name,p.name as product_name,s.quantity from sales s inner join salesperson sp on s.salesperson_id=sp.id inner join product p on s.product_id=p.id order by sp.name;
++------------------+--------------+----------+
+| salesperson_name | product_name | quantity |
++------------------+--------------+----------+
+| Adams            | Wrench       |     1745 |
+| Adams            | Hammer       |     2529 |
+| Adams            | Drill        |     1962 |
+| Adams            | Saw          |     3071 |
+| Baker            | Hammer       |      473 |
+| Baker            | Saw          |      170 |
+| Baker            | Pliers       |      688 |
+| Carlyle          | Wrench       |     3729 |
+| Carlyle          | Drill        |     3110 |
+| Carlyle          | Pliers       |     2738 |
+| Dickens          | Drill        |      809 |
+| Dickens          | Pliers       |      734 |
++------------------+--------------+----------+
+12 rows in set (0.00 sec)
+
+
+(6)Write a SQL query to display the salesperson name, a commission earned for all the products sold by all salespersons
+
+mysql> select sp.name,sum(p.unit_price*s.quantity*sp.commision_percentage/100) as commision from sales s join salesperson sp on sp.id=s.salesperson_id join product p on p.id=s.product_id group by sp.name;
++---------+--------------+
+| name    | commision    |
++---------+--------------+
+| Carlyle | 36475.290000 |
+| Adams   | 31829.307000 |
+| Baker   |  2065.200000 |
+| Dickens |  3512.991000 |
++---------+--------------+
+4 rows in set (0.00 sec)

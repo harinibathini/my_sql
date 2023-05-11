@@ -1,0 +1,263 @@
+1)create
+mysql> create table javastudent(roll_no int,name varchar(25),division varchar(3),branch varchar(5),city varchar(25),marks int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc javastudent;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| roll_no  | int         | YES  |     | NULL    |       |
+| name     | varchar(25) | YES  |     | NULL    |       |
+| division | varchar(3)  | YES  |     | NULL    |       |
+| branch   | varchar(5)  | YES  |     | NULL    |       |
+| city     | varchar(25) | YES  |     | NULL    |       |
+| marks    | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+2)insert
+mysql> insert into javastudent(roll_no,name,division,branch,city,marks) values(1,"harini","b","ece","hyderabad",89),(2,"Harish","b","comp","hyderabad",85),(3,"akash","c","comp","pune",81),(4,"balu","c","eee","mumbai",79),(5,"sri","a","it","banglore",58);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from javastudent;
++---------+--------+----------+--------+-----------+-------+
+| roll_no | name   | division | branch | city      | marks |
++---------+--------+----------+--------+-----------+-------+
+|       1 | harini | b        | ece    | hyderabad |    89 |
+|       2 | Harish | b        | comp   | hyderabad |    85 |
+|       3 | akash  | c        | comp   | pune      |    81 |
+|       4 | balu   | c        | eee    | mumbai    |    79 |
+|       5 | sri    | a        | it     | banglore  |    58 |
++---------+--------+----------+--------+-----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into javastudent(roll_no,name,division,branch,city,marks) values(6,"sita","b","eee","hyderabad",80),(7,"sid","a","comp","pune",60),(8,"ved","c","it","kolkata",71),(9,"zeenath","c","it","chennai",50),(10,"radha","a","ece","pune",75);
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from javastudent;
++---------+---------+----------+--------+-----------+-------+
+| roll_no | name    | division | branch | city      | marks |
++---------+---------+----------+--------+-----------+-------+
+|       1 | harini  | b        | ece    | hyderabad |    89 |
+|       2 | Harish  | b        | comp   | hyderabad |    85 |
+|       3 | akash   | c        | comp   | pune      |    81 |
+|       4 | balu    | c        | eee    | mumbai    |    79 |
+|       5 | sri     | a        | it     | banglore  |    58 |
+|       6 | sita    | b        | eee    | hyderabad |    80 |
+|       7 | sid     | a        | comp   | pune      |    60 |
+|       8 | ved     | c        | it     | kolkata   |    71 |
+|       9 | zeenath | c        | it     | chennai   |    50 |
+|      10 | radha   | a        | ece    | pune      |    75 |
++---------+---------+----------+--------+-----------+-------+
+10 rows in set (0.00 sec)
+3)name,city
+mysql> select name,city from javastudent;
++---------+-----------+
+| name    | city      |
++---------+-----------+
+| harini  | hyderabad |
+| Harish  | hyderabad |
+| akash   | pune      |
+| balu    | mumbai    |
+| sri     | banglore  |
+| sita    | hyderabad |
+| sid     | pune      |
+| ved     | kolkata   |
+| zeenath | chennai   |
+| radha   | pune      |
++---------+-----------+
+10 rows in set (0.00 sec)
+
+4)distinct names
+mysql> select distinct name from javastudent;
++---------+
+| name    |
++---------+
+| harini  |
+| Harish  |
+| akash   |
+| balu    |
+| sri     |
+| sita    |
+| sid     |
+| ved     |
+| zeenath |
+| radha   |
++---------+
+10 rows in set (0.01 sec)
+5)
+select * from javastudent;
++---------+---------+----------+--------+-----------+-------+
+| roll_no | name    | division | branch | city      | marks |
++---------+---------+----------+--------+-----------+-------+
+|       1 | harini  | b        | ece    | hyderabad |    89 |
+|       2 | Harish  | b        | comp   | hyderabad |    85 |
+|       3 | akash   | c        | comp   | pune      |    81 |
+|       4 | balu    | c        | eee    | mumbai    |    79 |
+|       5 | sri     | a        | it     | banglore  |    58 |
+|       6 | sita    | b        | eee    | hyderabad |    80 |
+|       7 | sid     | a        | comp   | pune      |    60 |
+|       8 | ved     | c        | it     | kolkata   |    71 |
+|       9 | zeenath | c        | it     | chennai   |    50 |
+|      10 | radha   | a        | ece    | pune      |    75 |
++---------+---------+----------+--------+-----------+-------+
+10 rows in set (0.00 sec)
+6)
+mysql> select roll_no,name,marks from javastudent where marks>75;
++---------+--------+-------+
+| roll_no | name   | marks |
++---------+--------+-------+
+|       1 | harini |    89 |
+|       2 | Harish |    85 |
+|       3 | akash  |    81 |
+|       4 | balu   |    79 |
+|       6 | sita   |    80 |
++---------+--------+-------+
+5 rows in set (0.00 sec)
+7)
+mysql> select roll_no,name from javastudent where name like "s%";
++---------+------+
+| roll_no | name |
++---------+------+
+|       5 | sri  |
+|       6 | sita |
+|       7 | sid  |
++---------+------+
+3 rows in set (0.00 sec)
+8)
+mysql> select roll_no,name,marks from javastudent where marks between 50 and 60;
++---------+---------+-------+
+| roll_no | name    | marks |
++---------+---------+-------+
+|       5 | sri     |    58 |
+|       7 | sid     |    60 |
+|       9 | zeenath |    50 |
++---------+---------+-------+
+3 rows in set (0.00 sec)
+9)
+mysql> select roll_no,name,branch,city from javastudent where branch="comp" and city="pune";
++---------+-------+--------+------+
+| roll_no | name  | branch | city |
++---------+-------+--------+------+
+|       3 | akash | comp   | pune |
+|       7 | sid   | comp   | pune |
++---------+-------+--------+------+
+2 rows in set (0.00 sec)
+10)
+mysql> update javastudent set branch="it" where roll_no=9;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from javastudent;
++---------+---------+----------+--------+-----------+-------+
+| roll_no | name    | division | branch | city      | marks |
++---------+---------+----------+--------+-----------+-------+
+|       1 | harini  | b        | ece    | hyderabad |    89 |
+|       2 | Harish  | b        | comp   | hyderabad |    85 |
+|       3 | akash   | c        | comp   | pune      |    81 |
+|       4 | balu    | c        | eee    | mumbai    |    79 |
+|       5 | sri     | a        | it     | banglore  |    58 |
+|       6 | sita    | b        | eee    | hyderabad |    80 |
+|       7 | sid     | a        | comp   | pune      |    60 |
+|       8 | ved     | c        | it     | kolkata   |    71 |
+|       9 | zeenath | c        | it     | chennai   |    50 |
+|      10 | radha   | a        | ece    | pune      |    75 |
++---------+---------+----------+--------+-----------+-------+
+10 rows in set (0.00 sec)
+11)
+mysql> delete from javastudent where division="b";
+Query OK, 3 rows affected (0.01 sec)
+
+mysql> select * from javastudent;
++---------+---------+----------+--------+----------+-------+
+| roll_no | name    | division | branch | city     | marks |
++---------+---------+----------+--------+----------+-------+
+|       3 | akash   | c        | comp   | pune     |    81 |
+|       4 | balu    | c        | eee    | mumbai   |    79 |
+|       5 | sri     | a        | it     | banglore |    58 |
+|       7 | sid     | a        | comp   | pune     |    60 |
+|       8 | ved     | c        | it     | kolkata  |    71 |
+|       9 | zeenath | c        | it     | chennai  |    50 |
+|      10 | radha   | a        | ece    | pune     |    75 |
++---------+---------+----------+--------+----------+-------+
+7 rows in set (0.00 sec)
+12)
+mysql> create table TE_javastudent(roll_no int,name varchar(25));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc TE_javastudent;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | YES  |     | NULL    |       |
+| name    | varchar(25) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+mysql> alter table te_javastudent add primary key(id);
+ERROR 1072 (42000): Key column 'id' doesn't exist in table
+mysql> alter table te_javastudent add primary key(roll_no);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from te_javastudent;
+Empty set (0.00 sec)
+
+mysql> insert into te_javastudent(roll_no,name) values(1,"mani"),(2,"vamshi"),(3,"maya"),(4,"raghu");
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from te_javastudent;
++---------+--------+
+| roll_no | name   |
++---------+--------+
+|       1 | mani   |
+|       2 | vamshi |
+|       3 | maya   |
+|       4 | raghu  |
++---------+--------+
+4 rows in set (0.00 sec)
+13)
+mysql> select roll_no from javastudent union select roll_no from te_javastudent;
++---------+
+| roll_no |
++---------+
+|       3 |
+|       4 |
+|       5 |
+|       7 |
+|       8 |
+|       9 |
+|      10 |
+|       1 |
+|       2 |
++---------+
+9 rows in set (0.00 sec)
+14)
+mysql> select upper(name) as uppercasename from javastudent;
++---------------+
+| uppercasename |
++---------------+
+| AKASH         |
+| BALU          |
+| SRI           |
+| SID           |
+| VED           |
+| ZEENATH       |
+| RADHA         |
++---------------+
+7 rows in set (0.00 sec)
+15)
+mysql> select bin(marks),hex(marks) from javastudent;
++------------+------------+
+| bin(marks) | hex(marks) |
++------------+------------+
+| 1010001    | 51         |
+| 1001111    | 4F         |
+| 111010     | 3A         |
+| 111100     | 3C         |
+| 1000111    | 47         |
+| 110010     | 32         |
+| 1001011    | 4B         |
++------------+------------+
+7 rows in set (0.01 sec)

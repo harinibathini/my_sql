@@ -1,0 +1,148 @@
+EVENT MANAGEMENT DATABASE
+--------------------------------------------------------------------------------
+mysql> select * from company;
++-----+-----------+-------------------+----------+---------+
+| id  | name      | website           | city     | country |
++-----+-----------+-------------------+----------+---------+
+| 101 | Amazon    | www.amazon.com    | Bengluru | India   |
+| 102 | Facebook  | www.facebook.com  | Ontario  | Canada  |
+| 103 | Google    | www.google.com    | Bijing   | China   |
+| 104 | Microsoft | www.microsoft.com | Shanghai | China   |
+| 105 | Linkedin  | www.linkedin.com  | Tokyo    | Japan   |
++-----+-----------+-------------------+----------+---------+
+5 rows in set (0.02 sec)
+
+mysql> select * from event;
++----+-------------+
+| id | name        |
++----+-------------+
+|  1 | Spring Fair |
+|  2 | Autumn Fair |
+|  3 | Oracle      |
+|  4 | BETT        |
++----+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from event_application;
++----+---------+------------+----------+---------------------+
+| id | user_id | company_id | event_id | registration_status |
++----+---------+------------+----------+---------------------+
+|  1 |       1 |        101 |        1 | Completed           |
+|  2 |       2 |        102 |        3 | In-progress         |
+|  3 |       3 |        103 |        2 | Completed           |
+|  4 |       4 |        104 |        4 | Cancelled           |
+|  5 |       5 |        105 |        1 | In-progress         |
+|  6 |       6 |        102 |        3 | Completed           |
+|  7 |       7 |        101 |        4 | Cancelled           |
+|  8 |       8 |        103 |        3 | In-progress         |
+|  9 |       9 |        102 |        4 | Cancelled           |
+| 10 |      10 |        101 |        1 | Completed           |
++----+---------+------------+----------+---------------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from user;
++----+------------+-----------+--------------+---------------+--------------------------+---------+-----------+
+| id | first_name | last_name | dialing_code | mobile_number | work_email               | country | job_title |
++----+------------+-----------+--------------+---------------+--------------------------+---------+-----------+
+|  1 | Dan        | Williams  | +91          | 9876543210    | williams@amazon.com      | India   | Director  |
+|  2 | Sam        | Wilson    | +91          | 9090909090    | wilson@facebook.com      | Canada  | Manager   |
+|  3 | Willey     | Harris    | +91          | 7766554433    | harris@google.com        | China   | Manager   |
+|  4 | Barrack    | Robinson  | +91          | 9090909090    | robinson@microsoft.com   | China   | Director  |
+|  5 | Chirst     | Stevens   | +91          | 8888338833    | danwilliams@linkedin.com | Japan   | Manager   |
+|  6 | Olivia     | Walker    | +91          | 1236547890    | danwilliams@facebook.com | Canada  | Director  |
+|  7 | Emma       | Allen     | +91          | 9876567898    | danwilliams@hotmail.com  | India   | Engineer  |
+|  8 | Isabella   | Baker     | +91          | 1326547890    | danwilliams@google.com   | China   | Director  |
+|  9 | Sophia     | Holmes    | +91          | 9988776655    | danwilliams@facebook.com | Canada  | Engineer  |
+| 10 | Charlotte  | Chapman   | +91          | 2222222222    | danwilliams@amazon.com   | India   | Engineer  |
++----+------------+-----------+--------------+---------------+--------------------------+---------+-----------+
+10 rows in set (0.01 sec)
+
+--------------------------------------------------------------------------
+(1)
+
+mysql> select u.first_name,u.last_name,c.name,c.city from event_application ea inner join user u on ea.user_id=u.id inner join company c on c.id = ea.company_id where ea.registration_status = "completed" ;
++------------+-----------+----------+----------+
+| first_name | last_name | name     | city     |
++------------+-----------+----------+----------+
+| Dan        | Williams  | Amazon   | Bengluru |
+| Willey     | Harris    | Google   | Bijing   |
+| Olivia     | Walker    | Facebook | Ontario  |
+| Charlotte  | Chapman   | Amazon   | Bengluru |
++------------+-----------+----------+----------+
+4 rows in set (0.01 sec)
+
+(2)
+
+mysql> select u.country, count(u.id) from user u group by u.country;
++---------+-------------+
+| country | count(u.id) |
++---------+-------------+
+| India   |           3 |
+| Canada  |           3 |
+| China   |           3 |
+| Japan   |           1 |
++---------+-------------+
+4 rows in set (0.00 sec)
+
+(3)
+
+mysql> select * from user u where u.country like ("%i%");
++----+------------+-----------+--------------+---------------+-------------------------+---------+-----------+
+| id | first_name | last_name | dialing_code | mobile_number | work_email              | country | job_title |
++----+------------+-----------+--------------+---------------+-------------------------+---------+-----------+
+|  1 | Dan        | Williams  | +91          | 9876543210    | williams@amazon.com     | India   | Director  |
+|  3 | Willey     | Harris    | +91          | 7766554433    | harris@google.com       | China   | Manager   |
+|  4 | Barrack    | Robinson  | +91          | 9090909090    | robinson@microsoft.com  | China   | Director  |
+|  7 | Emma       | Allen     | +91          | 9876567898    | danwilliams@hotmail.com | India   | Engineer  |
+|  8 | Isabella   | Baker     | +91          | 1326547890    | danwilliams@google.com  | China   | Director  |
+| 10 | Charlotte  | Chapman   | +91          | 2222222222    | danwilliams@amazon.com  | India   | Engineer  |
++----+------------+-----------+--------------+---------------+-------------------------+---------+-----------+
+6 rows in set (0.01 sec)
+
+(4)
+
+mysql> select u.first_name,u.last_name from event_application ea inner join user u on ea.user_id=u.id inner join company c on ea.company_id=c.id where c.country in ("India","Japan") order by u.first_name;
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Charlotte  | Chapman   |
+| Chirst     | Stevens   |
+| Dan        | Williams  |
+| Emma       | Allen     |
++------------+-----------+
+4 rows in set (0.00 sec)
+
+(5)
+
+mysql> select c.name , count(u.id) from event_application ea inner join company c on ea.company_id=c.id join user u on ea.user_id=u.id group by c.name;
++-----------+-------------+
+| name      | count(u.id) |
++-----------+-------------+
+| Amazon    |           3 |
+| Facebook  |           3 |
+| Google    |           2 |
+| Microsoft |           1 |
+| Linkedin  |           1 |
++-----------+-------------+
+5 rows in set (0.00 sec)
+
+(6)
+
+mysql> select u.first_name,u.last_name,u.job_title,e.name,c.name,c.city from event_application ea inner join user u on ea.user_id=u.id inner join company c on ea.company_id=c.id inner join event e on ea.event_id=e.id;
++------------+-----------+-----------+-------------+-----------+----------+
+| first_name | last_name | job_title | name        | name      | city     |
++------------+-----------+-----------+-------------+-----------+----------+
+| Dan        | Williams  | Director  | Spring Fair | Amazon    | Bengluru |
+| Emma       | Allen     | Engineer  | BETT        | Amazon    | Bengluru |
+| Charlotte  | Chapman   | Engineer  | Spring Fair | Amazon    | Bengluru |
+| Sam        | Wilson    | Manager   | Oracle      | Facebook  | Ontario  |
+| Olivia     | Walker    | Director  | Oracle      | Facebook  | Ontario  |
+| Sophia     | Holmes    | Engineer  | BETT        | Facebook  | Ontario  |
+| Willey     | Harris    | Manager   | Autumn Fair | Google    | Bijing   |
+| Isabella   | Baker     | Director  | Oracle      | Google    | Bijing   |
+| Barrack    | Robinson  | Director  | BETT        | Microsoft | Shanghai |
+| Chirst     | Stevens   | Manager   | Spring Fair | Linkedin  | Tokyo    |
++------------+-----------+-----------+-------------+-----------+----------+
+10 rows in set (0.00 sec)
+
+

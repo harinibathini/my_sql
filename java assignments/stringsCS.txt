@@ -1,0 +1,41 @@
+----Strings---
+
+Memory locations:
+Method area- 1.6 VERSION(String Constant Pool is in)
+Heap area- 1.7 VERSION(SCP shifted to heap area from 1.7,so that it can increase nd decrease its size)
+Stack area
+PC register
+Native method area
+
+----
+String s1 = new String("deepak"); - this creates 2 objects one in heap and another in string constant pool.
+so having 2 objects is not recommended as it takes more heap space
+String s2 = "rahul"; - creates only one object in SCP
+Garbage Collection will not work in SCP as it(scp) is referenced by JVM internally
+
+--string immutability
+so that many instances can referenced/refered to single object,thus saving space
+stringbuffer is not immutable
+FINAL AND IMMUTABLE
+final - cannot be reassigned
+immutable - value cannot be change - this concept is made for strings
+
+WHY STRING CLASS IS FINAL IN JAVA?
+final class - cannot be inherited
+final method - cannot be overrided
+final variable - cannot be reinitialized/value cannot be changed
+
+ == AND .eqquals
+== - reference / address comparision
+.equals() - content comparision
+String class overrides the equals() method in object class
+task of equals method of object class - address comparision
+task of equals method of string class - content comparision
+
+ PASSWORDS ARE PREFERABLE/BETTER TO CREATE WITH CHAR ARRAYS
+as string is immutable and value is not deleted by garbage collector..thus not so safe using strings
+char array will never print the inner value of object - so secure
+
+STRING CONSTRUCTORS - many example in ide
+STRING METHODS--
+

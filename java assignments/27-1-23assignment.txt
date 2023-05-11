@@ -1,0 +1,423 @@
+(1)
+mysql> create table customers(id int,name varchar(25),age int,address varchar(50),salary int);
+Query OK, 0 rows affected (0.06 sec)
+
+(2)
+mysql> create table orders(oid int,odate date,id int,amount int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> alter table customers add primary key(id);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table orders add primary key(oid);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table orders add foreign key(id) references customers(id);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customers;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| name    | varchar(25) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> desc orders;
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| oid    | int  | NO   | PRI | NULL    |       |
+| odate  | date | YES  |     | NULL    |       |
+| id     | int  | YES  | MUL | NULL    |       |
+| amount | int  | YES  |     | NULL    |       |
++--------+------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+(3)
+mysql> insert into customers(id,name,age,address,salary) values(1,"sruti",22,"pune",40000),(2,"ankita",21,"mumbai",45000),(3,"ramya",21,"chennai",50000),(4,"srija",23,"banglore",45000),(5,"abhi",22,"hyd",35000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into orders(oid,odate,id,amount) values(1,"2023-01-25",2,15000),(2,"2023-01-15",2,25000),(3,"2023-01-22",1,30000),(4,"2022-12-30",4,5000),(5,"2022-12-18",3,10000);
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from customers;
++----+--------+------+----------+--------+
+| id | name   | age  | address  | salary |
++----+--------+------+----------+--------+
+|  1 | sruti  |   22 | pune     |  40000 |
+|  2 | ankita |   21 | mumbai   |  45000 |
+|  3 | ramya  |   21 | chennai  |  50000 |
+|  4 | srija  |   23 | banglore |  45000 |
+|  5 | abhi   |   22 | hyd      |  35000 |
++----+--------+------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from orders;
++-----+------------+------+--------+
+| oid | odate      | id   | amount |
++-----+------------+------+--------+
+|   1 | 2023-01-25 |    2 |  15000 |
+|   2 | 2023-01-15 |    2 |  25000 |
+|   3 | 2023-01-22 |    1 |  30000 |
+|   4 | 2022-12-30 |    4 |   5000 |
+|   5 | 2022-12-18 |    3 |  10000 |
++-----+------------+------+--------+
+5 rows in set (0.00 sec)
+
+(4)
+mysql> select c.id,c.name,o.amount,o.odate from customers as c inner join orders as o order by id;
++----+--------+--------+------------+
+| id | name   | amount | odate      |
++----+--------+--------+------------+
+|  1 | sruti  |  15000 | 2023-01-25 |
+|  1 | sruti  |  25000 | 2023-01-15 |
+|  1 | sruti  |  30000 | 2023-01-22 |
+|  1 | sruti  |   5000 | 2022-12-30 |
+|  1 | sruti  |  10000 | 2022-12-18 |
+|  2 | ankita |  15000 | 2023-01-25 |
+|  2 | ankita |  25000 | 2023-01-15 |
+|  2 | ankita |  30000 | 2023-01-22 |
+|  2 | ankita |   5000 | 2022-12-30 |
+|  2 | ankita |  10000 | 2022-12-18 |
+|  3 | ramya  |  15000 | 2023-01-25 |
+|  3 | ramya  |  25000 | 2023-01-15 |
+|  3 | ramya  |  30000 | 2023-01-22 |
+|  3 | ramya  |   5000 | 2022-12-30 |
+|  3 | ramya  |  10000 | 2022-12-18 |
+|  4 | srija  |  15000 | 2023-01-25 |
+|  4 | srija  |  25000 | 2023-01-15 |
+|  4 | srija  |  30000 | 2023-01-22 |
+|  4 | srija  |   5000 | 2022-12-30 |
+|  4 | srija  |  10000 | 2022-12-18 |
+|  5 | abhi   |  15000 | 2023-01-25 |
+|  5 | abhi   |  25000 | 2023-01-15 |
+|  5 | abhi   |  30000 | 2023-01-22 |
+|  5 | abhi   |   5000 | 2022-12-30 |
+|  5 | abhi   |  10000 | 2022-12-18 |
++----+--------+--------+------------+
+25 rows in set (0.00 sec)
+
+mysql> select c.id,c.name,o.amount,o.odate from customers as c inner join orders as o on(c.id=o.id);
++----+--------+--------+------------+
+| id | name   | amount | odate      |
++----+--------+--------+------------+
+|  1 | sruti  |  30000 | 2023-01-22 |
+|  2 | ankita |  15000 | 2023-01-25 |
+|  2 | ankita |  25000 | 2023-01-15 |
+|  3 | ramya  |  10000 | 2022-12-18 |
+|  4 | srija  |   5000 | 2022-12-30 |
++----+--------+--------+------------+
+5 rows in set (0.00 sec)
+
+(5)
+
+mysql> select c.id,c.name,o.amount,o.odate from customers as c left outer join orders as o on (c.id=o.id);
++----+--------+--------+------------+
+| id | name   | amount | odate      |
++----+--------+--------+------------+
+|  1 | sruti  |  30000 | 2023-01-22 |
+|  2 | ankita |  15000 | 2023-01-25 |
+|  2 | ankita |  25000 | 2023-01-15 |
+|  3 | ramya  |  10000 | 2022-12-18 |
+|  4 | srija  |   5000 | 2022-12-30 |
+|  5 | abhi   |   NULL | NULL       |
++----+--------+--------+------------+
+6 rows in set (0.00 sec)
+
+(6)
+mysql> select c.id,c.name,o.amount,o.odate from customers as c right outer join orders as o on (c.id=o.id);
++------+--------+--------+------------+
+| id   | name   | amount | odate      |
++------+--------+--------+------------+
+|    2 | ankita |  15000 | 2023-01-25 |
+|    2 | ankita |  25000 | 2023-01-15 |
+|    1 | sruti  |  30000 | 2023-01-22 |
+|    4 | srija  |   5000 | 2022-12-30 |
+|    3 | ramya  |  10000 | 2022-12-18 |
++------+--------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select c.id,c.name,o.amount,o.odate from customers as c right outer join orders as o on (c.id=o.id) order by id;
++------+--------+--------+------------+
+| id   | name   | amount | odate      |
++------+--------+--------+------------+
+|    1 | sruti  |  30000 | 2023-01-22 |
+|    2 | ankita |  15000 | 2023-01-25 |
+|    2 | ankita |  25000 | 2023-01-15 |
+|    3 | ramya  |  10000 | 2022-12-18 |
+|    4 | srija  |   5000 | 2022-12-30 |
++------+--------+--------+------------+
+5 rows in set (0.00 sec)
+
+(7)
+mysql> select c.id,c.name from customers as c union all select o.amount,o.odate from orders as o order by id;
++-------+------------+
+| id    | name       |
++-------+------------+
+|     1 | sruti      |
+|     2 | ankita     |
+|     3 | ramya      |
+|     4 | srija      |
+|     5 | abhi       |
+|  5000 | 2022-12-30 |
+| 10000 | 2022-12-18 |
+| 15000 | 2023-01-25 |
+| 25000 | 2023-01-15 |
+| 30000 | 2023-01-22 |
++-------+------------+
+10 rows in set (0.01 sec)
+
+(8)
+mysql> select c1.name,c1.address from customers as c1,customers as c2 where c1.id!=c2.id and c1.address=c2.address;
+Empty set (0.00 sec)
+
+mysql> update customers set address="pune" where id=5;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customers;
++----+--------+------+----------+--------+
+| id | name   | age  | address  | salary |
++----+--------+------+----------+--------+
+|  1 | sruti  |   27 | pune     |  18000 |
+|  2 | ankita |   25 | mumbai   |  45000 |
+|  3 | ramya  |   24 | chennai  |  50000 |
+|  4 | srija  |   26 | banglore |  45000 |
+|  5 | abhi   |   22 | pune     |  10000 |
++----+--------+------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select c1.name,c1.address from customers as c1,customers as c2 where c1.id!=c2.id and c1.address=c2.address;
++-------+---------+
+| name  | address |
++-------+---------+
+| abhi  | pune    |
+| sruti | pune    |
++-------+---------+
+2 rows in set (0.00 sec)
+
+(9)
+mysql> select c.id,c.name,o.amount,o.odate from customers as c cross join orders as o order by id;
++----+--------+--------+------------+
+| id | name   | amount | odate      |
++----+--------+--------+------------+
+|  1 | sruti  |  15000 | 2023-01-25 |
+|  1 | sruti  |  25000 | 2023-01-15 |
+|  1 | sruti  |  30000 | 2023-01-22 |
+|  1 | sruti  |   5000 | 2022-12-30 |
+|  1 | sruti  |  10000 | 2022-12-18 |
+|  2 | ankita |  15000 | 2023-01-25 |
+|  2 | ankita |  25000 | 2023-01-15 |
+|  2 | ankita |  30000 | 2023-01-22 |
+|  2 | ankita |   5000 | 2022-12-30 |
+|  2 | ankita |  10000 | 2022-12-18 |
+|  3 | ramya  |  15000 | 2023-01-25 |
+|  3 | ramya  |  25000 | 2023-01-15 |
+|  3 | ramya  |  30000 | 2023-01-22 |
+|  3 | ramya  |   5000 | 2022-12-30 |
+|  3 | ramya  |  10000 | 2022-12-18 |
+|  4 | srija  |  15000 | 2023-01-25 |
+|  4 | srija  |  25000 | 2023-01-15 |
+|  4 | srija  |  30000 | 2023-01-22 |
+|  4 | srija  |   5000 | 2022-12-30 |
+|  4 | srija  |  10000 | 2022-12-18 |
+|  5 | abhi   |  15000 | 2023-01-25 |
+|  5 | abhi   |  25000 | 2023-01-15 |
+|  5 | abhi   |  30000 | 2023-01-22 |
+|  5 | abhi   |   5000 | 2022-12-30 |
+|  5 | abhi   |  10000 | 2022-12-18 |
++----+--------+--------+------------+
+25 rows in set (0.00 sec)
+
+(10)
+mysql> select * from customers where salary in(select salary from customers where salary>20000);
++----+--------+------+----------+--------+
+| id | name   | age  | address  | salary |
++----+--------+------+----------+--------+
+|  1 | sruti  |   22 | pune     |  40000 |
+|  2 | ankita |   21 | mumbai   |  45000 |
+|  3 | ramya  |   21 | chennai  |  50000 |
+|  4 | srija  |   23 | banglore |  45000 |
+|  5 | abhi   |   22 | hyd      |  35000 |
++----+--------+------+----------+--------+
+5 rows in set (0.01 sec)
+mysql> update customers set salary=18000 where id=1;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customers set salary=10000 where id=5;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customers;
++----+--------+------+----------+--------+
+| id | name   | age  | address  | salary |
++----+--------+------+----------+--------+
+|  1 | sruti  |   22 | pune     |  18000 |
+|  2 | ankita |   21 | mumbai   |  45000 |
+|  3 | ramya  |   21 | chennai  |  50000 |
+|  4 | srija  |   23 | banglore |  45000 |
+|  5 | abhi   |   22 | hyd      |  10000 |
++----+--------+------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customers where salary in(select salary from customers where salary>20000);
++----+--------+------+----------+--------+
+| id | name   | age  | address  | salary |
++----+--------+------+----------+--------+
+|  2 | ankita |   21 | mumbai   |  45000 |
+|  3 | ramya  |   21 | chennai  |  50000 |
+|  4 | srija  |   23 | banglore |  45000 |
++----+--------+------+----------+--------+
+3 rows in set (0.00 sec)
+
+
+
+---
+mysql> update customers set age=25 where id=2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customers set age=24 where id=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customers set age=26 where id=4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customers set age=27 where id=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customers set age=22 where id=5;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from customers;
++----+--------+------+----------+--------+
+| id | name   | age  | address  | salary |
++----+--------+------+----------+--------+
+|  1 | sruti  |   27 | pune     |  18000 |
+|  2 | ankita |   25 | mumbai   |  45000 |
+|  3 | ramya  |   24 | chennai  |  50000 |
+|  4 | srija  |   26 | banglore |  45000 |
+|  5 | abhi   |   22 | hyd      |  10000 |
++----+--------+------+----------+--------+
+5 rows in set (0.00 sec)
+--
+(11)
+mysql> create table cust_bkp as select * from customers;
+Query OK, 5 rows affected (0.11 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+(12)
+mysql> select * from cust_bkp;
++----+--------+------+----------+--------+
+| id | name   | age  | address  | salary |
++----+--------+------+----------+--------+
+|  1 | sruti  |   27 | pune     |  18000 |
+|  2 | ankita |   25 | mumbai   |  45000 |
+|  3 | ramya  |   24 | chennai  |  50000 |
+|  4 | srija  |   26 | banglore |  45000 |
+|  5 | abhi   |   22 | pune     |  10000 |
++----+--------+------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update customers set salary = (salary + (salary*0.1)) where age in(select age from cust_bkp where age>=24);
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from customers;
++----+--------+------+----------+--------+
+| id | name   | age  | address  | salary |
++----+--------+------+----------+--------+
+|  1 | sruti  |   27 | pune     |  19800 |
+|  2 | ankita |   25 | mumbai   |  49500 |
+|  3 | ramya  |   24 | chennai  |  55000 |
+|  4 | srija  |   26 | banglore |  49500 |
+|  5 | abhi   |   22 | pune     |  10000 |
++----+--------+------+----------+--------+
+5 rows in set (0.00 sec)
+
+(13)
+mysql> delete from customers where age in(select age from cust_bkp where age>26);
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`coditas_java`.`orders`, CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`id`) REFERENCES `customers` (`id`))
+mysql> desc orders;
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| oid    | int  | NO   | PRI | NULL    |       |
+| odate  | date | YES  |     | NULL    |       |
+| id     | int  | YES  | MUL | NULL    |       |
+| amount | int  | YES  |     | NULL    |       |
++--------+------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+-------------------------------------------------
+mysql> create table tabletest as select * from customers;
+Query OK, 5 rows affected (0.18 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from customers;
++----+--------+------+----------+--------+
+| id | name   | age  | address  | salary |
++----+--------+------+----------+--------+
+|  1 | sruti  |   27 | pune     |  19800 |
+|  2 | ankita |   25 | mumbai   |  49500 |
+|  3 | ramya  |   24 | chennai  |  55000 |
+|  4 | srija  |   26 | banglore |  49500 |
+|  5 | abhi   |   22 | pune     |  10000 |
++----+--------+------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> desc customers;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| name    | varchar(25) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.03 sec)
+
+mysql> desc tabletest;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   |     | NULL    |       |
+| name    | varchar(25) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table xyz like customers;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc xyz;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| name    | varchar(25) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+
+

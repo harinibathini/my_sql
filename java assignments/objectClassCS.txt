@@ -1,0 +1,12 @@
+METHODS OF OBJECT CLASS - 11 methods
+1)clone()
+2)equals(Object obj)
+3)finalize()
+4)getClass()
+5)hashCode()
+6)notify()
+7)notifyAll()
+8)toString()
+9)wait()
+10)wait(long timeout)
+11)wait(long timeout int nanos)

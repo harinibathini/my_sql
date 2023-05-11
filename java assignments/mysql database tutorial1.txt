@@ -1,0 +1,4157 @@
+mysql> use coditas_java;
+Database changed
+mysql> show tables;
++----------------------------+
+| Tables_in_coditas_java     |
++----------------------------+
+| customer                   |
+| customer2                  |
+| customer3                  |
+| departments                |
+| employee                   |
+| employees                  |
+| facebook                   |
+| facebook_user_registration |
+| javastudent                |
+| person                     |
+| student                    |
+| student1                   |
+| student2                   |
+| student3                   |
+| studentdata                |
+| studentdata2               |
+| students                   |
+| te_javastudent             |
++----------------------------+
+18 rows in set (0.00 sec)
+
+
+mysql> create table employees(eid int,ename varchar(20),deptid int,salary int,commission int,designation varchar(100),ngrid int,gender varchar(1));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from employees;
+Empty set (0.01 sec)
+
+mysql> desc employees;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| eid         | int          | YES  |     | NULL    |       |
+| ename       | varchar(20)  | YES  |     | NULL    |       |
+| deptid      | int          | YES  |     | NULL    |       |
+| salary      | int          | YES  |     | NULL    |       |
+| commission  | int          | YES  |     | NULL    |       |
+| designation | varchar(100) | YES  |     | NULL    |       |
+| ngrid       | int          | YES  |     | NULL    |       |
+| gender      | varchar(1)   | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> insert into employees(eid,ename,deptid,salary,commission,designation,gender) values(1,"nikhil",10,120000,10000,"manager","m"),(2,"nitin",10,80000,15000,"Manager","m");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees;
++------+--------+--------+--------+------------+-------------+-------+--------+
+| eid  | ename  | deptid | salary | commission | designation | ngrid | gender |
++------+--------+--------+--------+------------+-------------+-------+--------+
+|    1 | nikhil |     10 | 120000 |      10000 | manager     |  NULL | m      |
+|    2 | nitin  |     10 |  80000 |      15000 | Manager     |  NULL | m      |
++------+--------+--------+--------+------------+-------------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into employees(eid,ename,deptid,salary,designation,ngrid,gender) values(3,"neha",20,50000,"programmer",1,"f");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employees(eid,ename,deptid,salary,commission,designation,ngrid,gender) values(4,"vaibhav",20,15000,3000,"frontdeskoperator",1,"m"),(5,"salman",30,5000,1000,"assistant",1,"m"),(6,"jayant",20,25000,9000,"programmer",1,"m"),(7,"shahrukh",30,4000,500,"assistant",2,"m"),(8,"kiran",20,10000,1500,"analyst",3,"m"),(9,"sonali",20,40000,3500,"developer",2,"f"),(10,"surabhi",20,35000,3000,"developer",2,"f");
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees;
++------+----------+--------+--------+------------+-------------------+-------+--------+
+| eid  | ename    | deptid | salary | commission | designation       | ngrid | gender |
++------+----------+--------+--------+------------+-------------------+-------+--------+
+|    1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|    2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|    3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|    4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|    5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|    6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|    7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|    8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|    9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|   10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++------+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> create table departments(deptid int,dname varchar(20),city varchar(100));
+ERROR 1050 (42S01): Table 'departments' already exists
+mysql> show tables;
++----------------------------+
+| Tables_in_coditas_java     |
++----------------------------+
+| customer                   |
+| customer2                  |
+| customer3                  |
+| departments                |
+| employee                   |
+| employees                  |
+| facebook                   |
+| facebook_user_registration |
+| javastudent                |
+| person                     |
+| student                    |
+| student1                   |
+| student2                   |
+| student3                   |
+| studentdata                |
+| studentdata2               |
+| students                   |
+| te_javastudent             |
++----------------------------+
+18 rows in set (0.00 sec)
+
+mysql> desc departments;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| deptid | int         | NO   | PRI | NULL    |       |
+| d_name | varchar(25) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from departments;
++--------+------------+
+| deptid | d_name     |
++--------+------------+
+|      1 | IT         |
+|      2 | Management |
++--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> drop table departments;
+ERROR 3730 (HY000): Cannot drop table 'departments' referenced by a foreign key constraint 'students_ibfk_1' on table 'students'.
+mysql> create table empdepartments(deptid int,dname varchar(20),city varchar(100));
+Query OK, 0 rows affected (0.04 sec)
+
+
+mysql> create table empdepartments(deptid int,dname varchar(20),city varchar(100),primary key(deptid));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc empdepartments;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| deptid | int          | NO   | PRI | NULL    |       |
+| dname  | varchar(20)  | YES  |     | NULL    |       |
+| city   | varchar(100) | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from empdepartments;
+Empty set (0.00 sec)
+
+mysql> insert into empdepartments(deptid,dname,city) values (10,"sales","mumbai"),(20,"marketing","banglore"),(30,"finance","chennai");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from empdepartments;
++--------+-----------+----------+
+| deptid | dname     | city     |
++--------+-----------+----------+
+|     10 | sales     | mumbai   |
+|     20 | marketing | banglore |
+|     30 | finance   | chennai  |
++--------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> desc employees;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| eid         | int          | YES  |     | NULL    |       |
+| ename       | varchar(20)  | YES  |     | NULL    |       |
+| deptid      | int          | YES  |     | NULL    |       |
+| salary      | int          | YES  |     | NULL    |       |
+| commission  | int          | YES  |     | NULL    |       |
+| designation | varchar(100) | YES  |     | NULL    |       |
+| ngrid       | int          | YES  |     | NULL    |       |
+| gender      | varchar(1)   | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table employees add primary key(eid);
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employees;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| eid         | int          | NO   | PRI | NULL    |       |
+| ename       | varchar(20)  | YES  |     | NULL    |       |
+| deptid      | int          | YES  |     | NULL    |       |
+| salary      | int          | YES  |     | NULL    |       |
+| commission  | int          | YES  |     | NULL    |       |
+| designation | varchar(100) | YES  |     | NULL    |       |
+| ngrid       | int          | YES  |     | NULL    |       |
+| gender      | varchar(1)   | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select eid,ename,deptid from employees;
++-----+----------+--------+
+| eid | ename    | deptid |
++-----+----------+--------+
+|   1 | nikhil   |     10 |
+|   2 | nitin    |     10 |
+|   3 | neha     |     20 |
+|   4 | vaibhav  |     20 |
+|   5 | salman   |     30 |
+|   6 | jayant   |     20 |
+|   7 | shahrukh |     30 |
+|   8 | kiran    |     20 |
+|   9 | sonali   |     20 |
+|  10 | surabhi  |     20 |
++-----+----------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,salary from employees;
++----------+--------+
+| ename    | salary |
++----------+--------+
+| nikhil   | 120000 |
+| nitin    |  80000 |
+| neha     |  50000 |
+| vaibhav  |  15000 |
+| salman   |   5000 |
+| jayant   |  25000 |
+| shahrukh |   4000 |
+| kiran    |  10000 |
+| sonali   |  40000 |
+| surabhi  |  35000 |
++----------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select salary from employees;
++--------+
+| salary |
++--------+
+| 120000 |
+|  80000 |
+|  50000 |
+|  15000 |
+|   5000 |
+|  25000 |
+|   4000 |
+|  10000 |
+|  40000 |
+|  35000 |
++--------+
+10 rows in set (0.00 sec)
+
+mysql> select 8 from employees;
++---+
+| 8 |
++---+
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
++---+
+10 rows in set (0.00 sec)
+
+mysql> select "krishna" from meployees;
+ERROR 1146 (42S02): Table 'coditas_java.meployees' doesn't exist
+mysql> select "krishna" from employees;
++---------+
+| krishna |
++---------+
+| krishna |
+| krishna |
+| krishna |
+| krishna |
+| krishna |
+| krishna |
+| krishna |
+| krishna |
+| krishna |
+| krishna |
++---------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select * from empdepartments;
++--------+-----------+----------+
+| deptid | dname     | city     |
++--------+-----------+----------+
+|     10 | sales     | mumbai   |
+|     20 | marketing | banglore |
+|     30 | finance   | chennai  |
++--------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select deptid,dname,city from empdepartments;
++--------+-----------+----------+
+| deptid | dname     | city     |
++--------+-----------+----------+
+|     10 | sales     | mumbai   |
+|     20 | marketing | banglore |
+|     30 | finance   | chennai  |
++--------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select deptid,city from empdepartments;
++--------+----------+
+| deptid | city     |
++--------+----------+
+|     10 | mumbai   |
+|     20 | banglore |
+|     30 | chennai  |
++--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> create table tutstudent(sid int,sname varchar(20),age int,subject varchar(100));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc tutstudent;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| sid     | int          | YES  |     | NULL    |       |
+| sname   | varchar(20)  | YES  |     | NULL    |       |
+| age     | int          | YES  |     | NULL    |       |
+| subject | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into tutstudent(sid,sname,age,subject) values(1,"amit",21,"java");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from tutstudent;
++------+-------+------+---------+
+| sid  | sname | age  | subject |
++------+-------+------+---------+
+|    1 | amit  |   21 | java    |
++------+-------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into tutstudent(sid,age,sname,subject) values(2,22,"vishal","java");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from tutstudent;
++------+--------+------+---------+
+| sid  | sname  | age  | subject |
++------+--------+------+---------+
+|    1 | amit   |   21 | java    |
+|    2 | vishal |   22 | java    |
++------+--------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> desc tutstudent;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| sid     | int          | YES  |     | NULL    |       |
+| sname   | varchar(20)  | YES  |     | NULL    |       |
+| age     | int          | YES  |     | NULL    |       |
+| subject | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> update column subject set subject="compilers" where id=2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'column subject set subject="compilers" where id=2' at line 1
+mysql> update table tutstudent set subject="compilers" where id=2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table tutstudent set subject="compilers" where id=2' at line 1
+mysql> update tutstudent set subject="compilers" where sid=2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tutstudent;
++------+--------+------+-----------+
+| sid  | sname  | age  | subject   |
++------+--------+------+-----------+
+|    1 | amit   |   21 | java      |
+|    2 | vishal |   22 | compilers |
++------+--------+------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> insert into tutstudent values(3,"hrithik",24,"ADA");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into tutstudent values(3,25,"hrithik","ADA");
+ERROR 1366 (HY000): Incorrect integer value: 'hrithik' for column 'age' at row 1
+mysql> insert into tutstudent(sid,age,sname,subject) values(5,24,"sharukh","TOC");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from tutstudent;
++------+---------+------+-----------+
+| sid  | sname   | age  | subject   |
++------+---------+------+-----------+
+|    1 | amit    |   21 | java      |
+|    2 | vishal  |   22 | compilers |
+|    3 | hrithik |   24 | ADA       |
+|    5 | sharukh |   24 | TOC       |
++------+---------+------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> update tutstudent set age=42 where sid=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tutstudent;
++------+---------+------+-----------+
+| sid  | sname   | age  | subject   |
++------+---------+------+-----------+
+|    1 | amit    |   21 | java      |
+|    2 | vishal  |   22 | compilers |
+|    3 | hrithik |   42 | ADA       |
+|    5 | sharukh |   24 | TOC       |
++------+---------+------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> update tutstudent set age=26,subject="os" where sname="sharukh";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tutstudent;
++------+---------+------+-----------+
+| sid  | sname   | age  | subject   |
++------+---------+------+-----------+
+|    1 | amit    |   21 | java      |
+|    2 | vishal  |   22 | compilers |
+|    3 | hrithik |   42 | ADA       |
+|    5 | sharukh |   26 | os        |
++------+---------+------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> update tutstudent set age=26,subject="os" where sid=5;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from tutstudent;
++------+---------+------+-----------+
+| sid  | sname   | age  | subject   |
++------+---------+------+-----------+
+|    1 | amit    |   21 | java      |
+|    2 | vishal  |   22 | compilers |
+|    3 | hrithik |   42 | ADA       |
+|    5 | sharukh |   26 | os        |
++------+---------+------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> delete from tutstudent where sid=5;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from tutstudent;
++------+---------+------+-----------+
+| sid  | sname   | age  | subject   |
++------+---------+------+-----------+
+|    1 | amit    |   21 | java      |
+|    2 | vishal  |   22 | compilers |
+|    3 | hrithik |   42 | ADA       |
++------+---------+------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> delete from tutstudent;
+Query OK, 3 rows affected (0.01 sec)
+
+mysql> select * from tutstudent;
+Empty set (0.00 sec)
+
+mysql> show tables;
++----------------------------+
+| Tables_in_coditas_java     |
++----------------------------+
+| customer                   |
+| customer2                  |
+| customer3                  |
+| departments                |
+| empdepartments             |
+| employee                   |
+| employees                  |
+| facebook                   |
+| facebook_user_registration |
+| javastudent                |
+| person                     |
+| student                    |
+| student1                   |
+| student2                   |
+| student3                   |
+| studentdata                |
+| studentdata2               |
+| students                   |
+| te_javastudent             |
+| tutstudent                 |
++----------------------------+
+20 rows in set (0.01 sec)
+
+mysql> select * from tutstudent;
+Empty set (0.00 sec)
+
+mysql> drop table tutstudent;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from tutstudent;
+ERROR 1146 (42S02): Table 'coditas_java.tutstudent' doesn't exist
+mysql> create table tutstudent(sno int,sname varchar(20),age int,dob date);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc tutstudent;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sno   | int         | YES  |     | NULL    |       |
+| sname | varchar(20) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| dob   | date        | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into tutstudent values(1,"amit",22,curdate());
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from tutstudent;
++------+-------+------+------------+
+| sno  | sname | age  | dob        |
++------+-------+------+------------+
+|    1 | amit  |   22 | 2023-01-22 |
++------+-------+------+------------+
+1 row in set (0.00 sec)
+
+mysql> drop  table tutstudent;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from tutstudent;
+ERROR 1146 (42S02): Table 'coditas_java.tutstudent' doesn't exist
+mysql> create table tutstudent(sno int,sname varchar(20),age int,dob date);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc tutstudent;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sno   | int         | YES  |     | NULL    |       |
+| sname | varchar(20) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| dob   | date        | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table tutstudent add marks int;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc tutstudent;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sno   | int         | YES  |     | NULL    |       |
+| sname | varchar(20) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| dob   | date        | YES  |     | NULL    |       |
+| marks | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table tutstudent drop dob;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc tutstudent;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sno   | int         | YES  |     | NULL    |       |
+| sname | varchar(20) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| marks | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter tabble tutstudent add subject int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tabble tutstudent add subject int' at line 1
+mysql> alter table tutstudent add subject int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc tutstudent;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| sno     | int         | YES  |     | NULL    |       |
+| sname   | varchar(20) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| marks   | int         | YES  |     | NULL    |       |
+| subject | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into tutstudent values(2,"neha",21,98,"maths");
+ERROR 1366 (HY000): Incorrect integer value: 'maths' for column 'subject' at row 1
+mysql> insert into tutstudent values(2,"neha",21,98,"maths");
+ERROR 1366 (HY000): Incorrect integer value: 'maths' for column 'subject' at row 1
+mysql> desc tutstudent;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| sno     | int         | YES  |     | NULL    |       |
+| sname   | varchar(20) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| marks   | int         | YES  |     | NULL    |       |
+| subject | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from tutstudent;
+Empty set (0.00 sec)
+
+mysql> alter table tutstudent modify subject varchar(100);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc tutstudent;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| sno     | int          | YES  |     | NULL    |       |
+| sname   | varchar(20)  | YES  |     | NULL    |       |
+| age     | int          | YES  |     | NULL    |       |
+| marks   | int          | YES  |     | NULL    |       |
+| subject | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from tutstudent;
+Empty set (0.00 sec)
+
+mysql> insert into tutstudent values(2,"neha",21,98,"maths");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from tutstudent;
++------+-------+------+-------+---------+
+| sno  | sname | age  | marks | subject |
++------+-------+------+-------+---------+
+|    2 | neha  |   21 |    98 | maths   |
++------+-------+------+-------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into tutstudent values(3,"anisha",21,98,"maths");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from tutstudent;
++------+--------+------+-------+---------+
+| sno  | sname  | age  | marks | subject |
++------+--------+------+-------+---------+
+|    2 | neha   |   21 |    98 | maths   |
+|    3 | anisha |   21 |    98 | maths   |
++------+--------+------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> alter table student modify subject varchar(100) not null default "history";
+ERROR 1054 (42S22): Unknown column 'subject' in 'student'
+mysql> alter table tutstudent modify subject varchar(100) not null default "history";
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from tutstudent;
++------+--------+------+-------+---------+
+| sno  | sname  | age  | marks | subject |
++------+--------+------+-------+---------+
+|    2 | neha   |   21 |    98 | maths   |
+|    3 | anisha |   21 |    98 | maths   |
++------+--------+------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> desc tutstudent;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| sno     | int          | YES  |     | NULL    |       |
+| sname   | varchar(20)  | YES  |     | NULL    |       |
+| age     | int          | YES  |     | NULL    |       |
+| marks   | int          | YES  |     | NULL    |       |
+| subject | varchar(100) | NO   |     | history |       |
++---------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table tutstudent alter subject set default "sanskrit";
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc tutstudent;
++---------+--------------+------+-----+----------+-------+
+| Field   | Type         | Null | Key | Default  | Extra |
++---------+--------------+------+-----+----------+-------+
+| sno     | int          | YES  |     | NULL     |       |
+| sname   | varchar(20)  | YES  |     | NULL     |       |
+| age     | int          | YES  |     | NULL     |       |
+| marks   | int          | YES  |     | NULL     |       |
+| subject | varchar(100) | NO   |     | sanskrit |       |
++---------+--------------+------+-----+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table tutstudent rename to etutstudent;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc tutstudent;
+ERROR 1146 (42S02): Table 'coditas_java.tutstudent' doesn't exist
+mysql> desc etutstudent;
++---------+--------------+------+-----+----------+-------+
+| Field   | Type         | Null | Key | Default  | Extra |
++---------+--------------+------+-----+----------+-------+
+| sno     | int          | YES  |     | NULL     |       |
+| sname   | varchar(20)  | YES  |     | NULL     |       |
+| age     | int          | YES  |     | NULL     |       |
+| marks   | int          | YES  |     | NULL     |       |
+| subject | varchar(100) | NO   |     | sanskrit |       |
++---------+--------------+------+-----+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from etutstudent;
++------+--------+------+-------+---------+
+| sno  | sname  | age  | marks | subject |
++------+--------+------+-------+---------+
+|    2 | neha   |   21 |    98 | maths   |
+|    3 | anisha |   21 |    98 | maths   |
++------+--------+------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> truncate table etutstudent;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from etutstudent;
+Empty set (0.00 sec)
+
+mysql> desc tutstudent;
+ERROR 1146 (42S02): Table 'coditas_java.tutstudent' doesn't exist
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select * from empdepartments;
++--------+-----------+----------+
+| deptid | dname     | city     |
++--------+-----------+----------+
+|     10 | sales     | mumbai   |
+|     20 | marketing | banglore |
+|     30 | finance   | chennai  |
++--------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> slect name,salary from employees where ename="nikhil";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'slect name,salary from employees where ename="nikhil"' at line 1
+mysql> select name,salary from employees where ename="nikhil";
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select ename,salary from employees where ename="nikhil";
++--------+--------+
+| ename  | salary |
++--------+--------+
+| nikhil | 120000 |
++--------+--------+
+1 row in set (0.00 sec)
+
+mysql> select ename ,designation from employees where designation="manager" or designation="developer";
++---------+-------------+
+| ename   | designation |
++---------+-------------+
+| nikhil  | manager     |
+| nitin   | Manager     |
+| sonali  | developer   |
+| surabhi | developer   |
++---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> desc employees;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| eid         | int          | NO   | PRI | NULL    |       |
+| ename       | varchar(20)  | YES  |     | NULL    |       |
+| deptid      | int          | YES  |     | NULL    |       |
+| salary      | int          | YES  |     | NULL    |       |
+| commission  | int          | YES  |     | NULL    |       |
+| designation | varchar(100) | YES  |     | NULL    |       |
+| ngrid       | int          | YES  |     | NULL    |       |
+| gender      | varchar(1)   | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> select ename,designation from employees where designation in("manager","developer");
++---------+-------------+
+| ename   | designation |
++---------+-------------+
+| nikhil  | manager     |
+| nitin   | Manager     |
+| sonali  | developer   |
+| surabhi | developer   |
++---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select ename,deptid from employees where deptid in(10,20);
++---------+--------+
+| ename   | deptid |
++---------+--------+
+| nikhil  |     10 |
+| nitin   |     10 |
+| neha    |     20 |
+| vaibhav |     20 |
+| jayant  |     20 |
+| kiran   |     20 |
+| sonali  |     20 |
+| surabhi |     20 |
++---------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,deptid,salary from employees where deptid in(10,20) and salary>30000;
++---------+--------+--------+
+| ename   | deptid | salary |
++---------+--------+--------+
+| nikhil  |     10 | 120000 |
+| nitin   |     10 |  80000 |
+| neha    |     20 |  50000 |
+| sonali  |     20 |  40000 |
+| surabhi |     20 |  35000 |
++---------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select ename,salary from employees where salary>=40000 and salary<=90000;
++--------+--------+
+| ename  | salary |
++--------+--------+
+| nitin  |  80000 |
+| neha   |  50000 |
+| sonali |  40000 |
++--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select ename,salary from employees where salary between 40000 and 90000;
++--------+--------+
+| ename  | salary |
++--------+--------+
+| nitin  |  80000 |
+| neha   |  50000 |
+| sonali |  40000 |
++--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,commission from employees where commission between 5000 and 16000;
++--------+------------+
+| ename  | commission |
++--------+------------+
+| nikhil |      10000 |
+| nitin  |      15000 |
+| jayant |       9000 |
++--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select ename,commission,deptid from employees where commission between 5000 and 16000 and deptid=10;
++--------+------------+--------+
+| ename  | commission | deptid |
++--------+------------+--------+
+| nikhil |      10000 |     10 |
+| nitin  |      15000 |     10 |
++--------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename from employees;
++----------+
+| ename    |
++----------+
+| nikhil   |
+| nitin    |
+| neha     |
+| vaibhav  |
+| salman   |
+| jayant   |
+| shahrukh |
+| kiran    |
+| sonali   |
+| surabhi  |
++----------+
+10 rows in set (0.00 sec)
+
+mysql> select ename from employees where ename like "n%";
++--------+
+| ename  |
++--------+
+| nikhil |
+| nitin  |
+| neha   |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select ename from employees where ename like "%a";
++-------+
+| ename |
++-------+
+| neha  |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select ename from employees;
++----------+
+| ename    |
++----------+
+| nikhil   |
+| nitin    |
+| neha     |
+| vaibhav  |
+| salman   |
+| jayant   |
+| shahrukh |
+| kiran    |
+| sonali   |
+| surabhi  |
++----------+
+10 rows in set (0.00 sec)
+
+mysql> select ename from employees where ename like "%a%";
++----------+
+| ename    |
++----------+
+| neha     |
+| vaibhav  |
+| salman   |
+| jayant   |
+| shahrukh |
+| kiran    |
+| sonali   |
+| surabhi  |
++----------+
+8 rows in set (0.01 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename from employees where ename like "%aa%";
+Empty set (0.00 sec)
+
+mysql> select ename from employees where ename like "%a%a%";
++---------+
+| ename   |
++---------+
+| vaibhav |
+| salman  |
+| jayant  |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> select enmae from employees where ename like "_____";
+ERROR 1054 (42S22): Unknown column 'enmae' in 'field list'
+mysql> select ename from employees where ename like "_____";
++-------+
+| ename |
++-------+
+| nitin |
+| kiran |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> select ename from employees where ename like "_i%"
+    -> ;
++--------+
+| ename  |
++--------+
+| nikhil |
+| nitin  |
+| kiran  |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,designation where designation in("managers","developers") and ename like in("n%","s%");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'in("n%","s%")' at line 1
+mysql> select ename,designation where designation in("managers","developers") and ename like ("n%") or ename like "s%";
+ERROR 1054 (42S22): Unknown column 'ename' in 'field list'
+mysql> select ename,designation where designation in("managers","developers") and ename like "n%" or ename like "s%";
+ERROR 1054 (42S22): Unknown column 'ename' in 'field list'
+mysql> select ename,designation where designation in("manager","developer") and ename like "n%" or ename like "s%";
+ERROR 1054 (42S22): Unknown column 'ename' in 'field list'
+mysql> select ename,designation where designation in("manager","developer") and (ename like "n%" or ename like "s%");
+ERROR 1054 (42S22): Unknown column 'ename' in 'field list'
+mysql> select ename,designation from employees where designation in("manager","developer") and (ename like "n%" or ename like "s%");
++---------+-------------+
+| ename   | designation |
++---------+-------------+
+| nikhil  | manager     |
+| nitin   | Manager     |
+| sonali  | developer   |
+| surabhi | developer   |
++---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select salary,commission,salary+commission as effsal from employees;
++--------+------------+--------+
+| salary | commission | effsal |
++--------+------------+--------+
+| 120000 |      10000 | 130000 |
+|  80000 |      15000 |  95000 |
+|  50000 |       NULL |   NULL |
+|  15000 |       3000 |  18000 |
+|   5000 |       1000 |   6000 |
+|  25000 |       9000 |  34000 |
+|   4000 |        500 |   4500 |
+|  10000 |       1500 |  11500 |
+|  40000 |       3500 |  43500 |
+|  35000 |       3000 |  38000 |
++--------+------------+--------+
+10 rows in set (0.01 sec)
+
+mysql> select ename,commission from employees where commission="Null";
+Empty set, 1 warning (0.01 sec)
+
+mysql> select ename,commission from employees where commission=Null;
+Empty set (0.00 sec)
+
+mysql> select ename,commission from employees where commission=NULL;
+Empty set (0.00 sec)
+//is usage for null values/boolean values
+mysql> select ename,commission from employees where commission is null;
++-------+------------+
+| ename | commission |
++-------+------------+
+| neha  |       NULL |
++-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select ename,commission from employees where commission is not null;
++----------+------------+
+| ename    | commission |
++----------+------------+
+| nikhil   |      10000 |
+| nitin    |      15000 |
+| vaibhav  |       3000 |
+| salman   |       1000 |
+| jayant   |       9000 |
+| shahrukh |        500 |
+| kiran    |       1500 |
+| sonali   |       3500 |
+| surabhi  |       3000 |
++----------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select eid,ename,commission from employees where commission is not null;
++-----+----------+------------+
+| eid | ename    | commission |
++-----+----------+------------+
+|   1 | nikhil   |      10000 |
+|   2 | nitin    |      15000 |
+|   4 | vaibhav  |       3000 |
+|   5 | salman   |       1000 |
+|   6 | jayant   |       9000 |
+|   7 | shahrukh |        500 |
+|   8 | kiran    |       1500 |
+|   9 | sonali   |       3500 |
+|  10 | surabhi  |       3000 |
++-----+----------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql>  select ename,commission,deptid from employees where commission is null and deptid=30;
+Empty set (0.00 sec)
+
+mysql>  select ename,commission,deptid from employees where commission is null and deptid=20;
++-------+------------+--------+
+| ename | commission | deptid |
++-------+------------+--------+
+| neha  |       NULL |     20 |
++-------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from empployees where commission is null and deptid=20;
+ERROR 1146 (42S02): Table 'coditas_java.empployees' doesn't exist
+mysql> select count(*) from employees where commission is null and deptid=20;
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.01 sec)
+
+---order by----
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,salary from employees;
++----------+--------+
+| ename    | salary |
++----------+--------+
+| nikhil   | 120000 |
+| nitin    |  80000 |
+| neha     |  50000 |
+| vaibhav  |  15000 |
+| salman   |   5000 |
+| jayant   |  25000 |
+| shahrukh |   4000 |
+| kiran    |  10000 |
+| sonali   |  40000 |
+| surabhi  |  35000 |
++----------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,salary from employees order by salary;
++----------+--------+
+| ename    | salary |
++----------+--------+
+| shahrukh |   4000 |
+| salman   |   5000 |
+| kiran    |  10000 |
+| vaibhav  |  15000 |
+| jayant   |  25000 |
+| surabhi  |  35000 |
+| sonali   |  40000 |
+| neha     |  50000 |
+| nitin    |  80000 |
+| nikhil   | 120000 |
++----------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,salary from employees order by salary desc;
++----------+--------+
+| ename    | salary |
++----------+--------+
+| nikhil   | 120000 |
+| nitin    |  80000 |
+| neha     |  50000 |
+| sonali   |  40000 |
+| surabhi  |  35000 |
+| jayant   |  25000 |
+| vaibhav  |  15000 |
+| kiran    |  10000 |
+| salman   |   5000 |
+| shahrukh |   4000 |
++----------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,salary,deptid from employees order by deptid,salary;
++----------+--------+--------+
+| ename    | salary | deptid |
++----------+--------+--------+
+| nitin    |  80000 |     10 |
+| nikhil   | 120000 |     10 |
+| kiran    |  10000 |     20 |
+| vaibhav  |  15000 |     20 |
+| jayant   |  25000 |     20 |
+| surabhi  |  35000 |     20 |
+| sonali   |  40000 |     20 |
+| neha     |  50000 |     20 |
+| shahrukh |   4000 |     30 |
+| salman   |   5000 |     30 |
++----------+--------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,deptid,salary from employees order by deptid,salary;
++----------+--------+--------+
+| ename    | deptid | salary |
++----------+--------+--------+
+| nitin    |     10 |  80000 |
+| nikhil   |     10 | 120000 |
+| kiran    |     20 |  10000 |
+| vaibhav  |     20 |  15000 |
+| jayant   |     20 |  25000 |
+| surabhi  |     20 |  35000 |
+| sonali   |     20 |  40000 |
+| neha     |     20 |  50000 |
+| shahrukh |     30 |   4000 |
+| salman   |     30 |   5000 |
++----------+--------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,deptid,salary from employees order by deptid desc,salary;
++----------+--------+--------+
+| ename    | deptid | salary |
++----------+--------+--------+
+| shahrukh |     30 |   4000 |
+| salman   |     30 |   5000 |
+| kiran    |     20 |  10000 |
+| vaibhav  |     20 |  15000 |
+| jayant   |     20 |  25000 |
+| surabhi  |     20 |  35000 |
+| sonali   |     20 |  40000 |
+| neha     |     20 |  50000 |
+| nitin    |     10 |  80000 |
+| nikhil   |     10 | 120000 |
++----------+--------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select enmae,deptid,salary from employees order by deptid desc,salary desc;
+ERROR 1054 (42S22): Unknown column 'enmae' in 'field list'
+mysql> select ename,deptid,salary from employees order by deptid desc,salary desc;
++----------+--------+--------+
+| ename    | deptid | salary |
++----------+--------+--------+
+| salman   |     30 |   5000 |
+| shahrukh |     30 |   4000 |
+| neha     |     20 |  50000 |
+| sonali   |     20 |  40000 |
+| surabhi  |     20 |  35000 |
+| jayant   |     20 |  25000 |
+| vaibhav  |     20 |  15000 |
+| kiran    |     20 |  10000 |
+| nikhil   |     10 | 120000 |
+| nitin    |     10 |  80000 |
++----------+--------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,deptid,salary from employees where deptid=20 order by salary desc;
++---------+--------+--------+
+| ename   | deptid | salary |
++---------+--------+--------+
+| neha    |     20 |  50000 |
+| sonali  |     20 |  40000 |
+| surabhi |     20 |  35000 |
+| jayant  |     20 |  25000 |
+| vaibhav |     20 |  15000 |
+| kiran   |     20 |  10000 |
++---------+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select ename,deptid,salary from employees where deptid=20 order by salary asc;
++---------+--------+--------+
+| ename   | deptid | salary |
++---------+--------+--------+
+| kiran   |     20 |  10000 |
+| vaibhav |     20 |  15000 |
+| jayant  |     20 |  25000 |
+| surabhi |     20 |  35000 |
+| sonali  |     20 |  40000 |
+| neha    |     20 |  50000 |
++---------+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select ename,deptid,salary from employees where deptid=20 order by salary ;
++---------+--------+--------+
+| ename   | deptid | salary |
++---------+--------+--------+
+| kiran   |     20 |  10000 |
+| vaibhav |     20 |  15000 |
+| jayant  |     20 |  25000 |
+| surabhi |     20 |  35000 |
+| sonali  |     20 |  40000 |
+| neha    |     20 |  50000 |
++---------+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql>  select eid,ename,salary from employees limit 3;
++-----+--------+--------+
+| eid | ename  | salary |
++-----+--------+--------+
+|   1 | nikhil | 120000 |
+|   2 | nitin  |  80000 |
+|   3 | neha   |  50000 |
++-----+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql>  select eid,ename,salary from employees limit 1,3;
++-----+---------+--------+
+| eid | ename   | salary |
++-----+---------+--------+
+|   2 | nitin   |  80000 |
+|   3 | neha    |  50000 |
+|   4 | vaibhav |  15000 |
++-----+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql>  select eid,ename,salary from employees limit 1,6;
++-----+----------+--------+
+| eid | ename    | salary |
++-----+----------+--------+
+|   2 | nitin    |  80000 |
+|   3 | neha     |  50000 |
+|   4 | vaibhav  |  15000 |
+|   5 | salman   |   5000 |
+|   6 | jayant   |  25000 |
+|   7 | shahrukh |   4000 |
++-----+----------+--------+
+6 rows in set (0.00 sec)
+
+mysql>  select eid,ename,salary from employees limit 0,6;
++-----+---------+--------+
+| eid | ename   | salary |
++-----+---------+--------+
+|   1 | nikhil  | 120000 |
+|   2 | nitin   |  80000 |
+|   3 | neha    |  50000 |
+|   4 | vaibhav |  15000 |
+|   5 | salman  |   5000 |
+|   6 | jayant  |  25000 |
++-----+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select ename,salary from employees order by salary desc;
++----------+--------+
+| ename    | salary |
++----------+--------+
+| nikhil   | 120000 |
+| nitin    |  80000 |
+| neha     |  50000 |
+| sonali   |  40000 |
+| surabhi  |  35000 |
+| jayant   |  25000 |
+| vaibhav  |  15000 |
+| kiran    |  10000 |
+| salman   |   5000 |
+| shahrukh |   4000 |
++----------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,salary from employees order by salary desc limit 1;
++--------+--------+
+| ename  | salary |
++--------+--------+
+| nikhil | 120000 |
++--------+--------+
+1 row in set (0.00 sec)
+
+mysql>  select  eid,ename,salary from employees order by salary limit 3;
++-----+----------+--------+
+| eid | ename    | salary |
++-----+----------+--------+
+|   7 | shahrukh |   4000 |
+|   5 | salman   |   5000 |
+|   8 | kiran    |  10000 |
++-----+----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      |
++-----+----------+--------+--------+------------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select eid,ename,deptid,salary from employees where deptid=20 order by salary desc limit 1;
++-----+-------+--------+--------+
+| eid | ename | deptid | salary |
++-----+-------+--------+--------+
+|   3 | neha  |     20 |  50000 |
++-----+-------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> select eid,ename,deptid,salary from employees where deptid=20 order by salary desc;
++-----+---------+--------+--------+
+| eid | ename   | deptid | salary |
++-----+---------+--------+--------+
+|   3 | neha    |     20 |  50000 |
+|   9 | sonali  |     20 |  40000 |
+|  10 | surabhi |     20 |  35000 |
+|   6 | jayant  |     20 |  25000 |
+|   4 | vaibhav |     20 |  15000 |
+|   8 | kiran   |     20 |  10000 |
++-----+---------+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select eid,ename,salary,deptid from employees where deptid=20 order by salary limit 1,2;
++-----+---------+--------+--------+
+| eid | ename   | salary | deptid |
++-----+---------+--------+--------+
+|   4 | vaibhav |  15000 |     20 |
+|   6 | jayant  |  25000 |     20 |
++-----+---------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select eid,ename,salary,deptid from employees where deptid=20 order by salary limit 1;
++-----+-------+--------+--------+
+| eid | ename | salary | deptid |
++-----+-------+--------+--------+
+|   8 | kiran |  10000 |     20 |
++-----+-------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> select eid,ename,salary,deptid from employees where deptid=20 order by salary limit 0,2;
++-----+---------+--------+--------+
+| eid | ename   | salary | deptid |
++-----+---------+--------+--------+
+|   8 | kiran   |  10000 |     20 |
+|   4 | vaibhav |  15000 |     20 |
++-----+---------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select eid,ename,salary,deptid from employees where deptid=20 order by salary limit 2;
++-----+---------+--------+--------+
+| eid | ename   | salary | deptid |
++-----+---------+--------+--------+
+|   8 | kiran   |  10000 |     20 |
+|   4 | vaibhav |  15000 |     20 |
++-----+---------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select eid,ename,salary,deptid from employees where deptid=20 order by salary limit 1,1;
++-----+---------+--------+--------+
+| eid | ename   | salary | deptid |
++-----+---------+--------+--------+
+|   4 | vaibhav |  15000 |     20 |
++-----+---------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> select eid,ename,salary,deptid from employees where deptid=20 order by salary desc limit 1,1;
++-----+--------+--------+--------+
+| eid | ename  | salary | deptid |
++-----+--------+--------+--------+
+|   9 | sonali |  40000 |     20 |
++-----+--------+--------+--------+
+1 row in set (0.00 sec)
+
+---case statements----
+mysql> @number=10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '@number=10' at line 1
+mysql> set @number=10;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select case(@number%2)
+    -> when 0 then "even"
+    -> when 1 then "odd"
+    -> end;
++----------------------------------------------------------+
+| case(@number%2)
+when 0 then "even"
+when 1 then "odd"
+end |
++----------------------------------------------------------+
+| even                                                     |
++----------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> set @number=13;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select case(@number%2)
+    -> when 0 then "even"
+    -> when 1 then "odd"
+    -> end as evenorodd;
++-----------+
+| evenorodd |
++-----------+
+| odd       |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select ename,designation,salary from employees where designation in("manager","developer")
+    -> when designation="manager" then salary=salary+2000
+    -> when designation="developer" then salary=salary+1000
+    -> else salary=salary
+    -> end as newsalary;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'when designation="manager" then salary=salary+2000
+when designation="developer" ' at line 2
+mysql> selct ename,desigantion,salary ,case(designation)
+    -> when "manager" then salary+2000
+    -> when "developer" then salary+1000
+    -> else salary
+    -> end as netsalary
+    -> from employers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct ename,desigantion,salary ,case(designation)
+when "manager" then salary+200' at line 1
+mysql> selct ename,desigantion,salary ,case(designation)
+    -> end as evenorodd;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct ename,desigantion,salary ,case(designation)
+end as evenorodd' at line 1
+mysql> select ename,desigantion,salary ,case(designation)
+    -> when "manager" then salary+2000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> select ename,desigantion,salary ,case(designation)
+    -> when "manager" then salary+2000
+    -> when "developer" then salary+1000
+    -> else salary
+    -> end as netsalary;
+ERROR 1054 (42S22): Unknown column 'ename' in 'field list'
+mysql> select ename,desigantion,salary ,case(designation)
+    -> when "manager" then salary+2000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> select ename,desigantion,salary ,case(designation)
+    -> when "manager" then salary+2000
+    -> when "developer" then salary+1000
+    -> else salary
+    -> end as netsalary
+    -> from employees;
+ERROR 1054 (42S22): Unknown column 'desigantion' in 'field list'
+mysql> select ename,designation,salary ,case(designation)
+    -> when "manager" then salary+2000
+    -> when "developer" then salary+1000
+    -> else salary
+    -> end as netsal
+    -> from employees;
++----------+-------------------+--------+--------+
+| ename    | designation       | salary | netsal |
++----------+-------------------+--------+--------+
+| nikhil   | manager           | 120000 | 122000 |
+| nitin    | Manager           |  80000 |  82000 |
+| neha     | programmer        |  50000 |  50000 |
+| vaibhav  | frontdeskoperator |  15000 |  15000 |
+| salman   | assistant         |   5000 |   5000 |
+| jayant   | programmer        |  25000 |  25000 |
+| shahrukh | assistant         |   4000 |   4000 |
+| kiran    | analyst           |  10000 |  10000 |
+| sonali   | developer         |  40000 |  41000 |
+| surabhi  | developer         |  35000 |  36000 |
++----------+-------------------+--------+--------+
+10 rows in set (0.00 sec)
+
+mysql>  selectt ename,gender,case(gender)
+    -> when "m" then ename="mr."+ename
+    -> when "f" then ename="ms."+ename
+    -> end as name
+    -> from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selectt ename,gender,case(gender)
+when "m" then ename="mr."+ename
+when "f" then ' at line 1
+mysql>  select ename,gender,case(gender)
+    -> when "m" then ename="mr."+ename
+    -> when "f" then ename="ms."+ename
+    -> end as name
+    -> from employees;
++----------+--------+------+
+| ename    | gender | name |
++----------+--------+------+
+| nikhil   | m      |    1 |
+| nitin    | m      |    1 |
+| neha     | f      |    1 |
+| vaibhav  | m      |    1 |
+| salman   | m      |    1 |
+| jayant   | m      |    1 |
+| shahrukh | m      |    1 |
+| kiran    | m      |    1 |
+| sonali   | f      |    1 |
+| surabhi  | f      |    1 |
++----------+--------+------+
+10 rows in set, 30 warnings (0.01 sec)
+
+mysql>  select ename,gender,case(gender)
+    -> when "m" then ename="mr."+ename
+    -> when "f" then ename="ms."+ename
+    ->
+    -> end as name varchar(20)
+    -> from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(20)
+from employees' at line 5
+mysql> select ename,gender,case(gender)
+    -> when "m" then concat("Mr ",ename)
+    -> when "f" then concat("Mrs ",ename)
+    -> end as name
+    -> from employees;
++----------+--------+-------------+
+| ename    | gender | name        |
++----------+--------+-------------+
+| nikhil   | m      | Mr nikhil   |
+| nitin    | m      | Mr nitin    |
+| neha     | f      | Mrs neha    |
+| vaibhav  | m      | Mr vaibhav  |
+| salman   | m      | Mr salman   |
+| jayant   | m      | Mr jayant   |
+| shahrukh | m      | Mr shahrukh |
+| kiran    | m      | Mr kiran    |
+| sonali   | f      | Mrs sonali  |
+| surabhi  | f      | Mrs surabhi |
++----------+--------+-------------+
+10 rows in set (0.01 sec)
+
+ ----String functions in mysql---
+mysql> select length("amit");
++----------------+
+| length("amit") |
++----------------+
+|              4 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select length("vishal");
++------------------+
+| length("vishal") |
++------------------+
+|                6 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select ename from employees;
++----------+
+| ename    |
++----------+
+| nikhil   |
+| nitin    |
+| neha     |
+| vaibhav  |
+| salman   |
+| jayant   |
+| shahrukh |
+| kiran    |
+| sonali   |
+| surabhi  |
++----------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,length(ename) from employees;
++----------+---------------+
+| ename    | length(ename) |
++----------+---------------+
+| nikhil   |             6 |
+| nitin    |             5 |
+| neha     |             4 |
+| vaibhav  |             7 |
+| salman   |             6 |
+| jayant   |             6 |
+| shahrukh |             8 |
+| kiran    |             5 |
+| sonali   |             6 |
+| surabhi  |             7 |
++----------+---------------+
+10 rows in set (0.00 sec)
+
+mysql> select upper("amit");
++---------------+
+| upper("amit") |
++---------------+
+| AMIT          |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select upper(ename) as uppercase,ename from employees;
++-----------+----------+
+| uppercase | ename    |
++-----------+----------+
+| NIKHIL    | nikhil   |
+| NITIN     | nitin    |
+| NEHA      | neha     |
+| VAIBHAV   | vaibhav  |
+| SALMAN    | salman   |
+| JAYANT    | jayant   |
+| SHAHRUKH  | shahrukh |
+| KIRAN     | kiran    |
+| SONALI    | sonali   |
+| SURABHI   | surabhi  |
++-----------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select substring("nikhil",2,4);
++-------------------------+
+| substring("nikhil",2,4) |
++-------------------------+
+| ikhi                    |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select substring("Harini",3,4);
++-------------------------+
+| substring("Harini",3,4) |
++-------------------------+
+| rini                    |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select substring("Harini",3,5);
++-------------------------+
+| substring("Harini",3,5) |
++-------------------------+
+| rini                    |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select substring("Harini",3,2);
++-------------------------+
+| substring("Harini",3,2) |
++-------------------------+
+| ri                      |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select substring("Harini","i");
++-------------------------+
+| substring("Harini","i") |
++-------------------------+
+|                         |
++-------------------------+
+1 row in set, 2 warnings (0.00 sec)
+
+mysql> select instr("Harini","i");
++---------------------+
+| instr("Harini","i") |
++---------------------+
+|                   4 |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> select instr("Harini","n");
++---------------------+
+| instr("Harini","n") |
++---------------------+
+|                   5 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select instr("Harini","h");
++---------------------+
+| instr("Harini","h") |
++---------------------+
+|                   1 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat("nikhil",
+    -> "srivastava");
++--------------------------------+
+| concat("nikhil",
+"srivastava") |
++--------------------------------+
+| nikhilsrivastava               |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat("harini","bathini");
++----------------------------+
+| concat("harini","bathini") |
++----------------------------+
+| harinibathini              |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> create table test2(first varchar(20),last varchar(20));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc test2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| first | varchar(20) | YES  |     | NULL    |       |
+| last  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into test2(first,last) values("amit","shah"),("harini","bathini");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from test2;
++--------+---------+
+| first  | last    |
++--------+---------+
+| amit   | shah    |
+| harini | bathini |
++--------+---------+
+2 rows in set (0.00 sec)
+
+mysql> insert into test2(first,last) values("vaibhav","agarwal");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from test2;
++---------+---------+
+| first   | last    |
++---------+---------+
+| amit    | shah    |
+| harini  | bathini |
+| vaibhav | agarwal |
++---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select concat(first," ",last) as name from test2;
++-----------------+
+| name            |
++-----------------+
+| amit shah       |
+| harini bathini  |
+| vaibhav agarwal |
++-----------------+
+3 rows in set (0.00 sec)
+
+mysql> select first,last concat(first," ",last) as name from test2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(first," ",last) as name from test2' at line 1
+mysql> select first,last,concat(first," ",last) as name from test2;
++---------+---------+-----------------+
+| first   | last    | name            |
++---------+---------+-----------------+
+| amit    | shah    | amit shah       |
+| harini  | bathini | harini bathini  |
+| vaibhav | agarwal | vaibhav agarwal |
++---------+---------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> select first,last,concat(upper(substring(first,1),substring(first,2))) from test2;
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'upper'
+mysql> select ename,substring(ename,1,1) from employees;
++----------+----------------------+
+| ename    | substring(ename,1,1) |
++----------+----------------------+
+| nikhil   | n                    |
+| nitin    | n                    |
+| neha     | n                    |
+| vaibhav  | v                    |
+| salman   | s                    |
+| jayant   | j                    |
+| shahrukh | s                    |
+| kiran    | k                    |
+| sonali   | s                    |
+| surabhi  | s                    |
++----------+----------------------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,upper(substring(ename,1,1) from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from employees' at line 1
+mysql> select ename,upper(substring(ename,1,1)) from employees;
++----------+-----------------------------+
+| ename    | upper(substring(ename,1,1)) |
++----------+-----------------------------+
+| nikhil   | N                           |
+| nitin    | N                           |
+| neha     | N                           |
+| vaibhav  | V                           |
+| salman   | S                           |
+| jayant   | J                           |
+| shahrukh | S                           |
+| kiran    | K                           |
+| sonali   | S                           |
+| surabhi  | S                           |
++----------+-----------------------------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,concat(upper(substring(ename,1,1)),substring(ename,2,length(ename))) as initcap from employees;
++----------+----------+
+| ename    | initcap  |
++----------+----------+
+| nikhil   | Nikhil   |
+| nitin    | Nitin    |
+| neha     | Neha     |
+| vaibhav  | Vaibhav  |
+| salman   | Salman   |
+| jayant   | Jayant   |
+| shahrukh | Shahrukh |
+| kiran    | Kiran    |
+| sonali   | Sonali   |
+| surabhi  | Surabhi  |
++----------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select first,last,concat(upper(substring(last,1,1)),".",(substring(first,1,1)),(substring(first,2,length(first))) as name from test2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from test2' at line 1
+mysql> select first,last,concat(upper(substring(last,1,1)),".",(substring(first,1,1)),(substring(first,2,length(first)))) as name from test2;
++---------+---------+-----------+
+| first   | last    | name      |
++---------+---------+-----------+
+| amit    | shah    | S.amit    |
+| harini  | bathini | B.harini  |
+| vaibhav | agarwal | A.vaibhav |
++---------+---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select first,last,concat(upper(substring(last,1,1)),".",upper(substring(first,1,1)),(substring(first,2,length(first)))) as name from test2;
++---------+---------+-----------+
+| first   | last    | name      |
++---------+---------+-----------+
+| amit    | shah    | S.Amit    |
+| harini  | bathini | B.Harini  |
+| vaibhav | agarwal | A.Vaibhav |
++---------+---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> create table test1(name varchar(40));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into test1 values("amit shah"),("anisha mohta"),("kiran tankala");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> desc test1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(40) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from test1;
++---------------+
+| name          |
++---------------+
+| amit shah     |
+| anisha mohta  |
+| kiran tankala |
++---------------+
+3 rows in set (0.00 sec)
+
+mysql> select name,upper(substring(name,1,1)) as sname from test1;
++---------------+-------+
+| name          | sname |
++---------------+-------+
+| amit shah     | A     |
+| anisha mohta  | A     |
+| kiran tankala | K     |
++---------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select name,concat(upper(substring(name,1,1)),".") as sname from test1;
++---------------+-------+
+| name          | sname |
++---------------+-------+
+| amit shah     | A.    |
+| anisha mohta  | A.    |
+| kiran tankala | K.    |
++---------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select name,concat(upper(substring(name,1,1)),".") as sname,substring(name,instr(name," ")+1,length(name)) from test1;
++---------------+-------+------------------------------------------------+
+| name          | sname | substring(name,instr(name," ")+1,length(name)) |
++---------------+-------+------------------------------------------------+
+| amit shah     | A.    | shah                                           |
+| anisha mohta  | A.    | mohta                                          |
+| kiran tankala | K.    | tankala                                        |
++---------------+-------+------------------------------------------------+
+3 rows in set (0.01 sec)
+
+mysql> select name,concat(concat(substring(name,1,1)),"."),substring(name,instr(name," ")+1,length(name)))) as sname from test1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) as sname from test1' at line 1
+mysql> select name,concat(concat(substring(name,1,1)),"."),substring(name,instr(name," ")+1,length(name))) as sname from test1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') as sname from test1' at line 1
+mysql> select name,concat(concat(upper(substring(name,1,1)),"."),substring(name,instr(name," ")+1,length(name))) as sname from test1;
++---------------+-----------+
+| name          | sname     |
++---------------+-----------+
+| amit shah     | A.shah    |
+| anisha mohta  | A.mohta   |
+| kiran tankala | K.tankala |
++---------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql>  select ename from employees;
++----------+
+| ename    |
++----------+
+| nikhil   |
+| nitin    |
+| neha     |
+| vaibhav  |
+| salman   |
+| jayant   |
+| shahrukh |
+| kiran    |
+| sonali   |
+| surabhi  |
++----------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,case((length(ename))%2)
+    -> when 0 then substring(ename,(length(ename))/2,1)
+    -> when 1 then substring(ename,((length(ename))+1)/2)
+    -> end as midalpha
+    -> froom employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'froom employees' at line 5
+mysql> select ename,case((length(ename))%2)
+    -> when 0 then substring(ename,(length(ename))/2,1)
+    -> when 1 then substring(ename,((length(ename))+1)/2)
+    -> end as midalpha
+    -> from employees;
++----------+----------+
+| ename    | midalpha |
++----------+----------+
+| nikhil   | k        |
+| nitin    | tin      |
+| neha     | e        |
+| vaibhav  | bhav     |
+| salman   | l        |
+| jayant   | y        |
+| shahrukh | h        |
+| kiran    | ran      |
+| sonali   | n        |
+| surabhi  | abhi     |
++----------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,case((length(ename))%2)
+    -> when 0 then substring(ename,(length(ename))/2,2)
+    -> when 1 then substring(ename,(length(ename)/2,1)
+    -> end as midalpha
+    -> from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'end as midalpha
+from employees' at line 4
+mysql> select ename,case(length(ename)%2)
+    -> when 0 then substring(ename,length(ename)/2,2)
+    -> when 1 then substring(ename,(length(ename)/2,1)
+    -> end as midalpha
+    -> from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'end as midalpha
+from employees' at line 4
+mysql> select ename,case(length(ename)%2)
+    -> when 0 then substring(ename,length(ename)/2,2)
+    -> when 1 then substring(ename,length(ename)/2,1)
+    -> end as midalpha
+    -> from employees;
++----------+----------+
+| ename    | midalpha |
++----------+----------+
+| nikhil   | kh       |
+| nitin    | t        |
+| neha     | eh       |
+| vaibhav  | b        |
+| salman   | lm       |
+| jayant   | ya       |
+| shahrukh | hr       |
+| kiran    | r        |
+| sonali   | na       |
+| surabhi  | a        |
++----------+----------+
+10 rows in set (0.00 sec)
+
+---ltrim and padding name with *----
+mysql> desc test1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(40) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from test1;
++---------------------------+
+| name                      |
++---------------------------+
+|     krishna               |
+|                  govindha |
+|         madhava           |
+|                     gopal |
++---------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select name,length(name)-length(ltrim(name)) from test1;
++---------------------------+----------------------------------+
+| name                      | length(name)-length(ltrim(name)) |
++---------------------------+----------------------------------+
+|     krishna               |                                4 |
+|                  govindha |                               17 |
+|         madhava           |                                8 |
+|                     gopal |                               20 |
++---------------------------+----------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select name,repeat("*",length(name)-length(ltrim(name))) from test1;
++---------------------------+----------------------------------------------+
+| name                      | repeat("*",length(name)-length(ltrim(name))) |
++---------------------------+----------------------------------------------+
+|     krishna               | ****                                         |
+|                  govindha | *****************                            |
+|         madhava           | ********                                     |
+|                     gopal | ********************                         |
++---------------------------+----------------------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select name,concat((repeat("*",length(name)-length(ltrim(name)))),name) from test1;
++---------------------------+-------------------------------------------------------------+
+| name                      | concat((repeat("*",length(name)-length(ltrim(name)))),name) |
++---------------------------+-------------------------------------------------------------+
+|     krishna               | ****    krishna                                             |
+|                  govindha | *****************                 govindha                  |
+|         madhava           | ********        madhava                                     |
+|                     gopal | ********************                    gopal               |
++---------------------------+-------------------------------------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select name,concat(repeat("*",length(name)-length(ltrim(name))),ltrim(name))as newname from test1;
++---------------------------+---------------------------+
+| name                      | newname                   |
++---------------------------+---------------------------+
+|     krishna               | ****krishna               |
+|                  govindha | *****************govindha |
+|         madhava           | ********madhava           |
+|                     gopal | ********************gopal |
++---------------------------+---------------------------+
+4 rows in set (0.00 sec)
+
+//another method
+mysql> select replace("amit","a","v");
++-------------------------+
+| replace("amit","a","v") |
++-------------------------+
+| vmit                    |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select name,replace(name," ","*") from test1;
++---------------------------+---------------------------+
+| name                      | replace(name," ","*")     |
++---------------------------+---------------------------+
+|     krishna               | ****krishna               |
+|                  govindha | *****************govindha |
+|         madhava           | ********madhava           |
+|                     gopal | ********************gopal |
++---------------------------+---------------------------+
+4 rows in set (0.00 sec)
+
+
+---credit card masking----
+delete from test1;
+Query OK, 4 rows affected (0.01 sec)
+
+mysql> select * from test1;
+Empty set (0.00 sec)
+
+mysql> desc test1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(40) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into test1 values("8343577899678789967");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into test1 values("4343577899678789967");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into test1 values("7894343577899678789967");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from test1;
++------------------------+
+| name                   |
++------------------------+
+| 8343577899678789967    |
+| 4343577899678789967    |
+| 7894343577899678789967 |
++------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select name,length(name)-4 from test1;
++------------------------+----------------+
+| name                   | length(name)-4 |
++------------------------+----------------+
+| 8343577899678789967    |             15 |
+| 4343577899678789967    |             15 |
+| 7894343577899678789967 |             18 |
++------------------------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> select name,repeat("x",length(name)-4) from test1;
++------------------------+----------------------------+
+| name                   | repeat("x",length(name)-4) |
++------------------------+----------------------------+
+| 8343577899678789967    | xxxxxxxxxxxxxxx            |
+| 4343577899678789967    | xxxxxxxxxxxxxxx            |
+| 7894343577899678789967 | xxxxxxxxxxxxxxxxxx         |
++------------------------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select name,repeat("x",length(name)-4),substring(name,length(name)-4+1,length(name)) from test1;
++------------------------+----------------------------+-----------------------------------------------+
+| name                   | repeat("x",length(name)-4) | substring(name,length(name)-4+1,length(name)) |
++------------------------+----------------------------+-----------------------------------------------+
+| 8343577899678789967    | xxxxxxxxxxxxxxx            | 9967                                          |
+| 4343577899678789967    | xxxxxxxxxxxxxxx            | 9967                                          |
+| 7894343577899678789967 | xxxxxxxxxxxxxxxxxx         | 9967                                          |
++------------------------+----------------------------+-----------------------------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select name,concat(repeat("x",length(name)-4),substring(name,length(name)-4+1,length(name))) from test1;
++------------------------+----------------------------------------------------------------------------------+
+| name                   | concat(repeat("x",length(name)-4),substring(name,length(name)-4+1,length(name))) |
++------------------------+----------------------------------------------------------------------------------+
+| 8343577899678789967    | xxxxxxxxxxxxxxx9967                                                              |
+| 4343577899678789967    | xxxxxxxxxxxxxxx9967                                                              |
+| 7894343577899678789967 | xxxxxxxxxxxxxxxxxx9967                                                           |
++------------------------+----------------------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select name,concat(repeat("x",length(name)-4),substring(name,length(name)-4+1,length(name))) as maskedname from test1;
++------------------------+------------------------+
+| name                   | maskedname             |
++------------------------+------------------------+
+| 8343577899678789967    | xxxxxxxxxxxxxxx9967    |
+| 4343577899678789967    | xxxxxxxxxxxxxxx9967    |
+| 7894343577899678789967 | xxxxxxxxxxxxxxxxxx9967 |
++------------------------+------------------------+
+3 rows in set (0.00 sec)
+
+---to update table with column hiredate---
+
+update employees set hiredate="2017-03-05" where eid=3;
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.01 sec)
+
+mysql> select timestampdiff(month,"2014-04-13","2014-19-23");
++------------------------------------------------+
+| timestampdiff(month,"2014-04-13","2014-19-23") |
++------------------------------------------------+
+|                                           NULL |
++------------------------------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> select timestampdiff(month,"2014-04-13","2014-09-23");
++------------------------------------------------+
+| timestampdiff(month,"2014-04-13","2014-09-23") |
++------------------------------------------------+
+|                                              5 |
++------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select timestampdiff(year,"2013-04-13","2014-09-23");
++-----------------------------------------------+
+| timestampdiff(year,"2013-04-13","2014-09-23") |
++-----------------------------------------------+
+|                                             1 |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select timestampdiff(day,"2013-04-13","2014-09-23");
++----------------------------------------------+
+| timestampdiff(day,"2013-04-13","2014-09-23") |
++----------------------------------------------+
+|                                          528 |
++----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select ename,salary,hiredate,timestampdiff(year,hiredate,curdate()) from employees;
++----------+--------+------------+----------------------------------------+
+| ename    | salary | hiredate   | timestampdiff(year,hiredate,curdate()) |
++----------+--------+------------+----------------------------------------+
+| nikhil   | 120000 | 2015-02-05 |                                      7 |
+| nitin    |  80000 | 2013-06-21 |                                      9 |
+| neha     |  50000 | 2017-03-05 |                                      5 |
+| vaibhav  |  15000 | 2017-01-25 |                                      5 |
+| salman   |   5000 | 2017-03-18 |                                      5 |
+| jayant   |  25000 | 2016-04-23 |                                      6 |
+| shahrukh |   4000 | 2016-08-12 |                                      6 |
+| kiran    |  10000 | 2015-04-15 |                                      7 |
+| sonali   |  40000 | 2013-06-19 |                                      9 |
+| surabhi  |  35000 | 2013-05-27 |                                      9 |
++----------+--------+------------+----------------------------------------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,salary,hiredate,timestampdiff(year,hiredate,curdate()) as yearworked from employees;
++----------+--------+------------+------------+
+| ename    | salary | hiredate   | yearworked |
++----------+--------+------------+------------+
+| nikhil   | 120000 | 2015-02-05 |          7 |
+| nitin    |  80000 | 2013-06-21 |          9 |
+| neha     |  50000 | 2017-03-05 |          5 |
+| vaibhav  |  15000 | 2017-01-25 |          5 |
+| salman   |   5000 | 2017-03-18 |          5 |
+| jayant   |  25000 | 2016-04-23 |          6 |
+| shahrukh |   4000 | 2016-08-12 |          6 |
+| kiran    |  10000 | 2015-04-15 |          7 |
+| sonali   |  40000 | 2013-06-19 |          9 |
+| surabhi  |  35000 | 2013-05-27 |          9 |
++----------+--------+------------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2023-01-24 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select ename,salary,hiredate,timestampdiff(year,hiredate,curdate()) as yearworked if(timestampdiff(year,hiredate,curdate())>=1,salary+salary*0.1,salary) as newsal from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'if(timestampdiff(year,hiredate,curdate())>=1,salary+salary*0.1,salary) as newsal' at line 1
+mysql> select ename,salary,hiredate,timestampdiff(year,hiredate,curdate()) as yearworked,if(timestampdiff(year,hiredate,curdate())>=1,salary+salary*0.1,salary) as newsal from employees;
++----------+--------+------------+------------+----------+
+| ename    | salary | hiredate   | yearworked | newsal   |
++----------+--------+------------+------------+----------+
+| nikhil   | 120000 | 2015-02-05 |          7 | 132000.0 |
+| nitin    |  80000 | 2013-06-21 |          9 |  88000.0 |
+| neha     |  50000 | 2017-03-05 |          5 |  55000.0 |
+| vaibhav  |  15000 | 2017-01-25 |          5 |  16500.0 |
+| salman   |   5000 | 2017-03-18 |          5 |   5500.0 |
+| jayant   |  25000 | 2016-04-23 |          6 |  27500.0 |
+| shahrukh |   4000 | 2016-08-12 |          6 |   4400.0 |
+| kiran    |  10000 | 2015-04-15 |          7 |  11000.0 |
+| sonali   |  40000 | 2013-06-19 |          9 |  44000.0 |
+| surabhi  |  35000 | 2013-05-27 |          9 |  38500.0 |
++----------+--------+------------+------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select quarter(curdate());
++--------------------+
+| quarter(curdate()) |
++--------------------+
+|                  1 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select enmae,hiredate from employees;
+ERROR 1054 (42S22): Unknown column 'enmae' in 'field list'
+mysql> select ename,hiredate from employees;
++----------+------------+
+| ename    | hiredate   |
++----------+------------+
+| nikhil   | 2015-02-05 |
+| nitin    | 2013-06-21 |
+| neha     | 2017-03-05 |
+| vaibhav  | 2017-01-25 |
+| salman   | 2017-03-18 |
+| jayant   | 2016-04-23 |
+| shahrukh | 2016-08-12 |
+| kiran    | 2015-04-15 |
+| sonali   | 2013-06-19 |
+| surabhi  | 2013-05-27 |
++----------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,hiredate,case
+    -> when quarter(hiredate)=1 then "1stquarter"
+    -> when quarter(hiredate)=2 then "2ndquarter"
+    -> when quarter(hiredate)=3 then "3rdquarter"
+    -> when quarter(hiredate)=4 then "4thquarter"
+    -> end as hirequarter
+    -> from employees;
++----------+------------+-------------+
+| ename    | hiredate   | hirequarter |
++----------+------------+-------------+
+| nikhil   | 2015-02-05 | 1stquarter  |
+| nitin    | 2013-06-21 | 2ndquarter  |
+| neha     | 2017-03-05 | 1stquarter  |
+| vaibhav  | 2017-01-25 | 1stquarter  |
+| salman   | 2017-03-18 | 1stquarter  |
+| jayant   | 2016-04-23 | 2ndquarter  |
+| shahrukh | 2016-08-12 | 3rdquarter  |
+| kiran    | 2015-04-15 | 2ndquarter  |
+| sonali   | 2013-06-19 | 2ndquarter  |
+| surabhi  | 2013-05-27 | 2ndquarter  |
++----------+------------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2023-01-24 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select dayname(curdate());
++--------------------+
+| dayname(curdate()) |
++--------------------+
+| Tuesday            |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> select dayname(curdate()))
+    -> when "sunday" then "weekend"
+    -> when "saturday" then "weekend"
+    -> else "weekday"
+    -> end as dow;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+when "sunday" then "weekend"
+when "saturday" then "weekend"
+else "weekday"
+end' at line 1
+mysql> select case(dayname(curdate()))
+    -> when "sunday" then "weekend"
+    -> when "saturday" then "weekend"
+    -> else "weekday"
+    -> end as dow;
++---------+
+| dow     |
++---------+
+| weekday |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select * as employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as employees' at line 1
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select extract(month from curdate());
++-------------------------------+
+| extract(month from curdate()) |
++-------------------------------+
+|                             1 |
++-------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select extract(month from hiredate) from employees where ename="jayant";
++------------------------------+
+| extract(month from hiredate) |
++------------------------------+
+|                            4 |
++------------------------------+
+1 row in set (0.01 sec)
+
+mysql> select ename from employees where extract(month from hiredate)=(select extract(month from hiredate) from employees where ename="jayant");
++--------+
+| ename  |
++--------+
+| jayant |
+| kiran  |
++--------+
+2 rows in set (0.01 sec)
+
+mysql> select str_to_date("31-04-17","%d-%m-%y");
++------------------------------------+
+| str_to_date("31-04-17","%d-%m-%y") |
++------------------------------------+
+| 2017-04-31                         |
++------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,salary,commission from employees;
++----------+--------+------------+
+| ename    | salary | commission |
++----------+--------+------------+
+| nikhil   | 120000 |      10000 |
+| nitin    |  80000 |      15000 |
+| neha     |  50000 |       NULL |
+| vaibhav  |  15000 |       3000 |
+| salman   |   5000 |       1000 |
+| jayant   |  25000 |       9000 |
+| shahrukh |   4000 |        500 |
+| kiran    |  10000 |       1500 |
+| sonali   |  40000 |       3500 |
+| surabhi  |  35000 |       3000 |
++----------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,salary,commission from employees;
++----------+--------+------------+
+| ename    | salary | commission |
++----------+--------+------------+
+| nikhil   | 120000 |      10000 |
+| nitin    |  80000 |      15000 |
+| neha     |  50000 |       NULL |
+| vaibhav  |  15000 |       3000 |
+| salman   |   5000 |       1000 |
+| jayant   |  25000 |       9000 |
+| shahrukh |   4000 |        500 |
+| kiran    |  10000 |       1500 |
+| sonali   |  40000 |       3500 |
+| surabhi  |  35000 |       3000 |
++----------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select ename from employees where commission=null;
+Empty set (0.01 sec)
+
+mysql> select ename from employees where commission=null;
+Empty set (0.00 sec)
+
+mysql> select ename from employees where commission is null;
++-------+
+| ename |
++-------+
+| neha  |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select ifnull(3,4);
++-------------+
+| ifnull(3,4) |
++-------------+
+|           3 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select ifnull(null,4);
++----------------+
+| ifnull(null,4) |
++----------------+
+|              4 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select ename,salary,commission,salary+commission as effsal from employees;
++----------+--------+------------+--------+
+| ename    | salary | commission | effsal |
++----------+--------+------------+--------+
+| nikhil   | 120000 |      10000 | 130000 |
+| nitin    |  80000 |      15000 |  95000 |
+| neha     |  50000 |       NULL |   NULL |
+| vaibhav  |  15000 |       3000 |  18000 |
+| salman   |   5000 |       1000 |   6000 |
+| jayant   |  25000 |       9000 |  34000 |
+| shahrukh |   4000 |        500 |   4500 |
+| kiran    |  10000 |       1500 |  11500 |
+| sonali   |  40000 |       3500 |  43500 |
+| surabhi  |  35000 |       3000 |  38000 |
++----------+--------+------------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,salary,commission,salary+ifnull(commission,0) as effsal from employees;
++----------+--------+------------+--------+
+| ename    | salary | commission | effsal |
++----------+--------+------------+--------+
+| nikhil   | 120000 |      10000 | 130000 |
+| nitin    |  80000 |      15000 |  95000 |
+| neha     |  50000 |       NULL |  50000 |
+| vaibhav  |  15000 |       3000 |  18000 |
+| salman   |   5000 |       1000 |   6000 |
+| jayant   |  25000 |       9000 |  34000 |
+| shahrukh |   4000 |        500 |   4500 |
+| kiran    |  10000 |       1500 |  11500 |
+| sonali   |  40000 |       3500 |  43500 |
+| surabhi  |  35000 |       3000 |  38000 |
++----------+--------+------------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select if(2>1,"aaa","bbb");
++---------------------+
+| if(2>1,"aaa","bbb") |
++---------------------+
+| aaa                 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select ename,salary,commissiion,salary+ifnull(commission,0) as effsal, if(commission is null,"sal","sal+comm") from employees;
+ERROR 1054 (42S22): Unknown column 'commissiion' in 'field list'
+mysql> select ename,salary,commission,salary+ifnull(commission,0) as effsal, if(commission is null,"sal","sal+comm") from employees;
++----------+--------+------------+--------+-----------------------------------------+
+| ename    | salary | commission | effsal | if(commission is null,"sal","sal+comm") |
++----------+--------+------------+--------+-----------------------------------------+
+| nikhil   | 120000 |      10000 | 130000 | sal+comm                                |
+| nitin    |  80000 |      15000 |  95000 | sal+comm                                |
+| neha     |  50000 |       NULL |  50000 | sal                                     |
+| vaibhav  |  15000 |       3000 |  18000 | sal+comm                                |
+| salman   |   5000 |       1000 |   6000 | sal+comm                                |
+| jayant   |  25000 |       9000 |  34000 | sal+comm                                |
+| shahrukh |   4000 |        500 |   4500 | sal+comm                                |
+| kiran    |  10000 |       1500 |  11500 | sal+comm                                |
+| sonali   |  40000 |       3500 |  43500 | sal+comm                                |
+| surabhi  |  35000 |       3000 |  38000 | sal+comm                                |
++----------+--------+------------+--------+-----------------------------------------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,salary,commission,salary+ifnull(commission,0) as effsal, if(commission is null,"sal","sal+comm") as salcomp from employees;
++----------+--------+------------+--------+----------+
+| ename    | salary | commission | effsal | salcomp  |
++----------+--------+------------+--------+----------+
+| nikhil   | 120000 |      10000 | 130000 | sal+comm |
+| nitin    |  80000 |      15000 |  95000 | sal+comm |
+| neha     |  50000 |       NULL |  50000 | sal      |
+| vaibhav  |  15000 |       3000 |  18000 | sal+comm |
+| salman   |   5000 |       1000 |   6000 | sal+comm |
+| jayant   |  25000 |       9000 |  34000 | sal+comm |
+| shahrukh |   4000 |        500 |   4500 | sal+comm |
+| kiran    |  10000 |       1500 |  11500 | sal+comm |
+| sonali   |  40000 |       3500 |  43500 | sal+comm |
+| surabhi  |  35000 |       3000 |  38000 | sal+comm |
++----------+--------+------------+--------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> seelct * from departments;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seelct * from departments' at line 1
+mysql> seelct * from empdepartments;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seelct * from empdepartments' at line 1
+mysql> show tables;
++----------------------------+
+| Tables_in_coditas_java     |
++----------------------------+
+| customer                   |
+| customer2                  |
+| customer3                  |
+| departments                |
+| empdepartments             |
+| employee                   |
+| employees                  |
+| etutstudent                |
+| facebook                   |
+| facebook_user_registration |
+| javastudent                |
+| person                     |
+| student                    |
+| student1                   |
+| student2                   |
+| student3                   |
+| studentdata                |
+| studentdata2               |
+| students                   |
+| te_javastudent             |
+| test1                      |
+| test2                      |
++----------------------------+
+22 rows in set (0.00 sec)
+
+mysql> select * from empdepartments;
++--------+-----------+----------+
+| deptid | dname     | city     |
++--------+-----------+----------+
+|     10 | sales     | mumbai   |
+|     20 | marketing | banglore |
+|     30 | finance   | chennai  |
++--------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select upper(name) from employees;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select upper(ename) from employees;
++--------------+
+| upper(ename) |
++--------------+
+| NIKHIL       |
+| NITIN        |
+| NEHA         |
+| VAIBHAV      |
+| SALMAN       |
+| JAYANT       |
+| SHAHRUKH     |
+| KIRAN        |
+| SONALI       |
+| SURABHI      |
++--------------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,upper(ename) from employees;
++----------+--------------+
+| ename    | upper(ename) |
++----------+--------------+
+| nikhil   | NIKHIL       |
+| nitin    | NITIN        |
+| neha     | NEHA         |
+| vaibhav  | VAIBHAV      |
+| salman   | SALMAN       |
+| jayant   | JAYANT       |
+| shahrukh | SHAHRUKH     |
+| kiran    | KIRAN        |
+| sonali   | SONALI       |
+| surabhi  | SURABHI      |
++----------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,upper(ename),length(ename) from employees;
++----------+--------------+---------------+
+| ename    | upper(ename) | length(ename) |
++----------+--------------+---------------+
+| nikhil   | NIKHIL       |             6 |
+| nitin    | NITIN        |             5 |
+| neha     | NEHA         |             4 |
+| vaibhav  | VAIBHAV      |             7 |
+| salman   | SALMAN       |             6 |
+| jayant   | JAYANT       |             6 |
+| shahrukh | SHAHRUKH     |             8 |
+| kiran    | KIRAN        |             5 |
+| sonali   | SONALI       |             6 |
+| surabhi  | SURABHI      |             7 |
++----------+--------------+---------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from empdepartments;
++--------+-----------+----------+
+| deptid | dname     | city     |
++--------+-----------+----------+
+|     10 | sales     | mumbai   |
+|     20 | marketing | banglore |
+|     30 | finance   | chennai  |
++--------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select count(*) from employees;
++----------+
+| count(*) |
++----------+
+|       10 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select sum(salary) from employees;
++-------------+
+| sum(salary) |
++-------------+
+|      384000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) from employees;
++-------------+
+| min(salary) |
++-------------+
+|        4000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from employees;
++-------------+
+| max(salary) |
++-------------+
+|      120000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) from employees;
++-------------+
+| avg(salary) |
++-------------+
+|  38400.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> selct max(salary) as maxsal ,min(salary) as minsal from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct max(salary) as maxsal ,min(salary) as minsal from employees' at line 1
+mysql> select max(salary) as maxsal ,min(salary) as minsal,abg(salary) as avgsal from employees;
+ERROR 1305 (42000): FUNCTION coditas_java.abg does not exist
+mysql> select max(salary) as maxsal ,min(salary) as minsal,avg(salary) as avgsal from employees;
++--------+--------+------------+
+| maxsal | minsal | avgsal     |
++--------+--------+------------+
+| 120000 |   4000 | 38400.0000 |
++--------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> seelct max(salary) from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seelct max(salary) from employees' at line 1
+mysql> select max(salary) from employees;
++-------------+
+| max(salary) |
++-------------+
+|      120000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from employees where designation="manager";
++-------------+
+| max(salary) |
++-------------+
+|      120000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from employees where designation="developer";
++-------------+
+| max(salary) |
++-------------+
+|       40000 |
++-------------+
+1 row in set (0.00 sec)
+
+
+mysql> select min(salary) from employees where designation="developer";
++-------------+
+| min(salary) |
++-------------+
+|       35000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select count(*) from employees where salary between 40000 and 90000;
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from employees;
++----------+
+| count(*) |
++----------+
+|       10 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(ename) from employees;
++--------------+
+| count(ename) |
++--------------+
+|           10 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select count(salary) from employees;
++---------------+
+| count(salary) |
++---------------+
+|            10 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select count(commission) from employees;
++-------------------+
+| count(commission) |
++-------------------+
+|                 9 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> seelct max(commission) from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seelct max(commission) from employees' at line 1
+mysql> select max(commission) from employees;
++-----------------+
+| max(commission) |
++-----------------+
+|           15000 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(commission) from employees;
++-----------------+
+| sum(commission) |
++-----------------+
+|           46500 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from employees where commission=null;
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from employees where commission is null;
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> seelct ename,hiredate from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seelct ename,hiredate from employees' at line 1
+mysql> select ename,hiredate from employees;
++----------+------------+
+| ename    | hiredate   |
++----------+------------+
+| nikhil   | 2015-02-05 |
+| nitin    | 2013-06-21 |
+| neha     | 2017-03-05 |
+| vaibhav  | 2017-01-25 |
+| salman   | 2017-03-18 |
+| jayant   | 2016-04-23 |
+| shahrukh | 2016-08-12 |
+| kiran    | 2015-04-15 |
+| sonali   | 2013-06-19 |
+| surabhi  | 2013-05-27 |
++----------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,hiredate,extract(year from hiredate) as yearhired from employees;
++----------+------------+-----------+
+| ename    | hiredate   | yearhired |
++----------+------------+-----------+
+| nikhil   | 2015-02-05 |      2015 |
+| nitin    | 2013-06-21 |      2013 |
+| neha     | 2017-03-05 |      2017 |
+| vaibhav  | 2017-01-25 |      2017 |
+| salman   | 2017-03-18 |      2017 |
+| jayant   | 2016-04-23 |      2016 |
+| shahrukh | 2016-08-12 |      2016 |
+| kiran    | 2015-04-15 |      2015 |
+| sonali   | 2013-06-19 |      2013 |
+| surabhi  | 2013-05-27 |      2013 |
++----------+------------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select count(*) from employees where extract(year from hiredate)=2017;
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select ename,salary,commission from employees;
++----------+--------+------------+
+| ename    | salary | commission |
++----------+--------+------------+
+| nikhil   | 120000 |      10000 |
+| nitin    |  80000 |      15000 |
+| neha     |  50000 |       NULL |
+| vaibhav  |  15000 |       3000 |
+| salman   |   5000 |       1000 |
+| jayant   |  25000 |       9000 |
+| shahrukh |   4000 |        500 |
+| kiran    |  10000 |       1500 |
+| sonali   |  40000 |       3500 |
+| surabhi  |  35000 |       3000 |
++----------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select ename,salary,commission,hiredate from employees;
++----------+--------+------------+------------+
+| ename    | salary | commission | hiredate   |
++----------+--------+------------+------------+
+| nikhil   | 120000 |      10000 | 2015-02-05 |
+| nitin    |  80000 |      15000 | 2013-06-21 |
+| neha     |  50000 |       NULL | 2017-03-05 |
+| vaibhav  |  15000 |       3000 | 2017-01-25 |
+| salman   |   5000 |       1000 | 2017-03-18 |
+| jayant   |  25000 |       9000 | 2016-04-23 |
+| shahrukh |   4000 |        500 | 2016-08-12 |
+| kiran    |  10000 |       1500 | 2015-04-15 |
+| sonali   |  40000 |       3500 | 2013-06-19 |
+| surabhi  |  35000 |       3000 | 2013-05-27 |
++----------+--------+------------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2023-01-24 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select ename,hiredate,timestampdiff(year,hiredate,curdate()) from employees;
++----------+------------+----------------------------------------+
+| ename    | hiredate   | timestampdiff(year,hiredate,curdate()) |
++----------+------------+----------------------------------------+
+| nikhil   | 2015-02-05 |                                      7 |
+| nitin    | 2013-06-21 |                                      9 |
+| neha     | 2017-03-05 |                                      5 |
+| vaibhav  | 2017-01-25 |                                      5 |
+| salman   | 2017-03-18 |                                      5 |
+| jayant   | 2016-04-23 |                                      6 |
+| shahrukh | 2016-08-12 |                                      6 |
+| kiran    | 2015-04-15 |                                      7 |
+| sonali   | 2013-06-19 |                                      9 |
+| surabhi  | 2013-05-27 |                                      9 |
++----------+------------+----------------------------------------+
+10 rows in set (0.00 sec)
+
+mysql> seelct sum(commission) from employees where timestampdiff(year,hiredate,curdate())>=1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seelct sum(commission) from employees where timestampdiff(year,hiredate,curdate(' at line 1
+mysql> select sum(commission) from employees where timestampdiff(year,hiredate,curdate())>=1;
++-----------------+
+| sum(commission) |
++-----------------+
+|           46500 |
++-----------------+
+1 row in set (0.01 sec)
+
+mysql> select ename,commission from employees where timestampdiff(year,hiredate,curdate())>=1;
++----------+------------+
+| ename    | commission |
++----------+------------+
+| nikhil   |      10000 |
+| nitin    |      15000 |
+| neha     |       NULL |
+| vaibhav  |       3000 |
+| salman   |       1000 |
+| jayant   |       9000 |
+| shahrukh |        500 |
+| kiran    |       1500 |
+| sonali   |       3500 |
+| surabhi  |       3000 |
++----------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select deptid,designation from employees;
++--------+-------------------+
+| deptid | designation       |
++--------+-------------------+
+|     10 | manager           |
+|     10 | Manager           |
+|     20 | programmer        |
+|     20 | frontdeskoperator |
+|     30 | assistant         |
+|     20 | programmer        |
+|     30 | assistant         |
+|     20 | analyst           |
+|     20 | developer         |
+|     20 | developer         |
++--------+-------------------+
+10 rows in set (0.00 sec)
+
+mysql> select count(deptid,designation) from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',designation) from employees' at line 1
+mysql> select count(distinct deptid,designation) from employees;
++------------------------------------+
+| count(distinct deptid,designation) |
++------------------------------------+
+|                                  6 |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select count(*) from employees where gender="m";
++----------+
+| count(*) |
++----------+
+|        7 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from employees where gender="f";
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select
+    -> sum(case(gender) when "m" then 1 else 0 end) as males,
+    -> sum(case(gender) when "f" then 1 else 0 end) as females
+    -> from employees;
++-------+---------+
+| males | females |
++-------+---------+
+|     7 |       3 |
++-------+---------+
+1 row in set (0.00 sec)
+
+mysql> select
+    -> sum(case(extract(year from hiredate)) when 2017 then 1 else 0 end) as 2017,
+    -> sum(case(extract(year from hiredate)) when 2016 then 1 else 0 end) as 2016,
+    -> sum(case(extract(year from hiredate)) when 2016 then 1 else 0 end) as 2015,
+    -> sum(case(extract(year from hiredate)) when 2016 then 1 else 0 end) as 2013
+    -> from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2017,
+sum(case(extract(year from hiredate)) when 2016 then 1 else 0 end) as 2016' at line 2
+mysql> select case(extract(year from hiredate)) when 2017 then 1 else 0 end from employees;
++---------------------------------------------------------------+
+| case(extract(year from hiredate)) when 2017 then 1 else 0 end |
++---------------------------------------------------------------+
+|                                                             0 |
+|                                                             0 |
+|                                                             1 |
+|                                                             1 |
+|                                                             1 |
+|                                                             0 |
+|                                                             0 |
+|                                                             0 |
+|                                                             0 |
+|                                                             0 |
++---------------------------------------------------------------+
+10 rows in set (0.00 sec)
+
+mysql> select
+    -> sum(case(extract(year from hiredate)) when 2017 then 1 else 0 end) as "2017",
+    -> sum(case(extract(year from hiredate)) when 2016 then 1 else 0 end) as "2016",
+    -> sum(case(extract(year from hiredate)) when 2015 then 1 else 0 end) as "2015",
+    -> sum(case(extract(year from hiredate)) when 2013 then 1 else 0 end) as "2013",
+    -> from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from employees' at line 6
+mysql> select
+    -> sum(case(extract(year from hiredate)) when 2017 then 1 else 0 end) as "2017",
+    -> sum(case(extract(year from hiredate)) when 2015 then 1 else 0 end) as "2015",
+    -> sum(case(extract(year from hiredate)) when 2016 then 1 else 0 end) as "2016",
+    -> sum(case(extract(year from hiredate)) when 2013 then 1 else 0 end) as "2013"
+    -> from employees;
++------+------+------+------+
+| 2017 | 2015 | 2016 | 2013 |
++------+------+------+------+
+|    3 |    2 |    2 |    3 |
++------+------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select count(*) from employees where deptid=10;
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from employees where deptid=10;
++-------------+
+| sum(salary) |
++-------------+
+|      200000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from employees where deptid=10;
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from employees where deptid=20;
++----------+
+| count(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from employees where deptid=30;
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select count(*),deptid
+    -> from employees
+    -> group by deptid;
++----------+--------+
+| count(*) | deptid |
++----------+--------+
+|        2 |     10 |
+|        6 |     20 |
+|        2 |     30 |
++----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> seelct deptid,count(*) as numemployees
+    -> from employees
+    -> group by deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seelct deptid,count(*) as numemployees
+from employees
+group by deptid' at line 1
+mysql> select deptid,count(*) as numemployees
+    -> from employees
+    -> group by deptid;
++--------+--------------+
+| deptid | numemployees |
++--------+--------------+
+|     10 |            2 |
+|     20 |            6 |
+|     30 |            2 |
++--------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> seelct distinct deptid from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seelct distinct deptid from employees' at line 1
+mysql> select distinct deptid from employees;
++--------+
+| deptid |
++--------+
+|     10 |
+|     20 |
+|     30 |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employees gropu by deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by deptid' at line 1
+mysql> select * from employees group by deptid;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'coditas_java.employees.eid' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select * from employees group by deptid;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'coditas_java.employees.eid' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select * from employees group by deptid;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'coditas_java.employees.eid' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select * from employees group by deptid;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'coditas_java.employees.eid' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+
+mysql> select * from employees order by deptid;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select deptid,count(*) as numemployee
+    -> from employees
+    -> group by deptid;
++--------+-------------+
+| deptid | numemployee |
++--------+-------------+
+|     10 |           2 |
+|     20 |           6 |
+|     30 |           2 |
++--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> seelct deptid,max(salary)
+    -> from employees
+    -> group by deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seelct deptid,max(salary)
+from employees
+group by deptid' at line 1
+mysql> select deptid,max(salary)
+    -> from employees
+    -> group by deptid;
++--------+-------------+
+| deptid | max(salary) |
++--------+-------------+
+|     10 |      120000 |
+|     20 |       50000 |
+|     30 |        5000 |
++--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select deptid,max(salary) as maxsal,min(salary) as minsal,avg(salary) as avgsal
+    -> from employees
+    -> group by deptid;
++--------+--------+--------+-------------+
+| deptid | maxsal | minsal | avgsal      |
++--------+--------+--------+-------------+
+|     10 | 120000 |  80000 | 100000.0000 |
+|     20 |  50000 |  10000 |  29166.6667 |
+|     30 |   5000 |   4000 |   4500.0000 |
++--------+--------+--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select designation,avg(salary)
+    -> from employees
+    -> group by designation;
++-------------------+-------------+
+| designation       | avg(salary) |
++-------------------+-------------+
+| manager           | 100000.0000 |
+| programmer        |  37500.0000 |
+| frontdeskoperator |  15000.0000 |
+| assistant         |   4500.0000 |
+| analyst           |  10000.0000 |
+| developer         |  37500.0000 |
++-------------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employees order by designation;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.01 sec)
+
+mysql> select * from employees order by hiredate;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select extract(year from hiredate),count(*)
+    -> from employees
+    -> group by extrcat(year from hiredate);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from hiredate)' at line 3
+mysql> select extract(year from hiredate),count(*)
+    -> from employees
+    -> group by extract(year from hiredate);
++-----------------------------+----------+
+| extract(year from hiredate) | count(*) |
++-----------------------------+----------+
+|                        2015 |        2 |
+|                        2013 |        3 |
+|                        2017 |        3 |
+|                        2016 |        2 |
++-----------------------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select extract(year from hiredate) as yearh,count(*)
+    -> from employees
+    -> group by yearh;
++-------+----------+
+| yearh | count(*) |
++-------+----------+
+|  2015 |        2 |
+|  2013 |        3 |
+|  2017 |        3 |
+|  2016 |        2 |
++-------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from empdepartments;
++--------+-----------+----------+
+| deptid | dname     | city     |
++--------+-----------+----------+
+|     10 | sales     | mumbai   |
+|     20 | marketing | banglore |
+|     30 | finance   | chennai  |
++--------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select deptid,count(*)
+    -> from employees
+    -> group by deptid;
++--------+----------+
+| deptid | count(*) |
++--------+----------+
+|     10 |        2 |
+|     20 |        6 |
+|     30 |        2 |
++--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employees order by deptid;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select deptid,count(*)
+    -> from employees
+    -> where deptid in(10,20)
+    -> group by deptid;
++--------+----------+
+| deptid | count(*) |
++--------+----------+
+|     10 |        2 |
+|     20 |        6 |
++--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select designation,avg(salary)
+    -> from employees
+    -> group by designation;
++-------------------+-------------+
+| designation       | avg(salary) |
++-------------------+-------------+
+| manager           | 100000.0000 |
+| programmer        |  37500.0000 |
+| frontdeskoperator |  15000.0000 |
+| assistant         |   4500.0000 |
+| analyst           |  10000.0000 |
+| developer         |  37500.0000 |
++-------------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select designation,avg(salary)
+    -> from employees
+    -> where designation in("manager","developer","analyst")
+    -> group by designation;
++-------------+-------------+
+| designation | avg(salary) |
++-------------+-------------+
+| manager     | 100000.0000 |
+| analyst     |  10000.0000 |
+| developer   |  37500.0000 |
++-------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from empployees order by designation;
+ERROR 1146 (42S02): Table 'coditas_java.empployees' doesn't exist
+mysql> select * from employees order by designation;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select deptid,count(*)
+    -> from employees
+    -> group by deptid;
++--------+----------+
+| deptid | count(*) |
++--------+----------+
+|     10 |        2 |
+|     20 |        6 |
+|     30 |        2 |
++--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select deptid,count(*)
+    -> from employees
+    -> group by deptid;
++--------+----------+
+| deptid | count(*) |
++--------+----------+
+|     10 |        2 |
+|     20 |        6 |
+|     30 |        2 |
++--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select deptid,salary,count(*)
+    -> from employees
+    -> group by deptid;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'coditas_java.employees.salary' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select deptid,salary,count(*)
+    -> from employees
+    -> group by deptid;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'coditas_java.employees.salary' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select * from employees order by deptid;
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+| eid | ename    | deptid | salary | commission | designation       | ngrid | gender | hiredate   |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+|   1 | nikhil   |     10 | 120000 |      10000 | manager           |  NULL | m      | 2015-02-05 |
+|   2 | nitin    |     10 |  80000 |      15000 | Manager           |  NULL | m      | 2013-06-21 |
+|   3 | neha     |     20 |  50000 |       NULL | programmer        |     1 | f      | 2017-03-05 |
+|   4 | vaibhav  |     20 |  15000 |       3000 | frontdeskoperator |     1 | m      | 2017-01-25 |
+|   6 | jayant   |     20 |  25000 |       9000 | programmer        |     1 | m      | 2016-04-23 |
+|   8 | kiran    |     20 |  10000 |       1500 | analyst           |     3 | m      | 2015-04-15 |
+|   9 | sonali   |     20 |  40000 |       3500 | developer         |     2 | f      | 2013-06-19 |
+|  10 | surabhi  |     20 |  35000 |       3000 | developer         |     2 | f      | 2013-05-27 |
+|   5 | salman   |     30 |   5000 |       1000 | assistant         |     1 | m      | 2017-03-18 |
+|   7 | shahrukh |     30 |   4000 |        500 | assistant         |     2 | m      | 2016-08-12 |
++-----+----------+--------+--------+------------+-------------------+-------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

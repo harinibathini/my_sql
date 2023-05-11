@@ -1,0 +1,298 @@
+
+(1) ,(2)
+mysql> create table evalstudent1(sid int,name varchar(20),age int,course varchar(10),city varchar(20),year varchar(3),percentage int);
+Query OK, 0 rows affected (0.10 sec)
+mysql> alter table evalstudent1 add primary key(sid);
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> create table evalteacher1(tid int,name varchar(20),age int,course varchar(10),city varchar(20),subject_expert varchar(20),year_of_experience int,primary key(tid));
+mysql> alter table evalteacher1 add column sid int;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table evalteacher1 add foreign key(sid) references evalstudent1(sid);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0mysql> insert into evalstudent1(sid,name,age,course,city,year,percentage) values(1,"Aman",22,"python","ahmedabad","3rd",91),(2,"sanjay",24,"devops","banglore","3rd",82),(3,"harsh",22,"java","pune","1st",70);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into evalstudent1(sid,name,age,course,city,year,percentage) values(4,"Ayush",21,"java","pune","1st",90);
+Query OK, 1 row affected (0.01 sec)
+mysql> insert into evalstudent1(sid,name,age,course,city,year,percentage) values(5,"Aditi",23,"java","mumbai","3rd",85);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into evalstudent1(sid,name,age,course,city,year,percentage) values(6,"sruti",32,"ds","ahmedabad","2nd",50),(7,"likith",24,"java","mumbai","3rd",65),(8,"veer",22,"devops","hyderabad","1st",81);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from evalstudent1;
++-----+--------+------+--------+-----------+------+------------+
+| sid | name   | age  | course | city      | year | percentage |
++-----+--------+------+--------+-----------+------+------------+
+|   1 | Aman   |   22 | python | ahmedabad | 3rd  |         91 |
+|   2 | sanjay |   24 | devops | banglore  | 3rd  |         82 |
+|   3 | harsh  |   22 | java   | pune      | 1st  |         70 |
+|   4 | Ayush  |   21 | java   | pune      | 1st  |         90 |
+|   5 | Aditi  |   23 | java   | mumbai    | 3rd  |         85 |
+|   6 | sruti  |   32 | ds     | ahmedabad | 2nd  |         50 |
+|   7 | likith |   24 | java   | mumbai    | 3rd  |         65 |
+|   8 | veer   |   22 | devops | hyderabad | 1st  |         81 |
++-----+--------+------+--------+-----------+------+------------+
+mysql>  insert into evalteacher1(tid,name,age,course,city,subject_expert,year_of_experience,sid) values(("leela",42,"java","mumbai","java",6),("virat",33,"devops","hyderabad","python",8),("shanti",29,"python","pune","python",2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql>  insert into evalteacher1(tid,name,age,course,city,subject_expert,year_of_experience,sid) values(2,"leela",42,"java","mumbai","java",6,2),(3,"virat",33,"devops","hyderabad","python",8,3);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql>  insert into evalteacher1(tid,name,age,course,city,subject_expert,year_of_experience,sid) values(4,"shanti",29,"python","pune","python",2,4);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  insert into evalteacher1(tid,name,age,course,city,subject_expert,year_of_experience,sid) values(5,"mani",31,"ds","mumbai","python",5,5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  insert into evalteacher1(tid,name,age,course,city,subject_expert,year_of_experience,sid) values(6,"adi",40,"java","ahmedabad","java",3,6),(7,"vikram",36,"devops","mumbai","python",4,7),(8,"sita",30,"ds","ahmedabad","ds",4,8);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from evalteacher1;
++-----+--------+------+--------+-----------+----------------+--------------------+------+
+| tid | name   | age  | course | city      | subject_expert | year_of_experience | sid  |
++-----+--------+------+--------+-----------+----------------+--------------------+------+
+|   1 | Amit   |   32 | ds     | ahmedabad | python         |                  5 |    1 |
+|   2 | leela  |   42 | java   | mumbai    | java           |                  6 |    2 |
+|   3 | virat  |   33 | devops | hyderabad | python         |                  8 |    3 |
+|   4 | shanti |   29 | python | pune      | python         |                  2 |    4 |
+|   5 | mani   |   31 | ds     | mumbai    | python         |                  5 |    5 |
+|   6 | adi    |   40 | java   | ahmedabad | java           |                  3 |    6 |
+|   7 | vikram |   36 | devops | mumbai    | python         |                  4 |    7 |
+|   8 | sita   |   30 | ds     | ahmedabad | ds             |                  4 |    8 |
++-----+--------+------+--------+-----------+----------------+--------------------+------+
+8 rows in set (0.00 sec)
+
+(3)
+mysql> select sid,name,age,course as subject,city,year,percentage from evalstudent1;
++-----+--------+------+---------+-----------+------+------------+
+| sid | name   | age  | subject | city      | year | percentage |
++-----+--------+------+---------+-----------+------+------------+
+|   1 | Aman   |   22 | python  | ahmedabad | 3rd  |         91 |
+|   2 | sanjay |   24 | devops  | banglore  | 3rd  |         82 |
+|   3 | harsh  |   22 | java    | pune      | 1st  |         70 |
+|   4 | Ayush  |   21 | java    | pune      | 1st  |         90 |
+|   5 | Aditi  |   23 | java    | mumbai    | 3rd  |         85 |
+|   6 | sruti  |   32 | ds      | ahmedabad | 2nd  |         50 |
+|   7 | likith |   24 | java    | mumbai    | 3rd  |         65 |
+|   8 | veer   |   22 | devops  | hyderabad | 1st  |         81 |
++-----+--------+------+---------+-----------+------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select tid,name,age,course as subject,city,subject_expert,year_of_experience,sid from evalteacher1;
++-----+--------+------+---------+-----------+----------------+--------------------+------+
+| tid | name   | age  | subject | city      | subject_expert | year_of_experience | sid  |
++-----+--------+------+---------+-----------+----------------+--------------------+------+
+|   1 | Amit   |   32 | ds      | ahmedabad | python         |                  5 |    1 |
+|   2 | leela  |   42 | java    | mumbai    | java           |                  6 |    2 |
+|   3 | virat  |   33 | devops  | hyderabad | python         |                  8 |    3 |
+|   4 | shanti |   29 | python  | pune      | python         |                  2 |    4 |
+|   5 | mani   |   31 | ds      | mumbai    | python         |                  5 |    5 |
+|   6 | adi    |   40 | java    | ahmedabad | java           |                  3 |    6 |
+|   7 | vikram |   36 | devops  | mumbai    | python         |                  4 |    7 |
+|   8 | sita   |   30 | ds      | ahmedabad | ds             |                  4 |    8 |
++-----+--------+------+---------+-----------+----------------+--------------------+------+
+8 rows in set (0.00 sec)
+
+(4)
+mysql> create table bkup_student1 like evalstudent1;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc bkup_student1;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| sid        | int         | NO   | PRI | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
+| course     | varchar(10) | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| year       | varchar(3)  | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> create table bkup_teacher1 like evalteacher1;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc bkup_teacher1;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| tid                | int         | NO   | PRI | NULL    |       |
+| name               | varchar(20) | YES  |     | NULL    |       |
+| age                | int         | YES  |     | NULL    |       |
+| course             | varchar(10) | YES  |     | NULL    |       |
+| city               | varchar(20) | YES  |     | NULL    |       |
+| subject_expert     | varchar(20) | YES  |     | NULL    |       |
+| year_of_experience | int         | YES  |     | NULL    |       |
+| sid                | int         | YES  | MUL | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+(5)
+
+mysql> select * from evalstudent1 where city in("pune","mumbai");
++-----+--------+------+--------+--------+------+------------+
+| sid | name   | age  | course | city   | year | percentage |
++-----+--------+------+--------+--------+------+------------+
+|   3 | harsh  |   22 | java   | pune   | 1st  |         70 |
+|   4 | Ayush  |   21 | java   | pune   | 1st  |         90 |
+|   5 | Aditi  |   23 | java   | mumbai | 3rd  |         85 |
+|   7 | likith |   24 | java   | mumbai | 3rd  |         65 |
++-----+--------+------+--------+--------+------+------------+
+4 rows in set (0.00 sec)
+
+(6)
+mysql> select * from evalteacher1 where(city="ahmedabad" and name like "a%");
++-----+------+------+--------+-----------+----------------+--------------------+------+
+| tid | name | age  | course | city      | subject_expert | year_of_experience | sid  |
++-----+------+------+--------+-----------+----------------+--------------------+------+
+|   1 | Amit |   32 | ds     | ahmedabad | python         |                  5 |    1 |
+|   6 | adi  |   40 | java   | ahmedabad | java           |                  3 |    6 |
++-----+------+------+--------+-----------+----------------+--------------------+------+
+2 rows in set (0.00 sec)
+
+(7)
+mysql> select * from evalteacher1 where year_of_experience >=4;
++-----+--------+------+--------+-----------+----------------+--------------------+------+
+| tid | name   | age  | course | city      | subject_expert | year_of_experience | sid  |
++-----+--------+------+--------+-----------+----------------+--------------------+------+
+|   1 | Amit   |   32 | ds     | ahmedabad | python         |                  5 |    1 |
+|   2 | leela  |   42 | java   | mumbai    | java           |                  6 |    2 |
+|   3 | virat  |   33 | devops | hyderabad | python         |                  8 |    3 |
+|   5 | mani   |   31 | ds     | mumbai    | python         |                  5 |    5 |
+|   7 | vikram |   36 | devops | mumbai    | python         |                  4 |    7 |
+|   8 | sita   |   30 | ds     | ahmedabad | ds             |                  4 |    8 |
++-----+--------+------+--------+-----------+----------------+--------------------+------+
+6 rows in set (0.00 sec)
+
+(8)
+
+mysql> select count(*) from evalstudent1 where city="pune";
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from evalstudent1 where city="mumbai";
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> create table backups1 like evalstudent1;
+Query OK, 0 rows affected (0.07 sec)
+
+(10)
+mysql> desc backups1;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| sid        | int         | NO   | PRI | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
+| course     | varchar(10) | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| year       | varchar(3)  | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> create table backupt1 like evalteacher1;
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> desc backupt1;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| tid                | int         | NO   | PRI | NULL    |       |
+| name               | varchar(20) | YES  |     | NULL    |       |
+| age                | int         | YES  |     | NULL    |       |
+| course             | varchar(10) | YES  |     | NULL    |       |
+| city               | varchar(20) | YES  |     | NULL    |       |
+| subject_expert     | varchar(20) | YES  |     | NULL    |       |
+| year_of_experience | int         | YES  |     | NULL    |       |
+| sid                | int         | YES  | MUL | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+(9)
+
+mysql> select es.percentage,et.year_of_experience from evalstudent1 es inner join evalteacher1 as et where (es.percentage>70 and et.year_of_experience>3 and es.sid!=et.sid);
++------------+--------------------+
+| percentage | year_of_experience |
++------------+--------------------+
+|         81 |                  5 |
+|         85 |                  5 |
+|         90 |                  5 |
+|         82 |                  5 |
+|         81 |                  6 |
+|         85 |                  6 |
+|         90 |                  6 |
+|         91 |                  6 |
+|         81 |                  8 |
+|         85 |                  8 |
+|         90 |                  8 |
+|         82 |                  8 |
+|         91 |                  8 |
+|         81 |                  5 |
+|         90 |                  5 |
+|         82 |                  5 |
+|         91 |                  5 |
+|         81 |                  4 |
+|         85 |                  4 |
+|         90 |                  4 |
+|         82 |                  4 |
+|         91 |                  4 |
+|         85 |                  4 |
+|         90 |                  4 |
+|         82 |                  4 |
+|         91 |                  4 |
++------------+--------------------+
+26 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
