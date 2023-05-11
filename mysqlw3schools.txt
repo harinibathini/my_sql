@@ -1,0 +1,1413 @@
+---W3 Schools MySQL---
+--SELECT--
+mysql> select * from facebook;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
+|  3 | harini | pune      |   21 | harini@gmail.com           |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select name,city from facebook;
++--------+-----------+
+| name   | city      |
++--------+-----------+
+| harini | hyderabad |
+| ini    | pune      |
+| harini | pune      |
++--------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select email ,age from facebook;
++----------------------------+------+
+| email                      | age  |
++----------------------------+------+
+| harinibathini@gmail.com    |   20 |
+| harini.bathini@coditas.com |   22 |
+| harini@gmail.com           |   21 |
++----------------------------+------+
+3 rows in set (0.00 sec)
+
+mysql> select distinct email from facebook;
++----------------------------+
+| email                      |
++----------------------------+
+| harinibathini@gmail.com    |
+| harini.bathini@coditas.com |
+| harini@gmail.com           |
++----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select count(distinct age) from facebook;
++---------------------+
+| count(distinct age) |
++---------------------+
+|                   3 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(distinct name) from facebook;
++----------------------+
+| count(distinct name) |
++----------------------+
+|                    2 |
++----------------------+
+1 row in set (0.00 sec)
+
+--WHERE--
+
+
+mysql> select name,email where id=1;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select name,email from facebook where id=1;
++--------+-------------------------+
+| name   | email                   |
++--------+-------------------------+
+| harini | harinibathini@gmail.com |
++--------+-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select id,name,email from facebook where id=3;
++----+--------+------------------+
+| id | name   | email            |
++----+--------+------------------+
+|  3 | harini | harini@gmail.com |
++----+--------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from facebook where city="pune";l
++----+--------+------+------+----------------------------+
+| id | name   | city | age  | email                      |
++----+--------+------+------+----------------------------+
+|  2 | ini    | pune |   22 | harini.bathini@coditas.com |
+|  3 | harini | pune |   21 | harini@gmail.com           |
++----+--------+------+------+----------------------------+
+2 rows in set (0.00 sec)
+
+    -> select * from facebook where city="pune";^C
+mysql> select * from facebook where city="pune";
++----+--------+------+------+----------------------------+
+| id | name   | city | age  | email                      |
++----+--------+------+------+----------------------------+
+|  2 | ini    | pune |   22 | harini.bathini@coditas.com |
+|  3 | harini | pune |   21 | harini@gmail.com           |
++----+--------+------+------+----------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from facebook where id=2;
++----+------+------+------+----------------------------+
+| id | name | city | age  | email                      |
++----+------+------+------+----------------------------+
+|  2 | ini  | pune |   22 | harini.bathini@coditas.com |
++----+------+------+------+----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from facebook where age>19;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
+|  3 | harini | pune      |   21 | harini@gmail.com           |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from facebook where age<=20;
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com |
++----+--------+-----------+------+-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select id,name,email from facebook where city="pune" and age="21";
++----+--------+------------------+
+| id | name   | email            |
++----+--------+------------------+
+|  3 | harini | harini@gmail.com |
++----+--------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select id,name,email from facebook where city="pune" and age="21" and name="ini";
+Empty set (0.00 sec)
+
+mysql> select id,name,email from facebook where city="pune" and age="21" and name="harini";
++----+--------+------------------+
+| id | name   | email            |
++----+--------+------------------+
+|  3 | harini | harini@gmail.com |
++----+--------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select id,name,email from facebook where city="pune" or age="21" or name="harini";
++----+--------+----------------------------+
+| id | name   | email                      |
++----+--------+----------------------------+
+|  1 | harini | harinibathini@gmail.com    |
+|  2 | ini    | harini.bathini@coditas.com |
+|  3 | harini | harini@gmail.com           |
++----+--------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select id,name,email from facebook where city="pune" or age="19" or name="harini";
++----+--------+----------------------------+
+| id | name   | email                      |
++----+--------+----------------------------+
+|  1 | harini | harinibathini@gmail.com    |
+|  2 | ini    | harini.bathini@coditas.com |
+|  3 | harini | harini@gmail.com           |
++----+--------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select id,name,email from facebook where city="pune" or age="19";
++----+--------+----------------------------+
+| id | name   | email                      |
++----+--------+----------------------------+
+|  2 | ini    | harini.bathini@coditas.com |
+|  3 | harini | harini@gmail.com           |
++----+--------+----------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select id,name,email from facebook where city!="pune";
++----+--------+-------------------------+
+| id | name   | email                   |
++----+--------+-------------------------+
+|  1 | harini | harinibathini@gmail.com |
++----+--------+-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from facebook;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
+|  3 | harini | pune      |   21 | harini@gmail.com           |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select city from facebook where age=20 or (name="ini" and city="pune");
++-----------+
+| city      |
++-----------+
+| hyderabad |
+| pune      |
++-----------+
+2 rows in set (0.00 sec)
+
+mysql> select id,name from facebook where age=20 or (name="ini" and city="pune");
++----+--------+
+| id | name   |
++----+--------+
+|  1 | harini |
+|  2 | ini    |
++----+--------+
+2 rows in set (0.00 sec)
+
+mysql> select id,name from facebook where city!="pune" and age>20;
+Empty set (0.00 sec)
+
+mysql> select id,name from facebook where city!="pune" and age>=20;
++----+--------+
+| id | name   |
++----+--------+
+|  1 | harini |
++----+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from  facebook order by name;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
+|  3 | harini | pune      |   21 | harini@gmail.com           |
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from  facebook order by name,id;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
+|  3 | harini | pune      |   21 | harini@gmail.com           |
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from  facebook order by id,email;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
+|  3 | harini | pune      |   21 | harini@gmail.com           |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from  facebook order by email;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
+|  3 | harini | pune      |   21 | harini@gmail.com           |
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from  facebook order by name desc;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
+|  3 | harini | pune      |   21 | harini@gmail.com           |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from  facebook order by age;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
+|  3 | harini | pune      |   21 | harini@gmail.com           |
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from  facebook order by age desc;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
+|  3 | harini | pune      |   21 | harini@gmail.com           |
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from  facebook order by age desc,id asc;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
+|  3 | harini | pune      |   21 | harini@gmail.com           |
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from  facebook order by age desc,name asc;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
+|  3 | harini | pune      |   21 | harini@gmail.com           |
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+mysql> select * from  facebook order by name asc,age desc;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  3 | harini | pune      |   21 | harini@gmail.com           |
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from  facebook order by name asc;
++----+--------+-----------+------+----------------------------+
+| id | name   | city      | age  | email                      |
++----+--------+-----------+------+----------------------------+
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com    |
+|  3 | harini | pune      |   21 | harini@gmail.com           |
+|  2 | ini    | pune      |   22 | harini.bathini@coditas.com |
++----+--------+-----------+------+----------------------------+
+3 rows in set (0.00 sec)
+mysql> desc facebook;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int          | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(50)  | YES  |     | NULL    |                |
+| city  | varchar(25)  | YES  |     | NULL    |                |
+| age   | int          | YES  |     | NULL    |                |
+| email | varchar(150) | YES  |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into facebook values(4,"pooja","vizag",23,"poojasree@gmail.com");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into facebook values(5,"sujan","mumbai",22,"ujan.shaik@coditas.com");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into facebook values(6,"shreya","mumbai",22,"shreya@coditas.com");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into facebook values(5,"sujan","mumbai",22,"sujan.shaik@coditas.com");
+ERROR 1062 (23000): Duplicate entry '5' for key 'facebook.PRIMARY'
+mysql> insert into facebook values(7,"sujan","mumbai",22,"sujan@gmail.com"),(8,"krati","banglore",21,"krati@coditas.com");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> update facebook set name="hari" and email="hari@gmail.com" where id=2;
+ERROR 1292 (22007): Truncated incorrect DOUBLE value: 'hari'
+mysql> update facebook set name="hari" where id=2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update facebook set email="hari@gmail.com" where id=2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> insert into facebook(name,city,age) values("tara","mumbai",19);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from facebook;
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   21 | harini@gmail.com        |
+|  4 | pooja  | vizag     |   23 | poojasree@gmail.com     |
+|  5 | sujan  | mumbai    |   22 | ujan.shaik@coditas.com  |
+|  6 | shreya | mumbai    |   22 | shreya@coditas.com      |
+|  7 | sujan  | mumbai    |   22 | sujan@gmail.com         |
+|  8 | krati  | banglore  |   21 | krati@coditas.com       |
+|  9 | tara   | mumbai    |   19 | NULL                    |
++----+--------+-----------+------+-------------------------+
+9 rows in set (0.00 sec)
+mysql> select * from facebook where email is not null;
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   21 | harini@gmail.com        |
+|  4 | pooja  | vizag     |   23 | poojasree@gmail.com     |
+|  5 | sujan  | mumbai    |   22 | ujan.shaik@coditas.com  |
+|  6 | shreya | mumbai    |   22 | shreya@coditas.com      |
+|  7 | sujan  | mumbai    |   22 | sujan@gmail.com         |
+|  8 | krati  | banglore  |   21 | krati@coditas.com       |
++----+--------+-----------+------+-------------------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from facebook where email is null;
++----+------+--------+------+-------+
+| id | name | city   | age  | email |
++----+------+--------+------+-------+
+|  9 | tara | mumbai |   19 | NULL  |
++----+------+--------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from facebook where email is not null and city="pune";
++----+--------+------+------+------------------+
+| id | name   | city | age  | email            |
++----+--------+------+------+------------------+
+|  2 | hari   | pune |   22 | hari@gmail.com   |
+|  3 | harini | pune |   21 | harini@gmail.com |
++----+--------+------+------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from facebook where email is not null and city="mumbai" or (age=22);
++----+--------+--------+------+------------------------+
+| id | name   | city   | age  | email                  |
++----+--------+--------+------+------------------------+
+|  2 | hari   | pune   |   22 | hari@gmail.com         |
+|  5 | sujan  | mumbai |   22 | ujan.shaik@coditas.com |
+|  6 | shreya | mumbai |   22 | shreya@coditas.com     |
+|  7 | sujan  | mumbai |   22 | sujan@gmail.com        |
++----+--------+--------+------+------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select count(*) from facebook where email is not null;
++----------+
+| count(*) |
++----------+
+|        8 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> update facebook set email="sujan.shaik@coditas.com" where id=5;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update facebook set email="tara@gmail.com" where id=9;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update facebook set age=24 where city="mumbai";
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from facebook;
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   20 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   21 | harini@gmail.com        |
+|  4 | pooja  | vizag     |   23 | poojasree@gmail.com     |
+|  5 | sujan  | mumbai    |   24 | sujan.shaik@coditas.com |
+|  6 | shreya | mumbai    |   24 | shreya@coditas.com      |
+|  7 | sujan  | mumbai    |   24 | sujan@gmail.com         |
+|  8 | krati  | banglore  |   21 | krati@coditas.com       |
+|  9 | tara   | mumbai    |   24 | tara@gmail.com          |
++----+--------+-----------+------+-------------------------+
+9 rows in set (0.00 sec)
+
+mysql> update facebook set email is null where id=9;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'is null where id=9' at line 1
+mysql> update facebook set age=22;
+Query OK, 8 rows affected (0.01 sec)
+Rows matched: 9  Changed: 8  Warnings: 0
+
+mysql> select * from facebook;
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   22 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   22 | harini@gmail.com        |
+|  4 | pooja  | vizag     |   22 | poojasree@gmail.com     |
+|  5 | sujan  | mumbai    |   22 | sujan.shaik@coditas.com |
+|  6 | shreya | mumbai    |   22 | shreya@coditas.com      |
+|  7 | sujan  | mumbai    |   22 | sujan@gmail.com         |
+|  8 | krati  | banglore  |   22 | krati@coditas.com       |
+|  9 | tara   | mumbai    |   22 | tara@gmail.com          |
++----+--------+-----------+------+-------------------------+
+9 rows in set (0.00 sec)
+
+mysql> delete from facebook where city="vizag";
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from facebook;
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   22 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   22 | harini@gmail.com        |
+|  5 | sujan  | mumbai    |   22 | sujan.shaik@coditas.com |
+|  6 | shreya | mumbai    |   22 | shreya@coditas.com      |
+|  7 | sujan  | mumbai    |   22 | sujan@gmail.com         |
+|  8 | krati  | banglore  |   22 | krati@coditas.com       |
+|  9 | tara   | mumbai    |   22 | tara@gmail.com          |
++----+--------+-----------+------+-------------------------+
+8 rows in set (0.00 sec)
+
+mysql> update facebook set city="chennai",name="sujaan" where id=5;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from facebook;
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   22 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   22 | harini@gmail.com        |
+|  5 | sujaan | chennai   |   22 | sujan.shaik@coditas.com |
+|  6 | shreya | mumbai    |   22 | shreya@coditas.com      |
+|  7 | sujan  | mumbai    |   22 | sujan@gmail.com         |
+|  8 | krati  | banglore  |   22 | krati@coditas.com       |
+|  9 | tara   | mumbai    |   22 | tara@gmail.com          |
++----+--------+-----------+------+-------------------------+
+8 rows in set (0.00 sec)
+
+mysql> update facebook set id=4 where name="sujaan";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
++----+--------+-----------+------+
+| id | name   | city      | age  |
++----+--------+-----------+------+
+|  1 | harini | hyderabad |   19 |
+|  2 | sujan  | nandad    |   17 |
++----+--------+-----------+------+
+2 rows in set (0.01 sec)
+
+
+mysql> delete from facebook_user_registration;
+Query OK, 2 rows affected (0.02 sec)
+
+mysql> desc facebook_user_registration;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(50) | YES  |     | NULL    |                |
+| city  | varchar(25) | YES  |     | NULL    |                |
+| age   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+mysql> select * from facebook_user_registration;
+Empty set (0.00 sec)
+mysql> select * from facebook limit 3;
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   22 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   22 | harini@gmail.com        |
++----+--------+-----------+------+-------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from facebook limit 8;
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   22 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   22 | harini@gmail.com        |
+|  4 | sujaan | chennai   |   22 | sujan.shaik@coditas.com |
+|  6 | shreya | mumbai    |   22 | shreya@coditas.com      |
+|  7 | sujan  | mumbai    |   22 | sujan@gmail.com         |
+|  8 | krati  | banglore  |   22 | krati@coditas.com       |
+|  9 | tara   | mumbai    |   22 | tara@gmail.com          |
++----+--------+-----------+------+-------------------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from facebook where city="mumbai" limit 8;
++----+--------+--------+------+--------------------+
+| id | name   | city   | age  | email              |
++----+--------+--------+------+--------------------+
+|  6 | shreya | mumbai |   22 | shreya@coditas.com |
+|  7 | sujan  | mumbai |   22 | sujan@gmail.com    |
+|  9 | tara   | mumbai |   22 | tara@gmail.com     |
++----+--------+--------+------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from facebook where city="mumbai" limit 2;
++----+--------+--------+------+--------------------+
+| id | name   | city   | age  | email              |
++----+--------+--------+------+--------------------+
+|  6 | shreya | mumbai |   22 | shreya@coditas.com |
+|  7 | sujan  | mumbai |   22 | sujan@gmail.com    |
++----+--------+--------+------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from facebook where city="mumbai" limit 0;
+Empty set (0.00 sec)
+
+mysql> select * from facebook where city="mumbai" limit 1;
++----+--------+--------+------+--------------------+
+| id | name   | city   | age  | email              |
++----+--------+--------+------+--------------------+
+|  6 | shreya | mumbai |   22 | shreya@coditas.com |
++----+--------+--------+------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from facebook where city="mumbai" limit 1,1;
++----+-------+--------+------+-----------------+
+| id | name  | city   | age  | email           |
++----+-------+--------+------+-----------------+
+|  7 | sujan | mumbai |   22 | sujan@gmail.com |
++----+-------+--------+------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from facebook limit 2,5;
++----+--------+----------+------+-------------------------+
+| id | name   | city     | age  | email                   |
++----+--------+----------+------+-------------------------+
+|  3 | harini | pune     |   22 | harini@gmail.com        |
+|  4 | sujaan | chennai  |   22 | sujan.shaik@coditas.com |
+|  6 | shreya | mumbai   |   22 | shreya@coditas.com      |
+|  7 | sujan  | mumbai   |   22 | sujan@gmail.com         |
+|  8 | krati  | banglore |   22 | krati@coditas.com       |
++----+--------+----------+------+-------------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from facebook limit 1,1;
++----+------+------+------+----------------+
+| id | name | city | age  | email          |
++----+------+------+------+----------------+
+|  2 | hari | pune |   22 | hari@gmail.com |
++----+------+------+------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from facebook limit 2,1;
++----+--------+------+------+------------------+
+| id | name   | city | age  | email            |
++----+--------+------+------+------------------+
+|  3 | harini | pune |   22 | harini@gmail.com |
++----+--------+------+------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select max(id) as lastid from facebook;
++--------+
+| lastid |
++--------+
+|      9 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select max(name) from facebook;
++-----------+
+| max(name) |
++-----------+
+| tara      |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select min(name) from facebook;
++-----------+
+| min(name) |
++-----------+
+| hari      |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> update facebook set id=5,name="zeenath",city="kolkata",age=25;
+ERROR 1062 (23000): Duplicate entry '5' for key 'facebook.PRIMARY'
+mysql> insert into facebook(id,name,city,age) values(5,"zeenath","kolkata",25);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from facebook;
++----+---------+-----------+------+-------------------------+
+| id | name    | city      | age  | email                   |
++----+---------+-----------+------+-------------------------+
+|  1 | harini  | hyderabad |   22 | harinibathini@gmail.com |
+|  2 | hari    | pune      |   22 | hari@gmail.com          |
+|  3 | harini  | pune      |   22 | harini@gmail.com        |
+|  4 | sujaan  | chennai   |   22 | sujan.shaik@coditas.com |
+|  5 | zeenath | kolkata   |   25 | NULL                    |
+|  6 | shreya  | mumbai    |   22 | shreya@coditas.com      |
+|  7 | sujan   | mumbai    |   22 | sujan@gmail.com         |
+|  8 | krati   | banglore  |   22 | krati@coditas.com       |
+|  9 | tara    | mumbai    |   22 | tara@gmail.com          |
++----+---------+-----------+------+-------------------------+
+9 rows in set (0.00 sec)
+
+mysql> select max(age) from facebook;
++----------+
+| max(age) |
++----------+
+|       25 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select max(name) from facebook;
++-----------+
+| max(name) |
++-----------+
+| zeenath   |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select min(age) from facebook;
++----------+
+| min(age) |
++----------+
+|       22 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(age) from facebook;
++------------+
+| count(age) |
++------------+
+|          9 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(age) from facebook;
++----------+
+| sum(age) |
++----------+
+|      201 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(age) from facebook limit 5;
++----------+
+| sum(age) |
++----------+
+|      201 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(age) from facebook limit 2;
++----------+
+| sum(age) |
++----------+
+|      201 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(age) from facebook where city="mumbai";
++----------+
+| sum(age) |
++----------+
+|       66 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select avg(age) from facebook where city="mumbai";
++----------+
+| avg(age) |
++----------+
+|  22.0000 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select avg(age) from facebook;
++----------+
+| avg(age) |
++----------+
+|  22.3333 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from facebook;
++----+---------+-----------+------+-------------------------+
+| id | name    | city      | age  | email                   |
++----+---------+-----------+------+-------------------------+
+|  1 | harini  | hyderabad |   22 | harinibathini@gmail.com |
+|  2 | hari    | pune      |   22 | hari@gmail.com          |
+|  3 | harini  | pune      |   22 | harini@gmail.com        |
+|  4 | sujaan  | chennai   |   22 | sujan.shaik@coditas.com |
+|  5 | zeenath | kolkata   |   25 | NULL                    |
+|  6 | shreya  | mumbai    |   22 | shreya@coditas.com      |
+|  7 | sujan   | mumbai    |   22 | sujan@gmail.com         |
+|  8 | krati   | banglore  |   22 | krati@coditas.com       |
+|  9 | tara    | mumbai    |   22 | tara@gmail.com          |
++----+---------+-----------+------+-------------------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from facebook where email is null;
++----+---------+---------+------+-------+
+| id | name    | city    | age  | email |
++----+---------+---------+------+-------+
+|  5 | zeenath | kolkata |   25 | NULL  |
++----+---------+---------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from facebook where name like "s%";
++----+--------+---------+------+-------------------------+
+| id | name   | city    | age  | email                   |
++----+--------+---------+------+-------------------------+
+|  4 | sujaan | chennai |   22 | sujan.shaik@coditas.com |
+|  6 | shreya | mumbai  |   22 | shreya@coditas.com      |
+|  7 | sujan  | mumbai  |   22 | sujan@gmail.com         |
++----+--------+---------+------+-------------------------+
+3 rows in set (0.01 sec)
+
+mysql> select * from facebook where name like "s%a";
++----+--------+--------+------+--------------------+
+| id | name   | city   | age  | email              |
++----+--------+--------+------+--------------------+
+|  6 | shreya | mumbai |   22 | shreya@coditas.com |
++----+--------+--------+------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from facebook where name like "%i";
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   22 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   22 | harini@gmail.com        |
+|  8 | krati  | banglore  |   22 | krati@coditas.com       |
++----+--------+-----------+------+-------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from facebook where name like "____";
++----+------+--------+------+----------------+
+| id | name | city   | age  | email          |
++----+------+--------+------+----------------+
+|  2 | hari | pune   |   22 | hari@gmail.com |
+|  9 | tara | mumbai |   22 | tara@gmail.com |
++----+------+--------+------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from facebook where name not like "____";
++----+---------+-----------+------+-------------------------+
+| id | name    | city      | age  | email                   |
++----+---------+-----------+------+-------------------------+
+|  1 | harini  | hyderabad |   22 | harinibathini@gmail.com |
+|  3 | harini  | pune      |   22 | harini@gmail.com        |
+|  4 | sujaan  | chennai   |   22 | sujan.shaik@coditas.com |
+|  5 | zeenath | kolkata   |   25 | NULL                    |
+|  6 | shreya  | mumbai    |   22 | shreya@coditas.com      |
+|  7 | sujan   | mumbai    |   22 | sujan@gmail.com         |
+|  8 | krati   | banglore  |   22 | krati@coditas.com       |
++----+---------+-----------+------+-------------------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from facebook where name not like "_a_%";
++----+---------+----------+------+-------------------------+
+| id | name    | city     | age  | email                   |
++----+---------+----------+------+-------------------------+
+|  4 | sujaan  | chennai  |   22 | sujan.shaik@coditas.com |
+|  5 | zeenath | kolkata  |   25 | NULL                    |
+|  6 | shreya  | mumbai   |   22 | shreya@coditas.com      |
+|  7 | sujan   | mumbai   |   22 | sujan@gmail.com         |
+|  8 | krati   | banglore |   22 | krati@coditas.com       |
++----+---------+----------+------+-------------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from facebook where name like "_a_%";
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   22 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   22 | harini@gmail.com        |
+|  9 | tara   | mumbai    |   22 | tara@gmail.com          |
++----+--------+-----------+------+-------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from facebook where email like "%@%.%";
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   22 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   22 | harini@gmail.com        |
+|  4 | sujaan | chennai   |   22 | sujan.shaik@coditas.com |
+|  6 | shreya | mumbai    |   22 | shreya@coditas.com      |
+|  7 | sujan  | mumbai    |   22 | sujan@gmail.com         |
+|  8 | krati  | banglore  |   22 | krati@coditas.com       |
+|  9 | tara   | mumbai    |   22 | tara@gmail.com          |
++----+--------+-----------+------+-------------------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from facebook where email like "%@%coditas%.%";
++----+--------+----------+------+-------------------------+
+| id | name   | city     | age  | email                   |
++----+--------+----------+------+-------------------------+
+|  4 | sujaan | chennai  |   22 | sujan.shaik@coditas.com |
+|  6 | shreya | mumbai   |   22 | shreya@coditas.com      |
+|  8 | krati  | banglore |   22 | krati@coditas.com       |
++----+--------+----------+------+-------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from facebook where email like "%@%coditas.%";
++----+--------+----------+------+-------------------------+
+| id | name   | city     | age  | email                   |
++----+--------+----------+------+-------------------------+
+|  4 | sujaan | chennai  |   22 | sujan.shaik@coditas.com |
+|  6 | shreya | mumbai   |   22 | shreya@coditas.com      |
+|  8 | krati  | banglore |   22 | krati@coditas.com       |
++----+--------+----------+------+-------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from facebook where email like "%gmail%";
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   22 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   22 | harini@gmail.com        |
+|  7 | sujan  | mumbai    |   22 | sujan@gmail.com         |
+|  9 | tara   | mumbai    |   22 | tara@gmail.com          |
++----+--------+-----------+------+-------------------------+
+5 rows in set (0.00 sec)
+mysql> select * from facebook where email not like "%coditas%";
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   22 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   22 | harini@gmail.com        |
+|  7 | sujan  | mumbai    |   22 | sujan@gmail.com         |
+|  9 | tara   | mumbai    |   22 | tara@gmail.com          |
++----+--------+-----------+------+-------------------------+
+5 rows in set (0.00 sec)
+mysql> select * from facebook where city like "%y%";
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   22 | harinibathini@gmail.com |
++----+--------+-----------+------+-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from facebook where city like "%n%";
++----+--------+----------+------+-------------------------+
+| id | name   | city     | age  | email                   |
++----+--------+----------+------+-------------------------+
+|  2 | hari   | pune     |   22 | hari@gmail.com          |
+|  3 | harini | pune     |   22 | harini@gmail.com        |
+|  4 | sujaan | chennai  |   22 | sujan.shaik@coditas.com |
+|  8 | krati  | banglore |   22 | krati@coditas.com       |
++----+--------+----------+------+-------------------------+
+4 rows in set (0.00 sec)
+mysql> select * from facebook where city like "c__%a%_i";
+Empty set (0.00 sec)
+
+mysql> select * from facebook where city like "c__%a%i";
++----+--------+---------+------+-------------------------+
+| id | name   | city    | age  | email                   |
++----+--------+---------+------+-------------------------+
+|  4 | sujaan | chennai |   22 | sujan.shaik@coditas.com |
++----+--------+---------+------+-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from facebook where city in("hyderabad","pune","mumbai");
++----+--------+-----------+------+-------------------------+
+| id | name   | city      | age  | email                   |
++----+--------+-----------+------+-------------------------+
+|  1 | harini | hyderabad |   22 | harinibathini@gmail.com |
+|  2 | hari   | pune      |   22 | hari@gmail.com          |
+|  3 | harini | pune      |   22 | harini@gmail.com        |
+|  6 | shreya | mumbai    |   22 | shreya@coditas.com      |
+|  7 | sujan  | mumbai    |   22 | sujan@gmail.com         |
+|  9 | tara   | mumbai    |   22 | tara@gmail.com          |
++----+--------+-----------+------+-------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from facebook where city not in("hyderabad","pune","mumbai");
++----+---------+----------+------+-------------------------+
+| id | name    | city     | age  | email                   |
++----+---------+----------+------+-------------------------+
+|  4 | sujaan  | chennai  |   22 | sujan.shaik@coditas.com |
+|  5 | zeenath | kolkata  |   25 | NULL                    |
+|  8 | krati   | banglore |   22 | krati@coditas.com       |
++----+---------+----------+------+-------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from facebook where city in(select city from student);
++----+--------+------+------+------------------+
+| id | name   | city | age  | email            |
++----+--------+------+------+------------------+
+|  2 | hari   | pune |   22 | hari@gmail.com   |
+|  3 | harini | pune |   22 | harini@gmail.com |
++----+--------+------+------+------------------+
+2 rows in set (0.01 sec)
+
+mysql> select * from student;
++----+------+------------+------+
+| id | name | percentage | city |
++----+------+------------+------+
+|  1 | ABCD |         98 | Pune |
+|  2 | ABCD |         98 | Pune |
+|  3 | ABCD |         98 | Pune |
+|  4 | ABCD |         98 | Pune |
+|  5 | ABCD |         98 | Pune |
++----+------+------------+------+
+5 rows in set (0.00 sec)
+mysql> select id,name,age from facebook where age between 20 and 25;
++----+---------+------+
+| id | name    | age  |
++----+---------+------+
+|  1 | harini  |   22 |
+|  2 | hari    |   22 |
+|  3 | harini  |   22 |
+|  4 | sujaan  |   22 |
+|  5 | zeenath |   25 |
+|  6 | shreya  |   22 |
+|  7 | sujan   |   22 |
+|  8 | krati   |   22 |
+|  9 | tara    |   22 |
++----+---------+------+
+9 rows in set (0.00 sec)
+
+mysql> select id,name,age from facebook where city between "kolkata" and "mumbai";
++----+---------+------+
+| id | name    | age  |
++----+---------+------+
+|  5 | zeenath |   25 |
+|  6 | shreya  |   22 |
+|  7 | sujan   |   22 |
+|  9 | tara    |   22 |
++----+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> select id,name,age,city from facebook where city between "kolkata" and "pune";
++----+---------+------+---------+
+| id | name    | age  | city    |
++----+---------+------+---------+
+|  2 | hari    |   22 | pune    |
+|  3 | harini  |   22 | pune    |
+|  5 | zeenath |   25 | kolkata |
+|  6 | shreya  |   22 | mumbai  |
+|  7 | sujan   |   22 | mumbai  |
+|  9 | tara    |   22 | mumbai  |
++----+---------+------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select id,name,age,city from facebook where city between "kolkata" and "pune" order by city;
++----+---------+------+---------+
+| id | name    | age  | city    |
++----+---------+------+---------+
+|  5 | zeenath |   25 | kolkata |
+|  6 | shreya  |   22 | mumbai  |
+|  7 | sujan   |   22 | mumbai  |
+|  9 | tara    |   22 | mumbai  |
+|  2 | hari    |   22 | pune    |
+|  3 | harini  |   22 | pune    |
++----+---------+------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select id,name,age,city from facebook where city not between "kolkata" and "pune" order by city;
++----+--------+------+-----------+
+| id | name   | age  | city      |
++----+--------+------+-----------+
+|  8 | krati  |   22 | banglore  |
+|  4 | sujaan |   22 | chennai   |
+|  1 | harini |   22 | hyderabad |
++----+--------+------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select id,name,age from facebook where age not between 20 and 25;
+Empty set (0.00 sec)
+mysql> select id,name as n,email as mail from facebook as fb where city="mumbai";
++----+--------+--------------------+
+| id | n      | mail               |
++----+--------+--------------------+
+|  6 | shreya | shreya@coditas.com |
+|  7 | sujan  | sujan@gmail.com    |
+|  9 | tara   | tara@gmail.com     |
++----+--------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> select id,name,age,city,email as mail from facebook as fb;
++----+---------+------+-----------+-------------------------+
+| id | name    | age  | city      | mail                    |
++----+---------+------+-----------+-------------------------+
+|  1 | harini  |   22 | hyderabad | harinibathini@gmail.com |
+|  2 | hari    |   22 | pune      | hari@gmail.com          |
+|  3 | harini  |   22 | pune      | harini@gmail.com        |
+|  4 | sujaan  |   22 | chennai   | sujan.shaik@coditas.com |
+|  5 | zeenath |   25 | kolkata   | NULL                    |
+|  6 | shreya  |   22 | mumbai    | shreya@coditas.com      |
+|  7 | sujan   |   22 | mumbai    | sujan@gmail.com         |
+|  8 | krati   |   22 | banglore  | krati@coditas.com       |
+|  9 | tara    |   22 | mumbai    | tara@gmail.com          |
++----+---------+------+-----------+-------------------------+
+9 rows in set (0.00 sec)
+
+mysql> select id,name,age,city,email as mail from facebook limit 5;
++----+---------+------+-----------+-------------------------+
+| id | name    | age  | city      | mail                    |
++----+---------+------+-----------+-------------------------+
+|  1 | harini  |   22 | hyderabad | harinibathini@gmail.com |
+|  2 | hari    |   22 | pune      | hari@gmail.com          |
+|  3 | harini  |   22 | pune      | harini@gmail.com        |
+|  4 | sujaan  |   22 | chennai   | sujan.shaik@coditas.com |
+|  5 | zeenath |   25 | kolkata   | NULL                    |
++----+---------+------+-----------+-------------------------+
+5 rows in set (0.00 sec)
+
+mysql> select s.sid,s.sname,t.tid,t.tname from student22 as s,teacher22 as t;
++-----+--------+-----+---------+
+| sid | sname  | tid | tname   |
++-----+--------+-----+---------+
+|   4 | tanmay |   1 | aarti   |
+|   3 | yash   |   1 | aarti   |
+|   2 | sujan  |   1 | aarti   |
+|   1 | harini |   1 | aarti   |
+|   4 | tanmay |   2 | anirudh |
+|   3 | yash   |   2 | anirudh |
+|   2 | sujan  |   2 | anirudh |
+|   1 | harini |   2 | anirudh |
+|   4 | tanmay |   3 | ram     |
+|   3 | yash   |   3 | ram     |
+|   2 | sujan  |   3 | ram     |
+|   1 | harini |   3 | ram     |
+|   4 | tanmay |   4 | aman    |
+|   3 | yash   |   4 | aman    |
+|   2 | sujan  |   4 | aman    |
+|   1 | harini |   4 | aman    |
+|   4 | tanmay |   5 | sita    |
+|   3 | yash   |   5 | sita    |
+|   2 | sujan  |   5 | sita    |
+|   1 | harini |   5 | sita    |
++-----+--------+-----+---------+
+20 rows in set (0.00 sec)
+
+mysql> select * from student22;
++-----+--------+------+
+| sid | sname  | tid  |
++-----+--------+------+
+|   1 | harini |    1 |
+|   2 | sujan  |    2 |
+|   3 | yash   |    2 |
+|   4 | tanmay |    3 |
++-----+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from teacher22;
++-----+---------+------+
+| tid | tname   | sid  |
++-----+---------+------+
+|   1 | aarti   |    2 |
+|   2 | anirudh |    4 |
+|   3 | ram     |    1 |
+|   4 | aman    |    3 |
+|   5 | sita    |    2 |
++-----+---------+------+
+5 rows in set (0.00 sec)
+mysql> select id,concat_ws(name,age,city,email) as facebookdetails from facebook where age>18;
++----+------------------------------------------------+
+| id | facebookdetails                                |
++----+------------------------------------------------+
+|  1 | 22harinihyderabadhariniharinibathini@gmail.com |
+|  2 | 22haripuneharihari@gmail.com                   |
+|  3 | 22harinipunehariniharini@gmail.com             |
+|  4 | 22sujaanchennaisujaansujan.shaik@coditas.com   |
+|  5 | 25zeenathkolkata                               |
+|  6 | 22shreyamumbaishreyashreya@coditas.com         |
+|  7 | 22sujanmumbaisujansujan@gmail.com              |
+|  8 | 22kratibanglorekratikrati@coditas.com          |
+|  9 | 22taramumbaitaratara@gmail.com                 |
++----+------------------------------------------------+
+9 rows in set (0.01 sec)
+
+mysql> select id,concat(name,age,city,email) as facebookdetails from facebook where age>18;
++----+------------------------------------------+
+| id | facebookdetails                          |
++----+------------------------------------------+
+|  1 | harini22hyderabadharinibathini@gmail.com |
+|  2 | hari22punehari@gmail.com                 |
+|  3 | harini22puneharini@gmail.com             |
+|  4 | sujaan22chennaisujan.shaik@coditas.com   |
+|  5 | NULL                                     |
+|  6 | shreya22mumbaishreya@coditas.com         |
+|  7 | sujan22mumbaisujan@gmail.com             |
+|  8 | krati22banglorekrati@coditas.com         |
+|  9 | tara22mumbaitara@gmail.com               |
++----+------------------------------------------+
+9 rows in set (0.01 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

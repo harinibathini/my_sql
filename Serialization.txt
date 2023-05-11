@@ -1,0 +1,55 @@
+*****************************************************************************************
+Marker Interfaces:
+Marker interfaces, also known as tagging interfaces, are interfaces in Java and other programming languages that do not have any methods or fields defined within them. They are used to indicate a certain characteristic or attribute of a class that implements the marker interface.
+
+The main purpose of marker interfaces is to provide a way for developers to add metadata or additional information to a class, which can be useful for various purposes, such as:
+
+Runtime processing: A marker interface can be used by runtime code to identify a certain type of object or to perform some special processing on an object based on its metadata.
+
+Frameworks and libraries: Marker interfaces can be used by frameworks and libraries to provide additional functionality or to customize the behavior of a class based on its metadata.
+
+Serialization: Serialization frameworks such as Java's ObjectOutputStream and ObjectInputStream can use marker interfaces to identify objects that need to be serialized in a specific way or that should not be serialized at all.
+
+Some examples of marker interfaces in Java include Serializable, Cloneable, and RandomAccess. The Serializable interface indicates that a class can be serialized, while the Cloneable interface indicates that a class can be cloned. The RandomAccess interface indicates that a class supports fast random access to its elements.
+
+Advantages of marker interfaces:
+
+Provides metadata: Marker interfaces provide a way to add metadata to a class, which can be useful for various purposes like runtime processing, frameworks and libraries, and serialization.
+
+Easy to implement: Marker interfaces are easy to implement because they do not require any methods or fields to be defined within them.
+
+Simple and clear: Marker interfaces provide a clear and simple way to indicate a certain behavior or characteristic of a class, making the code more readable and maintainable.
+
+Limitations of marker interfaces:
+
+Limited functionality: Marker interfaces do not provide any methods or fields, so their functionality is limited to indicating a characteristic or behavior of a class.
+
+Can lead to code duplication: Using multiple marker interfaces can lead to code duplication, as each interface must be implemented separately by a class.
+
+Difficult to extend: Adding new functionality to a marker interface can be difficult, as it requires modifying all classes that implement the interface.
+
+May not be compatible with some frameworks: Some frameworks and libraries may not support the use of marker interfaces or may have their own specific interfaces for marking classes.
+
+Overall, marker interfaces can be useful for providing metadata to a class, but their use should be balanced with other design patterns and considerations.
+**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************
+what is serial version UID ?
+
+Serial version UID (unique identifier) is a unique identifier assigned to a serializable class in Java. When a serializable class is compiled, the compiler generates a serialVersionUID field that is used during serialization and deserialization to verify that the serialized object and the corresponding class are compatible.
+
+The serialVersionUID is a long value that is computed based on various aspects of the class, such as its name, fields, and methods. If the serialVersionUID of a serialized object does not match the serialVersionUID of the corresponding class at deserialization time, an InvalidClassException is thrown.
+
+The serialVersionUID is important for maintaining compatibility between serialized objects and classes, especially in distributed systems where objects may be serialized on one machine and deserialized on another. By ensuring that the serialVersionUID of a class remains consistent across different versions of the class, developers can ensure that objects can be serialized and deserialized properly, even if the class has changed.
+
+Note that if the serialVersionUID is not explicitly specified in a class, the Java serialization runtime will automatically generate one based on the class definition. However, it is generally recommended to explicitly specify a serialVersionUID to avoid compatibility issues between different versions of the class.
+
+*****************************************************************************************************************************************************************************************************************************************************************************
+
+HOW TO GIVE NAME WITH SPACE USING next() IN JAVA?
+
+By default, next() searches for first whitespace as a delimiter. You can change this behaviour like this:
+
+Scanner s = new Scanner(input);
+s.useDelimiter("\\s*,\\s*");
+By this, s.next() will match commas as delimiters for your input (preceeded or followed by zero or more whitespaces)
+
+*****************************************************************************************************************************************************************************************************************************************************************************

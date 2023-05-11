@@ -1,0 +1,30 @@
+//package Package_Demo;
+public class HelloWorld{
+public static void main(String[]  args) throws Exception {
+                System.out.println("Loading MySQL JDBC driver");
+        }
+}
+
+
+
+/*
+C:\Users\Coditas\Desktop\Package_Demo>cd harini
+
+C:\Users\Coditas\Desktop\Package_Demo\Harini>javac HelloWorld.java
+
+C:\Users\Coditas\Desktop\Package_Demo\Harini>javac HelloWorld.java
+
+C:\Users\Coditas\Desktop\Package_Demo\Harini>java HelloWorld
+Error: Could not find or load main class HelloWorld
+
+C:\Users\Coditas\Desktop\Package_Demo\Harini>javac -d . HelloWorld.java
+
+C:\Users\Coditas\Desktop\Package_Demo\Harini>java p1.HelloWorld
+Loading MySQL JDBC driver
+C:\Users\Coditas\Desktop\Package_Demo\Harini>javac -d .. HelloWorld.java
+
+C:\Users\Coditas\Desktop\Package_Demo\Harini>
+
+
+
+*/
