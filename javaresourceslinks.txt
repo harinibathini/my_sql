@@ -1,0 +1,260 @@
+Java Resources Links
+*****************************************************
+Kindly download Mysql CLI and Workbench for Database working prior to tomorrows session.
+Mine installed version is=> 8.0.27.
+Resource to help you to installed both of this:
+https://www.google.com/search?q=install+mysql+cli+and+workbench+in+windows&rlz=1C1CH[…]jkts78AhXi3TgGHfXSCAYQ_AUoAXoECAEQAw&biw=1280&bih=552&dpr=1.5
+
+**********************************
+www.javatpoint.com
+Java IO - javatpoint
+Java IO or Input Output in Java with input stream, output stream, reader and writer class. The java.io package provides api to reading and writing data.
+
+
+Aarti Dhumal
+  10:59 AM
+import java.io.Console;
+public class ConsoleDemo {
+    public static void main(String args[]){
+        Console c=System.console();
+        String name=c.readLine();
+        char pwd[]=c.readPassword();
+        String upwd=new String(pwd);
+        if(name.equals("rt") && upwd.equals("rt")){
+            System.out.println("Welcome ::"+name+" you are valid user!!!!");
+        }
+        else
+            System.out.println("Sorry!!! password does not match :( ");
+    }
+}
+
+****************************************************
+Aarti Dhumal -- Stream API Resources
+  1:15 PM
+https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
+https://www.youtube.com/watch?v=VNovNwHr9jY
+https://howtodoinjava.com/java/stream/java-streams-by-examples/
+https://www.youtube.com/watch?v=CwOfjXPL6-Q&t=11s
+HowToDoInJavaHowToDoInJava
+Java Stream API (with Examples) - HowToDoInJava
+Streams can be defined as a sequence of elements from a source that supports aggregate operations on them. The source here refers to a Collection or Arrays who provides data to a Stream. Stream keeps the order of the data as it is in the source. And aggregate operations or bulk operations are operations which allow us to express common manipulations on those values easily and clearly.
+Apr 13th, 2014
+https://howtodoinjava.com/java/stream/java-streams-by-examples/
+
+*************************************************
+
+Aarti Dhumal
+  2:51 PM
+Binary
+ 
+
+mysql-connector-java-8.0.28.jar
+Binary
+
+
+
+
+Aarti Dhumal
+  3:41 PM
+JAVA Blank Final Variable:
+https://www.java67.com/2012/09/what-is-blank-final-variable-in-java.html
+java67.comjava67.com
+What is blank final variable in Java - Example
+Java Programming tutorials and Interview Questions, book and course recommendations from Udemy, Pluralsight, Coursera, edX etc (61 kB)
+https://www.java67.com/2012/09/what-is-blank-final-variable-in-java.html
+
+3:41
+https://www.w3schools.blog/static-blank-final-variable-in-java
+W3schoolsW3schools
+Static blank final variable in java
+What is static blank final variable in java : A static variable declared with final keyword but not initialised at declaration time is known as static blank final variable.
+Written by
+admin
+Est. reading time
+1 minute
+Apr 22nd, 2018
+
+
+Krati Tare
+  5:02 PM
+https://www.roseindia.net/tutorial/java/jdbc/dataaccessobjectdesignpattern.html
+roseindia.netroseindia.net
+Data Access object (DAO) Design Pattern
+java dao, java dao pattern, java dao tutorial, java dao examples, java dao class, java dao code sample, java dao design pattern, java dao design, java data access, java data access object, java data access object, dao, dao pattern, dao in java, data access patterns, Data Access object (DAO) Design Pattern, In this tutorial you will learn Data Access Object (DAO) design pattern, and also learn use it in you application
+
+
+Aarti Dhumal
+  5:03 PM
+@channel try this with JDBC
+PDF
+ 
+
+Call Centre Problem Assignment Batch 2 (1).pdf
+PDF
+
+
+***********************
+ some topics
+
+Introduction
+-Introduction to Database, DBMS and RDBMS
+-Practical demo of DDL,DML,DCLDatabase relatioshipsNormalization with example
+-SQL constraints, select, select *,scaler and aggregate functions, joins
+-Database DDL,DCL,DML Queries1-Database Additional Constraints(DISTINCT,Unique,Date,Not null). and joins
+- Republic Day1-Explore more about MySql .
+-case studies has been given to explore about the concept.
+-Core JAVA Introduction
+-History
+-Java Need, Features
+-Java Data types.
+-Java Architecture :flow execution.
+-JDK,JRE,JVM?
+-A First Java Program
+-Compiling and Interpreting Applications
+-What is an IDE?
+IntelliJ introduction
+-Variables and types of variables.
+-Demo of variables.
+Java statements and types
+-Arrays and types.
+-Jumping statements.
+-Java Basic Fundamentals of OOPS.
+-Encapsulation with Proper demo and all related Anomalies.-
+Inheritance with Proper demo and all related Anomalies.
+-Super keyword.Abstraction using abstract class1-Abstraction using interface.
+-AggregationPolymorphism and anomalies
+Polymorphism overriding
+Casting and types
+Instance of No Java and database session on 17th-Strings Introduction.
+-Ways to create it and Comparison methods, String methods-String Buffer and Builder demo
+-StringTokenizerwhat is Exception ?
+=>when it occurs? DEH?
+=>Exception hierarchy.
+=>Types of it.
+=> Exception handling mechanism.
+=>practical demo of ArithmeticException,NullpointerException.
+=>try,catch,finally. All scenarios with demos.
+Throw,throws mechanism.
+Custom exception.
+Multithreading
+=>What is it? why to use? How to implement it?
+=>Techniques to perform it.Demo of Thread class methods
+Demo of implementation of Runnable
+What is marker and functional interface? Examples?
+Theory of Synchronization
+Synchronization concept with synchronized method.
+Final keyword aspects : variable, method, constructor, class.
+Inner classes concept:Local, Member, Anonymous class.
+Static nested class.
+Collections
+what?why?how to deal with it?
+Collection hierarchy with implementation classes and MAP hierarchy
+Set interface methods with demo of all classes
+Collection Map and List with all implementations.
+*******************************************
+Java Features
+
+
+Aarti Dhumal
+  9:56 AM
+https://www.marcobehler.com/guides/a-guide-to-java-versions-and-features#_java_features_8_17
+marcobehler.commarcobehler.com
+Java Versions and Features
+You can use this guide to get practical information on how to find and install the latest Java, understand the differences between Java distributions (Adoptium, AdoptOpenJdk, OpenJDK, OracleJDK etc.), as well as get an overview of Java language features, including version Java versions 8-19.
+
+
+Aarti Dhumal
+  11:07 AM
+https://www.codingninjas.com/codestudio/library/stream-api-interview-questions
+
+
+
+
+Aarti Dhumal
+  10:56 AM
+https://www.aegissofttech.com/articles/java-8-9-10-11-new-key-features-and-enhancements.html
+Aegis SofttechAegis Softtech
+Overview and detailed anatomy of Java 8, 9, 10, 11 and 19 key features
+Get the latest and new features, Examples and Difference for the latest version of Java 8 9 10 11, Java 12 13 14 15, and Java 16 17 18 19 including basic syntax code. (12 kB)
+https://www.aegissofttech.com/articles/java-8-9-10-11-new-key-features-and-enhancements.html
+
+10:57
+@channel I want you all to go through all this enhancements
+10:58
+also watch this resource completely. and perform 1 example each for 1 enhancement
+10:58
+https://www.youtube.com/watch?v=8hA47LxykPo
+
+
+Harini Bathini
+  12:05 PM
+Questions:
+ 1)Query to select all students whose name starts with a and salary greater than 5000;
+ 2)Throw age less than 18 Exception
+ 3)Take a string and display vowel and its count in that string using hashmap
+
+
+***********************
+css
+
+here is the link to learn CSS and get certified for Basics.
+https://www.mygreatlearning.com/academy/courses/8123954/12800#?utm_source=share_with_friends&gl_source=share_with_friends
+Want you all to complete this with practise along ,and by 4pm share Certificates with me also github link
+Great LearningGreat Learning
+Front End Development Free Online Course | Great Learning Academy
+Front End Development Free Course : A front end web developer is the person who implements web designs through coding languages like CSS, HTML and JavaScript. Let's enroll today for better future with Great Learning Academy
+
+
+Aarti Dhumal
+  9:51 AM
+Also for Functiona interfaces: types: refer below
+https://www.geeksforgeeks.org/functional-interfaces-java/
+GeeksforGeeksGeeksforGeeks
+Functional Interfaces in Java - GeeksforGeeks
+A Computer Science portal for geeks. It contains well written, well thought and well explained computer science and programming articles, quizzes and practice/competitive programming/company interview Questions.
+
+****************************************
+party from myside @channel
+:+1:
+1
+
+
+
+Aarti Dhumal
+  1:07 PM
+https://www.youtube.com/watch?v=uN_ee3bMwi0 (edited) 
+
+
+Tanmay Bodke
+  1:19 PM
+https://youtube.com/playlist?list=PLNPi-ByLMIQhe6q7rJEU3nbb9BMHaQyyu
+YouTubeYouTube
+Project in Spring and Hibernate
+New Projects in spring boot and hibernate with source code and project report. Projects in java using Spring MVC, Spring boot, Hibernate, JPA, MYSQL, Maven, ...
+
+
+***************************************
+springboot
+
+resource:
+https://www.youtube.com/watch?v=-mwpoE0x0JQ
+https://www.youtube.com/watch?v=th3uIP7D8nk
+deadline: 28th April 11:59 pm
+code along and push the code to git and add me as a developer.
+
+https://www.youtube.com/watch?v=ndHywjc3-kY&list=PL6oD2syjfW7COL__RNrWl4S97vNcqh3mO
+
+
+
+
+
+1:25
+Jpa Repository resource by aniruddha
+
+*********************************************
+
+
+
+
+
+

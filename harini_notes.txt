@@ -1,0 +1,214 @@
+JPA (Java Persistence API) projection allows you to retrieve only specific data from your database queries, instead of retrieving entire entities. It's a way to select and fetch a subset of columns or properties from your entities.
+Let's consider an example. Suppose you have an entity called Employee with properties like id, name, salary, and department. Normally, when you fetch an employee from the database using JPA, you get all the properties of that employee.
+However, there may be situations where you only need to retrieve specific properties, such as just the id and name. Instead of fetching the entire entity, you can use JPA projection to fetch only those properties you're interested in.
+Here's how you can achieve this using JPA projection:
+java
+
+public interface EmployeeProjection { Long getId(); String getName(); } 
+In the example above, EmployeeProjection is an interface that defines the properties (id and name) we want to fetch from the Employee entity.
+Now, you can use this projection in your JPA query:
+java
+
+@Repository public interface EmployeeRepository extends JpaRepository<Employee, Long> { List<EmployeeProjection> findAllByDepartment(String department); } 
+In the code above, findAllByDepartment method returns a list of EmployeeProjection instances instead of the full Employee entities. This means that the returned objects will only have the id and name properties.
+By utilizing JPA projection, you can reduce the amount of data retrieved from the database, which can lead to improved performance and reduced memory consumption.
+Overall, JPA projection allows you to selectively fetch specific properties from your entities, which can be helpful when you only need a subset of data from your database queries.
+types of jpa projection in simple terms using examples?
+ChatGPT
+In JPA (Java Persistence API), there are two types of projections: interface-based projections and class-based projections. Here are simple explanations of each type with examples:
+Interface-based Projection:
+Interface-based projection involves creating an interface that defines the properties you want to fetch from your entities.
+Example:
+Let's consider the
+Employee
+ entity with properties
+id
+,
+name
+, salary, and department. To retrieve only the id and name properties, you can create an interface called EmployeeProjection:
+java
+public interface EmployeeProjection { Long getId(); String getName(); }
+Then, you can use this projection in your JPA query to fetch only the desired properties:
+java
+@Repository public interface EmployeeRepository extends JpaRepository<Employee, Long> { List<EmployeeProjection> findAllByDepartment(String department); }
+In this case, the findAllByDepartment method will return a list of EmployeeProjection instances containing only the id and name properties.
+Class-based Projection:
+Class-based projection involves creating a separate class with constructors that match the properties you want to retrieve.
+Example:
+Let's consider the Employee entity again. To fetch only the id and name properties, you can create a separate class called EmployeeDTO (DTO stands for Data Transfer Object) with corresponding constructors:
+java
+public class EmployeeDTO { private Long id; private String name; public EmployeeDTO(Long id, String name) { this.id = id; this.name = name; } // Getters and setters }
+Then, you can use this class-based projection in your JPA query to fetch the desired properties:
+java
+@Repository public interface EmployeeRepository extends JpaRepository<Employee, Long> { List<EmployeeDTO> findAllByDepartment(String department); }
+In this case, the findAllByDepartment method will return a list of EmployeeDTO instances, each containing only the id and name properties.
+Both interface-based and class-based projections allow you to retrieve specific properties from your entities, giving you more control over the data fetched from the database.
+
+
+Harini Bathini
+  4:09 PM
+******************************************************
+CRM 
+-----
+Considering the three entities of admin, user, and CRM, here are some common operations that can be performed within a CRM web application:
+User Registration: Users can create accounts within the CRM system by providing their relevant information, such as name, email address, and password.
+User Login: Users can authenticate themselves using their credentials (username/email and password) to access the CRM features and functionalities.
+Admin Management: The admin entity, typically a superuser or administrator, has additional privileges and can manage user accounts, including creating, updating, and deleting user profiles.
+User Roles and Permissions: The CRM can provide role-based access control, allowing the admin to assign different roles and permissions to users based on their responsibilities and requirements.
+Customer Data Management: Both the admin and users can add, view, edit, and delete customer information within the CRM. This includes managing customer details, contact information, communication history, purchase history, and any other relevant data.
+Lead Management: Users can manage leads within the CRM, including adding new leads, updating lead details, assigning leads to specific users or teams, and tracking the progress of leads through the sales funnel.
+Opportunity Tracking: Users can create opportunities within the CRM to track potential sales or business deals. This includes managing opportunity details, associating contacts or accounts, setting deal value and expected close dates, and updating opportunity stages.
+Activity Logging: Users can record and track various activities related to customer interactions, such as calls, meetings, emails, and tasks. This allows for comprehensive activity history and follow-up tracking.
+Reporting and Analytics: The CRM can provide reporting and analytics features to generate insights and metrics related to customer behavior, sales performance, lead conversion rates, and other key performance indicators (KPIs).
+Communication Tools: The CRM can include communication features, such as email integration, allowing users to send and receive emails directly within the system or track email interactions with customers.
+Workflow Automation: The CRM can offer workflow automation capabilities, enabling users to automate repetitive tasks, set reminders, schedule follow-ups, and trigger actions based on predefined conditions or events.
+Data Import/Export: Users can import customer data into the CRM from external sources, such as CSV files or other CRM systems. Similarly, the CRM can provide export functionality to extract data for analysis or integration with other systems.
+These operations provide a basic framework for a CRM web application, considering the admin, user, and CRM entities. However, it's important to note that the specific operations and features can vary depending on the requirements and customization needs of your CRM system.
+
+************************************
+GIT COMMANDS FOR A PROJECT
+
+Coditas@5497-lap-0144 MINGW64 ~/Desktop/SpringBoot Rest API Assignment1 (master)
+$ git init
+Reinitialized existing Git repository in C:/Users/Coditas/Desktop/SpringBoot Rest API Assignment1/.git/
+Coditas@5497-lap-0144 MINGW64 ~/Desktop/SpringBoot Rest API Assignment1 (master)
+$ git status
+On branch master
+No commits yet
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   spring-boot-example/.gitignore
+        new file:   spring-boot-example/.mvn/wrapper/maven-wrapper.jar
+        new file:   spring-boot-example/.mvn/wrapper/maven-wrapper.properties
+        new file:   spring-boot-example/mvnw
+        new file:   spring-boot-example/mvnw.cmd
+        new file:   spring-boot-example/pom.xml
+        new file:   spring-boot-example/src/main/java/com/springboot/Customer.java
+        new file:   spring-boot-example/src/main/java/com/springboot/Main.java
+        new file:   spring-boot-example/src/main/resources/application.yml
+        new file:   springboot-backend/.gitignore
+        new file:   springboot-backend/.mvn/wrapper/maven-wrapper.jar
+        new file:   springboot-backend/.mvn/wrapper/maven-wrapper.properties
+        new file:   springboot-backend/mvnw
+        new file:   springboot-backend/mvnw.cmd
+        new file:   springboot-backend/pom.xml
+        new file:   springboot-backend/src/main/java/com/springboot/backend/SpringbootBackendApplication.java
+        new file:   springboot-backend/src/main/java/com/springboot/backend/controller/EmployeeController.java
+        new file:   springboot-backend/src/main/java/com/springboot/backend/exception/ResourceNotFoundException.java
+        new file:   springboot-backend/src/main/java/com/springboot/backend/model/Employee.java
+        new file:   springboot-backend/src/main/java/com/springboot/backend/repository/EmployeeRepository.java
+        new file:   springboot-backend/src/main/java/com/springboot/backend/service/EmployeeService.java
+        new file:   springboot-backend/src/main/java/com/springboot/backend/service/impl/EmployeeServiceImpl.java
+        new file:   springboot-backend/src/main/resources/application.properties
+        new file:   springboot-backend/src/test/java/com/springboot/backend/SpringbootBackendApplicationTests.java
+        new file:   springboot-first-app/.gitignore
+        new file:   springboot-first-app/.mvn/wrapper/maven-wrapper.jar
+        new file:   springboot-first-app/.mvn/wrapper/maven-wrapper.properties
+        new file:   springboot-first-app/mvnw
+        new file:   springboot-first-app/mvnw.cmd
+        new file:   springboot-first-app/pom.xml
+        new file:   springboot-first-app/src/main/java/com/springboot/first/app/HelloWorldController.java
+        new file:   springboot-first-app/src/main/java/com/springboot/first/app/SpringbootFirstAppApplication.java
+        new file:   springboot-first-app/src/main/java/com/springboot/first/app/Student.java
+        new file:   springboot-first-app/src/main/java/com/springboot/first/app/StudentController.java
+        new file:   springboot-first-app/src/main/resources/application.properties
+        new file:   springboot-first-app/src/test/java/com/springboot/first/app/SpringbootFirstAppApplicationTests.java
+Coditas@5497-lap-0144 MINGW64 ~/Desktop/SpringBoot Rest API Assignment1 (master)
+$ git commit -m "SpringBoot Resources Assignment added"
+[master (root-commit) e2bd49c] SpringBoot Resources Assignment added
+ 36 files changed, 2301 insertions(+)
+ create mode 100644 spring-boot-example/.gitignore
+ create mode 100644 spring-boot-example/.mvn/wrapper/maven-wrapper.jar
+ create mode 100644 spring-boot-example/.mvn/wrapper/maven-wrapper.properties
+ create mode 100644 spring-boot-example/mvnw
+ create mode 100644 spring-boot-example/mvnw.cmd
+ create mode 100644 spring-boot-example/pom.xml
+ create mode 100644 spring-boot-example/src/main/java/com/springboot/Customer.java
+ create mode 100644 spring-boot-example/src/main/java/com/springboot/Main.java
+ create mode 100644 spring-boot-example/src/main/resources/application.yml
+ create mode 100644 springboot-backend/.gitignore
+ create mode 100644 springboot-backend/.mvn/wrapper/maven-wrapper.jar
+ create mode 100644 springboot-backend/.mvn/wrapper/maven-wrapper.properties
+ create mode 100644 springboot-backend/mvnw
+ create mode 100644 springboot-backend/mvnw.cmd
+ create mode 100644 springboot-backend/pom.xml
+ create mode 100644 springboot-backend/src/main/java/com/springboot/backend/SpringbootBackendApplication.java
+ create mode 100644 springboot-backend/src/main/java/com/springboot/backend/controller/EmployeeController.java
+ create mode 100644 springboot-backend/src/main/java/com/springboot/backend/exception/ResourceNotFoundException.java
+ create mode 100644 springboot-backend/src/main/java/com/springboot/backend/model/Employee.java
+ create mode 100644 springboot-backend/src/main/java/com/springboot/backend/repository/EmployeeRepository.java
+ create mode 100644 springboot-backend/src/main/java/com/springboot/backend/service/EmployeeService.java
+ create mode 100644 springboot-backend/src/main/java/com/springboot/backend/service/impl/EmployeeServiceImpl.java
+ create mode 100644 springboot-backend/src/main/resources/application.properties
+ create mode 100644 springboot-backend/src/test/java/com/springboot/backend/SpringbootBackendApplicationTests.java
+ create mode 100644 springboot-first-app/.gitignore
+ create mode 100644 springboot-first-app/.mvn/wrapper/maven-wrapper.jar
+ create mode 100644 springboot-first-app/.mvn/wrapper/maven-wrapper.properties
+ create mode 100644 springboot-first-app/mvnw
+ create mode 100644 springboot-first-app/mvnw.cmd
+ create mode 100644 springboot-first-app/pom.xml
+ create mode 100644 springboot-first-app/src/main/java/com/springboot/first/app/HelloWorldController.java
+ create mode 100644 springboot-first-app/src/main/java/com/springboot/first/app/SpringbootFirstAppApplication.java
+ create mode 100644 springboot-first-app/src/main/java/com/springboot/first/app/Student.java
+ create mode 100644 springboot-first-app/src/main/java/com/springboot/first/app/StudentController.java
+ create mode 100644 springboot-first-app/src/main/resources/application.properties
+ create mode 100644 springboot-first-app/src/test/java/com/springboot/first/app/SpringbootFirstAppApplicationTests.java
+Coditas@5497-lap-0144 MINGW64 ~/Desktop/SpringBoot Rest API Assignment1 (master)
+$ ^[[200~git remote add origin https://gitlab.com/javabatch4/springboot_resources.git
+bash: $'\E[200~git': command not found
+Coditas@5497-lap-0144 MINGW64 ~/Desktop/SpringBoot Rest API Assignment1 (master)
+$ ~git remote add origin https://gitlab.com/javabatch4/springboot_resources.git
+bash: ~git: command not found
+Coditas@5497-lap-0144 MINGW64 ~/Desktop/SpringBoot Rest API Assignment1 (master)
+$ git remote add origin https://gitlab.com/javabatch4/springboot_resources.git
+Coditas@5497-lap-0144 MINGW64 ~/Desktop/SpringBoot Rest API Assignment1 (master)
+$ git push -u origin master
+Enumerating objects: 71, done.
+Counting objects: 100% (71/71), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (48/48), done.
+Writing objects: 100% (71/71), 66.65 KiB | 2.47 MiB/s, done.
+Total 71 (delta 7), reused 0 (delta 0), pack-reused 0
+To https://gitlab.com/javabatch4/springboot_resources.git
+ * [new branch]      master -> master
+branch 'master' set up to track 'origin/master'.
+Coditas@5497-lap-0144 MINGW64 ~/Desktop/SpringBoot Rest API Assignment1 (master)
+$
+*******************************************
+
+>>open git bash using admin rights
+>> git init --initial-branch=main  #.git file gets initiated on branch main
+>> git status #gives the status of the file stored on pwd
+>> git add . # adds all the files to the staging area
+>> git rm - cached -r <filename> #removes files from the staging area
+>> git commit -m <message>
+>> git remote add origin <https://gitlab.com/sai-coditas/swagbucks.git>
+>> git push origin <main>//branch
+>> we can create a new branch using the command
+   >>git branch new_branch
+   >>git checkout <branch_name> //to navi to the desired branch
+>> git log --oneline
+
+
+Harini Bathini
+  12:01 PM
+git branch <branch-name>
+git checkout <branch-name>
+12:01
+git checkout -b <branch-name>
+
+
+Harini Bathini
+  12:21 PM
+image.png
+ 
+image.png
+
+
+12:22
+image.png
+ 
+image.png
+
+
+*********************************
